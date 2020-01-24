@@ -1,44 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6edb0fe0-449c-4a42-9fd8-251860911e5d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Category.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/CategoriesController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/MajorsController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Admin/AddCategoryRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Admin/AddMajorRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Admin/UpdateCategoryRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Admin/UpdateMajorRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/MajorCategory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Repositories/CategoryRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/UniMajor.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/categories/add_category.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/categories/categories.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/categories/category_detail.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/categories/edit_category.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ApiController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ApiController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UsersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UsersController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Admin/AddUniRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Admin/AddUniRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Admin/UpdateUniRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Admin/UpdateUniRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/ActivitiesRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/ActivitiesRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/SessionRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/SessionRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/SessionSpeakerRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/SessionSpeakerRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/SponsorsRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/MajorRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/SupplementsRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/SupplementsRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Sponsor.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Major.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/includes/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/includes/footer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/includes/head.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/includes/head.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/includes/sidebar.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/includes/sidebar.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/sponsors/add_sponsor.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/majors/add_major.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/sponsors/edit_sponsor.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/majors/edit_major.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/sponsors/sponsor_detail.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/majors/major_detail.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/sponsors/sponsors.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/majors/majors.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/uni/add_uni.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/uni/add_uni.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/uni/edit_uni.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/uni/edit_uni.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-    </list>
+    <list default="true" id="6edb0fe0-449c-4a42-9fd8-251860911e5d" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,7 +107,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
@@ -191,7 +154,7 @@
       <workItem from="1579624215572" duration="11680000" />
       <workItem from="1579789217806" duration="3023000" />
       <workItem from="1579792889467" duration="5119000" />
-      <workItem from="1579890244996" duration="6030000" />
+      <workItem from="1579890244996" duration="6201000" />
     </task>
     <servers />
   </component>
