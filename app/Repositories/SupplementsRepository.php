@@ -10,7 +10,7 @@ namespace App\Repositories;
 
 use App\Models\FranchiseInfo;
 use App\Uni;
-use App\Sponsor;
+use App\Major;
 use App\Supplement;
 use App\User;
 use Illuminate\Support\Facades\DB;

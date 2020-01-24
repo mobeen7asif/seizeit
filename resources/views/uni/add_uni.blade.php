@@ -31,6 +31,31 @@
                         </div>
                     @endif
                 </label>
+
+
+                <label class="fullField">
+                    <span>Select Majors</span>
+
+                    <select class="majors" name="majors[]" multiple="multiple">
+                        @foreach($majors as $major)
+                            <option value="{{$major->id}}">{{$major->name}}</option>
+                            @endforeach
+
+                    </select>
+
+
+                    @if ($errors->has('majors'))
+                        <div class="alert alert-danger">
+                            @foreach ($errors->get('majors') as $message)
+                                {{ $message }}<br>
+                            @endforeach
+                        </div>
+                    @endif
+                </label>
+
+
+
+
                 {{--<label class="fullField">
                     <span>Designation</span>
                     <input type=text name="designation" value="{{old('designation')}}">
@@ -70,6 +95,11 @@
 <script src="{{ URL::to('src/js/vendor/tinymce/js/tinymce/tinymce.min.js') }}"></script>
 
 <script>
+
+    $(document).ready(function() {
+        $('.majors').select2();
+    });
+
     var editor_config = {
         path_absolute :"{{url('/')}}/",
         selector: "textarea",

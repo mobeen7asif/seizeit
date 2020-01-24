@@ -11,6 +11,7 @@
 
 
 <script type="text/javascript" src="<?php echo url('/'); ?>/js/multi_select.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
 
 
 

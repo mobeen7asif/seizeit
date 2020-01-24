@@ -13,10 +13,14 @@ use App\Http\Requests\Admin\UpdateContentRequest;
 use App\Http\Requests\Admin\UpdateSpeakerRequest;
 use App\Http\Requests\Admin\UpdateUniRequest;
 use App\Http\Requests\Admin\UpdateUserRequest;
+use App\Major;
 use App\Repositories\EventsRepository;
 use App\Repositories\ImagesRepository;
+use App\Repositories\MajorRepository;
 use App\Repositories\UniRepository;
 use App\Repositories\UsersRepository;
+use App\Uni;
+use App\UniMajor;
 use App\User;
 use App\Welcome;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -94,11 +98,23 @@ class UsersController extends BaseController
     }
 
     public function addUniView(){
-        return view('uni.add_uni',['title' => 'uni']);
+        $major = new Major();
+        $majors = (new MajorRepository($major))->getAllMojors();
+        return view('uni.add_uni',['title' => 'uni','majors' => $majors]);
     }
 
     public function addUni(AddUniRequest $request){
         $uni_id = $this->uniRepo->store($request->storableAttrs())->id;
+        if($uni_id) {
+            $majors = [];
+            foreach($request->majors as $major) {
+                $temp = ['uni_id' => $uni_id,'major_id' => $major,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')];
+                $majors[] = $temp;
+            }
+            UniMajor::insert($majors);
+        }
+
+
         $file = $request->file('image');
         if(isset($file)){
             $public_path = '/uni/images/' . $uni_id;
@@ -114,12 +130,21 @@ class UsersController extends BaseController
 
     public function showUniForm($id){
         $uni = $this->uniRepo->findById($id);
-        return view('uni.edit_uni',['title' => 'uni','uni' => $uni]);
+        $uni_majors = UniMajor::where('uni_id',$uni->id)->pluck('major_id')->toArray();
+        $all_majors = Major::all();
+        return view('uni.edit_uni',['title' => 'uni','uni' => $uni,'all_majors' => $all_majors,'uni_majors' => $uni_majors]);
     }
 
     public function updateUni(UpdateUniRequest $request,$id){
         $uni_id = $id;
         $this->uniRepo->updateWhere(['id' => $uni_id],$request->updateAttrs());
+        UniMajor::where('uni_id',$uni_id)->delete();
+        $majors = [];
+        foreach($request->majors as $major) {
+            $temp = ['uni_id' => $uni_id,'major_id' => $major,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')];
+            $majors[] = $temp;
+        }
+        UniMajor::insert($majors);
         $file = $request->file('image');
         if(isset($file)){
             $public_path = '/uni/images/' . $uni_id;

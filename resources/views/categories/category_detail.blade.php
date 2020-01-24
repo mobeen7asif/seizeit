@@ -12,21 +12,20 @@
             {{\Session::get('success')}}
         </h4>
     @endif
-        <a class="back" href="{{url('/')}}/sponsors">Back</a>
+        <a class="back" href="{{url('/')}}/categories">Back</a>
 
     <div class="contentPd">
         {{--{{dd($recent_activities)}}--}}
-        <h2 class="mainHEading">Sponsor  Detail</h2>
+        <h2 class="mainHEading">Category  Detail</h2>
         {{--{{dd($session)}}--}}
         <span><b>Name</b></span>
-        <P>{{$sponsor->name}}</P>
+        <P>{{$category->name}}</P>
+        <br>
+        <span><b>URL</b></span>
+        <P>{{$category->url}}</P>
         <br>
         <span><b>Description</b></span>
-        <p>{!! $sponsor->description !!}</p>
-        <br>
-        <span><b>Image</b></span>
-        @if(isset($sponsor->image)) <figure class="cars"> <img src="{{url('/').$sponsor->image}}" style="width: 100px"></figure> @endif
-        <br>
+        <p>{!! $category->description !!}</p>
     </div>
 </section>
 <?php include resource_path('views/includes/footer.php'); ?>

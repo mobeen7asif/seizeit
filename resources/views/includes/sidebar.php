@@ -28,12 +28,9 @@
             <li <?php if($title == 'admins'){echo "class='active'";}?> ><a href="<?php echo asset('/admins'); ?>">Admins</a></li>
             <!--<li <?php /*if($title == 'welcome'){echo "class='active'";}*/?> ><a href="<?php /*echo asset('/welcome'); */?>">Welcome Page</a></li>-->
             <!--<li <?php /*if($title == 'supplements'){echo "class='active'";}*/?> ><a href="<?php /*echo asset('/supplements'); */?>">Supplemental Material</a></li>-->
-            <li <?php if($title == 'speakers'){echo "class='active'";}?> ><a href="<?php echo asset('/uni'); ?>">Universities</a></li>
-            <!--<li <?php /*if($title == 'sponsors'){echo "class='active'";}*/?> ><a href="<?php /*echo asset('/sponsors'); */?>">Sponsors</a></li>
-            <li <?php /*if($title == 'activities'){echo "class='active'";}*/?>><a href="<?php /*echo asset('/activities'); */?>">Activities</a></li>
-            <li <?php /*if($title == 'events'){echo "class='active'";}*/?> ><a href="<?php /*echo asset('/events'); */?>">Sessions</a></li>
-            <li <?php /*if($title == 'map'){echo "class='active'";}*/?> ><a href="<?php /*echo asset('/map_image'); */?>">Map</a></li>-->
-<!--            <li --><?php //if($title == 'images'){echo "class='active'";}?><!-- ><a href="--><?php //echo asset('/images/view'); ?><!--">Splash Login Images</a></li>-->
+            <li <?php if($title == 'uni'){echo "class='active'";}?> ><a href="<?php echo asset('/uni'); ?>">Universities</a></li>
+            <li <?php if($title == 'majors'){echo "class='active'";}?> ><a href="<?php echo asset('/majors');?>">Majors</a></li>
+            <li <?php if($title == 'categories'){echo "class='active'";}?> ><a href="<?php echo asset('/categories');?>">Categories</a></li>
             <li><a href="<?php echo asset('/logout'); ?>">Logout</a></li>
         </ul>
     </div>

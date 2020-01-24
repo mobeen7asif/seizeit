@@ -5,11 +5,11 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Sponsor extends Authenticatable
+class UniMajor extends Authenticatable
 {
     use Notifiable;
 
-    protected $table = 'sponsors';
+    protected $table = 'uni_majors';
 
     /**
      * The attributes that are mass assignable.
@@ -17,7 +17,7 @@ class Sponsor extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name','description','image','sort_id','signature_image'
+        'uni_id','major_id'
     ];
 
     /**

@@ -14,7 +14,7 @@ use App\Repositories\ActivitiesRepository;
 use App\Repositories\EventsRepository;
 use App\Repositories\NotificationsRepository;
 use App\Repositories\UniRepository;
-use App\Repositories\SponsorsRepository;
+use App\Repositories\MajorRepository;
 use App\Repositories\SupplementsRepository;
 use App\Repositories\UsersRepository;
 use App\User;
@@ -56,7 +56,7 @@ class ApiController extends BaseController
     public $eventsRepo = null;
     public $supplementRepo = null;
     public $notificationsRepo = null;
-    public function __construct(NotificationsRepository $notificationsRepo, SupplementsRepository $supplementRepo, EventsRepository $eventsRepo, ActivitiesRepository $activityRepo, SponsorsRepository $sponsorsRepo, UsersRepository $usersRepo, UniRepository $speakerRepo)
+    public function __construct(NotificationsRepository $notificationsRepo, SupplementsRepository $supplementRepo, EventsRepository $eventsRepo, ActivitiesRepository $activityRepo, MajorRepository $sponsorsRepo, UsersRepository $usersRepo, UniRepository $speakerRepo)
     {
         $this->usersRepo = $usersRepo;
         $this->speakerRepo = $speakerRepo;
@@ -96,7 +96,7 @@ class ApiController extends BaseController
                         'welcome' => Welcome::find(1),
                         'events' => $this->eventsRepo->getEventDetails(),
                         'activities' => $this->activityRepo->getActivities(),
-                        'sponsors' => $this->sponsorsRepo->getSponsors(),
+                        'majors' => $this->sponsorsRepo->getSponsors(),
                         'speakers' => $this->speakerRepo->getSpeakers()
 
                     ],
@@ -202,7 +202,7 @@ class ApiController extends BaseController
                         'welcome' => Welcome::find(1),
                         'events' => $this->eventsRepo->getEventDetails(),
                         'activities' => $this->activityRepo->getActivities(),
-                        'sponsors' => $this->sponsorsRepo->getSponsors(),
+                        'majors' => $this->sponsorsRepo->getSponsors(),
                         'speakers' => $this->speakerRepo->getSpeakers()
 
                     ],

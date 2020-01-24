@@ -6,12 +6,11 @@ use App\Http\Requests\Admin\Request;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
 
-class AddUniRequest extends FormRequest
+class AddCategoryRequest extends FormRequest
 {
-    protected $maxImages = 10;
     public function storableAttrs()
     {
-        $sort_id = DB::table('uni')->max('sort_id');
+        $sort_id = DB::table('categories')->max('sort_id');
         if(!isset($sort_id)){
             $sort_id = 0;
         }else{
@@ -19,8 +18,8 @@ class AddUniRequest extends FormRequest
         }
         $storableAttrs = [
             'name' => $this->input('name'),
-            'designation' => $this->input('designation'),
-            'uni_detail' => $this->input('uni_detail'),
+            'description' => $this->input('description'),
+            'url' => $this->input('url'),
             'sort_id' => $sort_id
         ];
         return $storableAttrs;
@@ -49,11 +48,9 @@ class AddUniRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            //'images'=>'max:'.$this->maxImages,
+            'url'=> 'required|max:300',
             'name'=>'required|max:190',
-            'majors' =>'required',
-            'uni_detail'=>'required|max:1000',
-            //'designation'=>'required|max:190'
+            'description'=>'required|max:300',
         ];
         return $rules;
     }

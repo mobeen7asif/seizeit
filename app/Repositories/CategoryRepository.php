@@ -8,31 +8,30 @@
 
 namespace App\Repositories;
 
-use App\Models\FranchiseInfo;
-use App\Uni;
-use App\Sponsor;
+use App\Category;
+use App\Major;
 use App\User;
 use Illuminate\Support\Facades\DB;
 
-class SponsorsRepository extends Repository
+class CategoryRepository extends Repository
 {
-    public function __construct(Sponsor $sponsor)
+    public function __construct(Category $category)
     {
-        $this->setModel($sponsor);
+        $this->setModel($category);
     }
 
     public function getByIds($ids = [])
     {
         return  $this->getModel()->whereIn('id', $ids)->get();
     }
-    public function getSponsors($number = 0){
+    public function getCategories($number = 0){
         return $this->getModel()->orderBy('sort_id','ASC')
             ->skip($number*5)
             ->take(5)
             ->get();
     }
 
-    public function getAllSponsors(){
+    public function getAllCategories(){
         return $this->getModel()->orderBy('sort_id','ASC')
             ->get();
     }

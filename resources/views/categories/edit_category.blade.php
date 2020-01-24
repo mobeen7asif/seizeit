@@ -5,22 +5,21 @@
 <?php include resource_path('views/includes/sidebar.php'); ?>
 <section class="content publicContent editEvent">
     <div class="content lifeContent">
-        <div class="heading-Sponser">
-            <h2>Update Speaker</h2>
-            <a class="back" href="{{url('/')}}/uni">Back</a>
-        </div>
+        <div class="heading-sponser">
+        <h2>Edit Category</h2>
+            <a class="back" href="{{url('/')}}/categorys">Back</a>
+    </div>
         <div class="userForm">
             @if(\Session::has('success'))
                 <h4 class="alert alert-success fade in">
                     {{\Session::get('success')}}
                 </h4>
             @endif
-
-            <form action="{{url('/')}}/update/uni/{{$uni->id}}" method="post" enctype="multipart/form-data">
+            <form action="{{url('/')}}/update/category/{{$category->id}}" method="post" enctype="multipart/form-data">
                 {{csrf_field()}}
                 <label class="fullField">
                     <span>Name</span>
-                    <input type="text" name="name" value="{{$uni->name}}">
+                    <input type="text" name="name" value="{{$category->name}}">
                     @if ($errors->has('name'))
                         <div class="alert alert-danger">
                             @foreach ($errors->get('name') as $message)
@@ -29,76 +28,30 @@
                         </div>
                     @endif
                 </label>
-
-                <?php
-
-                function checkSelectedMajor($major_id,$uni_majors) {
-                    foreach($uni_majors as $uni_major) {
-                        if($uni_major->major_id == $major_id) {
-                            return true;
-                        }else {
-                            return false;
-                        }
-
-                    }
-                }
-
-                ?>
-
                 <label class="fullField">
-                    <span>Select Majors</span>
-
-                    <select class="majors" name="majors[]" multiple="multiple">
-                        @foreach($all_majors as $major)
-                            <option @if(in_array($major->id,$uni_majors)) selected @endif value="{{$major->id}}">{{$major->name}}</option>
-                        @endforeach
-
-                    </select>
-
-
-                    @if ($errors->has('majors'))
+                    <span>URL</span>
+                    <input type="text" name="url" value="{{$category->url}}">
+                    @if ($errors->has('url'))
                         <div class="alert alert-danger">
-                            @foreach ($errors->get('majors') as $message)
+                            @foreach ($errors->get('url') as $message)
                                 {{ $message }}<br>
                             @endforeach
                         </div>
                     @endif
                 </label>
-                {{--<label class="fullField">
-                    <span>Designation</span>
-                    <input type=text name="designation" value="{{$uni->designation}}">
-                    @if ($errors->has('designation'))
-                        <div class="alert alert-danger">
-                            @foreach ($errors->get('designation') as $message)
-                                {{ $message }}<br>
-                            @endforeach
-                        </div>
-                    @endif
-                </label>--}}
                 <label class="fullField">
-                    <span>Speaker Detail</span>
-                    <textarea name="uni_detail" class="wh-speaker">{!! $uni->uni_detail !!}</textarea>
-                    @if ($errors->has('uni_detail'))
+                    <span>Detail</span>
+                    <div class="inputs"><textarea name="description">{!! $category->description !!}</textarea></div>
+                    @if ($errors->has('description'))
                         <div class="alert alert-danger">
-                            @foreach ($errors->get('uni_detail') as $message)
+                            @foreach ($errors->get('description') as $message)
                                 {{ $message }}<br>
                             @endforeach
                         </div>
                     @endif
 
                 </label>
-            {{--    <label class="fullField">
-                    <span>Image</span>
-                    <input type=file name="image" value="">
-                </label>
-                <div class="imgCol">
-                    @if($uni->image != '')
-                        <button type="button" class="del-img-btn" data-id="{{$uni->id}}" data-col="image" data-table="unis">
-                            <i class="fa fa-trash"></i>
-                        </button>
-                        <figure class="car"><img src="{{url('/').$uni->image}}" style="width: 100px;"></figure>
-                    @endif
-                </div>--}}
+
                 <div class="btnCol">
                     <input type="submit" name="signIn"  value="Submit">
                 </div>
@@ -111,10 +64,6 @@
 <script src="{{ URL::to('src/js/vendor/tinymce/js/tinymce/tinymce.min.js') }}"></script>
 
 <script>
-    $(document).ready(function() {
-        $('.majors').select2();
-    });
-
     var editor_config = {
         path_absolute :"{{url('/')}}/",
         selector: "textarea",
@@ -152,6 +101,4 @@
 
     };
     tinymce.init(editor_config);
-
-
 </script>

@@ -6,8 +6,8 @@
 <section class="content publicContent editEvent">
     <div class="content lifeContent">
         <div class="heading-sponser">
-        <h2>Edit Sponser</h2>
-            <a class="back" href="{{url('/')}}/sponsors">Back</a>
+        <h2>Edit Major</h2>
+            <a class="back" href="{{url('/')}}/majors">Back</a>
     </div>
         <div class="userForm">
             @if(\Session::has('success'))
@@ -15,11 +15,11 @@
                     {{\Session::get('success')}}
                 </h4>
             @endif
-            <form action="{{url('/')}}/update/sponsor/{{$sponsor->id}}" method="post" enctype="multipart/form-data">
+            <form action="{{url('/')}}/update/major/{{$major->id}}" method="post" enctype="multipart/form-data">
                 {{csrf_field()}}
                 <label class="fullField">
-                    <span>Name/Description</span>
-                    <input type="text" name="name" value="{{$sponsor->name}}">
+                    <span>Name</span>
+                    <input type="text" name="name" value="{{$major->name}}">
                     @if ($errors->has('name'))
                         <div class="alert alert-danger">
                             @foreach ($errors->get('name') as $message)
@@ -29,8 +29,28 @@
                     @endif
                 </label>
                 <label class="fullField">
+                    <span>Select Categories</span>
+
+                    <select class="categories" name="categories[]" multiple="multiple">
+                        @foreach($all_categories as $category)
+                            <option @if(in_array($category->id,$major_categories)) selected @endif value="{{$category->id}}">{{$category->name}}</option>
+                        @endforeach
+
+                    </select>
+
+
+                    @if ($errors->has('categories'))
+                        <div class="alert alert-danger">
+                            @foreach ($errors->get('categories') as $message)
+                                {{ $message }}<br>
+                            @endforeach
+                        </div>
+                    @endif
+                </label>
+
+                <label class="fullField">
                     <span>Detail</span>
-                    <div class="inputs"><textarea name="description">{!! $sponsor->description !!}</textarea></div>
+                    <div class="inputs"><textarea name="description">{!! $major->description !!}</textarea></div>
                     @if ($errors->has('description'))
                         <div class="alert alert-danger">
                             @foreach ($errors->get('description') as $message)
@@ -40,30 +60,7 @@
                     @endif
 
                 </label>
-                <label class="fullField">
-                    <span>Image</span>
-                    <input type=file name="image" value="">
-                </label>
-                <div class="imgCol">
-                    @if($sponsor->image != '')
-                        <button type="button" class="del-img-btn" data-id="{{$sponsor->id}}" data-col="image" data-table="sponsors">
-                            <i class="fa fa-trash"></i>
-                        </button>
-                        <figure class="car"><img src="{{url('/').$sponsor->image}}" style="width: 100px;"></figure>
-                    @endif
-                </div>
-                <label class="fullField">
-                    <span>Signature Image</span>
-                    <input type=file name="signature_image" value="">
-                </label>
-                <div class="imgCol">
-                    @if($sponsor->signature_image != '')
-                        <button type="button" class="del-img-btn" data-id="{{$sponsor->id}}" data-col="signature_image" data-table="sponsors">
-                            <i class="fa fa-trash"></i>
-                        </button>
-                        <figure class="car"><img src="{{url('/').$sponsor->signature_image}}" style="width: 100px;"></figure>
-                    @endif
-                </div>
+
                 <div class="btnCol">
                     <input type="submit" name="signIn"  value="Submit">
                 </div>
@@ -76,6 +73,11 @@
 <script src="{{ URL::to('src/js/vendor/tinymce/js/tinymce/tinymce.min.js') }}"></script>
 
 <script>
+
+    $(document).ready(function() {
+        $('.categories').select2();
+    });
+
     var editor_config = {
         path_absolute :"{{url('/')}}/",
         selector: "textarea",

@@ -89,14 +89,27 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/session/bulk/delete', 'EventsController@deleteSessions');
 
 
-    Route::get('/sponsors', 'SponsorsController@getSponsors');
-    Route::get('/add/sponsor', 'SponsorsController@showSponsorView');
-    Route::post('/add/sponsor', 'SponsorsController@addSponsor');
-    Route::get('/update/sponsor/{id}', 'SponsorsController@editSponsorForm');
-    Route::post('/update/sponsor/{id}', 'SponsorsController@updateSponsor');
-    Route::get('/delete/sponsor/{id}', 'SponsorsController@deleteSponsor');
-    Route::get('/sponsor/detail/{id}', 'SponsorsController@sponsorDetail');
-    Route::post('/sponsor/bulk/delete', 'SponsorsController@deleteSponsors');
+    Route::get('/majors', 'MajorsController@getMajors');
+    Route::get('/add/major', 'MajorsController@showMajorView');
+    Route::post('/add/major', 'MajorsController@addMajor');
+    Route::get('/update/major/{id}', 'MajorsController@editMajorForm');
+    Route::post('/update/major/{id}', 'MajorsController@updateMajor');
+    Route::get('/delete/major/{id}', 'MajorsController@deleteMajor');
+    Route::get('/major/detail/{id}', 'MajorsController@majorDetail');
+    Route::post('/major/bulk/delete', 'MajorsController@deleteMajors');
+
+
+    Route::get('/categories', 'CategoriesController@getCategories');
+    Route::get('/add/category', 'CategoriesController@showCategoryView');
+    Route::post('/add/category', 'CategoriesController@addCategory');
+    Route::get('/update/category/{id}', 'CategoriesController@editCategoryForm');
+    Route::post('/update/category/{id}', 'CategoriesController@updateCategory');
+    Route::get('/delete/category/{id}', 'CategoriesController@deleteCategory');
+    Route::get('/category/detail/{id}', 'CategoriesController@categoryDetail');
+    Route::post('/category/bulk/delete', 'CategoriesController@deleteCategories');
+    Route::get('/sub/categories/{id}', 'CategoriesController@subCategories');
+
+
 
     Route::get('/activities', 'ActivitiesController@getActivities');
     Route::get('/add/activity', 'ActivitiesController@showActivityView');
@@ -127,7 +140,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('/sort/users', 'UsersController@sortUsers');
     Route::post('/sort/uni', 'UsersController@sortUni');
-    Route::post('/sort/sponsors', 'SponsorsController@sortSponsors');
+    Route::post('/sort/majors', 'MajorsController@sortMajors');
+    Route::post('/sort/categories', 'CategoriesController@sortMajors');
+
+
     Route::post('/sort/activities', 'ActivitiesController@sortActivities');
     Route::post('/sort/supplements', 'SupplementsController@sortSupplements');
 

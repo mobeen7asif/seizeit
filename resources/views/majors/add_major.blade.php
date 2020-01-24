@@ -7,8 +7,8 @@
 
     <div class="content lifeContent">
         <div class="heading-sponser">
-        <h2>Add Sponser</h2>
-            <a class="back" href="{{url('/')}}/sponsors">Back</a>
+        <h2>Add Major</h2>
+            <a class="back" href="{{url('/')}}/majors">Back</a>
     </div>
         <div class="userForm user">
 
@@ -17,10 +17,10 @@
                     {{\Session::get('success')}}
                 </h4>
             @endif
-            <form action="{{url('/')}}/add/sponsor" method="post" enctype="multipart/form-data">
+            <form action="{{url('/')}}/add/major" method="post" enctype="multipart/form-data">
                 {{csrf_field()}}
                 <label class="fullField">
-                    <span>Name/Description</span>
+                    <span>Name</span>
                     <input type="text" name="name" value="{{old('name')}}">
                     @if ($errors->has('name'))
                         <div class="alert alert-danger">
@@ -30,6 +30,27 @@
                         </div>
                     @endif
                 </label>
+
+                <label class="fullField">
+                    <span>Select Categories</span>
+
+                    <select class="categories" name="categories[]" multiple="multiple">
+                        @foreach($categories as $category)
+                            <option value="{{$category->id}}">{{$category->name}}</option>
+                        @endforeach
+
+                    </select>
+
+
+                    @if ($errors->has('categories'))
+                        <div class="alert alert-danger">
+                            @foreach ($errors->get('categories') as $message)
+                                {{ $message }}<br>
+                            @endforeach
+                        </div>
+                    @endif
+                </label>
+
                 <label class="fullField">
                     <span>Detail</span>
                     <div class="inputs"><textarea name="description">{!! old('description') !!}</textarea></div>
@@ -40,15 +61,6 @@
                             @endforeach
                         </div>
                     @endif
-
-                </label>
-                <label class="fullField">
-                    <span>Image</span>
-                    <input type=file name="image" value="">
-                </label>
-                <label class="fullField">
-                    <span>Signature Image</span>
-                    <input type=file name="signature_image" value="">
                 </label>
                 <div class="btnCol">
                     <input type="submit" name="signIn"  value="Submit">
@@ -62,6 +74,11 @@
 <script src="{{ URL::to('src/js/vendor/tinymce/js/tinymce/tinymce.min.js') }}"></script>
 
 <script>
+
+    $(document).ready(function() {
+        $('.categories').select2();
+    });
+
     var editor_config = {
         path_absolute :"{{url('/')}}/",
         selector: "textarea",

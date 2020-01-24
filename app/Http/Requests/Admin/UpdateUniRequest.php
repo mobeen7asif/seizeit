@@ -43,6 +43,7 @@ class UpdateUniRequest extends FormRequest
             //'images'=>'max:'.$this->maxImages,
             'name'=>'required|max:190',
             'uni_detail'=>'required|max:300',
+            'majors'=>'required',
             //'designation'=>'required|max:190'
         ];
         return $rules;

@@ -11,7 +11,7 @@ namespace App\Repositories;
 use App\Models\FranchiseInfo;
 use App\Session;
 use App\Uni;
-use App\Sponsor;
+use App\Major;
 use App\User;
 use Illuminate\Support\Facades\DB;
 

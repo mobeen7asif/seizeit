@@ -8,33 +8,31 @@
 
 namespace App\Repositories;
 
-use App\Activity;
-use App\Models\FranchiseInfo;
-use App\Uni;
 use App\Major;
 use App\User;
 use Illuminate\Support\Facades\DB;
 
-class ActivitiesRepository extends Repository
+class MajorRepository extends Repository
 {
-    public function __construct(Activity $activity)
+    public function __construct(Major $major)
     {
-        $this->setModel($activity);
+        $this->setModel($major);
     }
 
     public function getByIds($ids = [])
     {
         return  $this->getModel()->whereIn('id', $ids)->get();
     }
-    public function getActivities($number = 0){
+    public function getMajors($number = 0){
         return $this->getModel()->orderBy('sort_id','ASC')
             ->skip($number*5)
             ->take(5)
             ->get();
     }
 
-    public function getAllActivities(){
+    public function getAllMojors(){
         return $this->getModel()->orderBy('sort_id','ASC')
             ->get();
     }
+
 }
