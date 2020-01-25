@@ -16,3 +16,24 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::post('/user/register', 'ApiController@register');
+Route::post('/user/login', 'ApiController@login')
+//    ->middleware('requestHandler:LoginRequest')
+;
+
+Route::post('/logout', 'ApiController@logout')->middleware('requestHandler:LogoutRequest');
+
+Route::get('/sponsors', 'ApiController@getSponsors')->middleware('requestHandler:GetSponsorsRequest');
+Route::get('/speakers', 'ApiController@getSpeakers')->middleware('requestHandler:GetSpeakersRequest');
+Route::get('/activities', 'ApiController@getActivities')->middleware('requestHandler:GetActivitiesRequest');
+Route::get('/get/events', 'ApiController@getEvents')->middleware('requestHandler:GetEventsRequest');
+Route::get('/supplements', 'ApiController@getSupplements')->middleware('requestHandler:GetSupplementsRequest');
+Route::get('/notifications', 'ApiController@getNotifications')->middleware('requestHandler:GetNotificationsRequest');
+Route::get('/get/welcome_content', 'ApiController@welcomeContent')->middleware('requestHandler:GetWelcomeRequest');
+
+Route::get('/get/data', 'ApiController@getAllData')->middleware('requestHandler:GetContentRequest');
+Route::post('/change/password', 'ApiController@changePassword')->middleware('requestHandler:ChangePasswordRequest');
+Route::post('/forgot/password', 'ApiController@forgotPassword')->middleware('requestHandler:ForgotPasswordRequest');
+Route::get('/crone', 'EventsController@crone');

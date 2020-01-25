@@ -3,11 +3,7 @@
 namespace App\Http\Controllers;
 
 
-use App\Http\PResponse;
-use App\Http\Requests\AddSpeakerRequest;
-use App\Http\Requests\ChangeImageRequest;
-use App\Http\Requests\UpdateContentRequest;
-use App\Http\Requests\UpdateSpeakerRequest;
+
 use App\Libs\Auth\PAuth;
 use App\Libs\Helpers\Helper;
 use App\Repositories\ActivitiesRepository;
@@ -18,10 +14,12 @@ use App\Repositories\MajorRepository;
 use App\Repositories\SupplementsRepository;
 use App\Repositories\UsersRepository;
 use App\User;
+use App\UserSession;
 use App\Welcome;
 use App\Notification;
 use App\Session;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -29,19 +27,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Requests\ChangePasswordRequest;
-use Requests\ForgotPasswordRequest;
-use Requests\GetActivitiesRequest;
-use Requests\GetContentRequest;
-use Requests\GetEventsRequest;
-use Requests\GetNotificationsRequest;
-use Requests\GetSpeakersRequest;
-use Requests\GetSponsorsRequest;
-use Requests\GetSupplementsRequest;
-use Requests\LoginRequest;
-use Requests\LogoutRequest;
-use Requests\RegisterRequest;
-use Requests\Request;
+use Illuminate\Support\Facades\Validator;
 
 
 class ApiController extends BaseController
@@ -65,50 +51,111 @@ class ApiController extends BaseController
         $this->eventsRepo = $eventsRepo;
         $this->supplementRepo = $supplementRepo;
         $this->notificationsRepo = $notificationsRepo;
-        $this->p_response = new PResponse();
+
     }
-    public function register(RegisterRequest $request)
+    public function register(Request $request)
     {
+
         try {
-            $user = $this->usersRepo->store($request->attributes());
+
+
+            $validator = Validator::make($request->all(), [
+                'user_name' => 'required|min:2|max:50',
+                'email' => 'required|email|unique:users',
+                'first_name' => 'required|min:2|max:50',
+                'last_name' => 'required|min:2|max:50',
+                'phone' => 'required|numeric',
+                'password' => 'required|min:6',
+
+            ]);
+
+            if ($validator->fails()) {
+                return ['status' => 400, 'message' => $validator->errors()->all()[0], 'data' => []];
+            }
+
+
+
+            $input = request()->except('password');
+
+            $user=new User($input);
+
+
+
+            $user->password=bcrypt(request()->password);
+
+            $user->save();
+
+
+
+            $user_session = new UserSession();
+
+            $user_session->device_id= $request->device_id;
+            $user_session->user_id= $user->id;
+            $user_session->device_type= $request->device_type;
+            $user_session->device_token= $request->device_token;
+            $user_session->session_id= bcrypt($user->id);
+
+            $user_session->save();
+
+
+            $user->session_id = $user_session->session_id;
+
+
+
+
+
+            return ['status' => "200", 'message' => 'Congragulation you are registered sucessfully', 'data' => $user];
+
+
+
+
+        //    $user = $this->usersRepo->store($request->attributes());
 //            if($request->input('user_image') != null){
 //                $user_image = $this->getProfileImage($request->input('user_image'), $user->id);
 //                $this->usersRepo->updateWhere(['id' => $user->id],['user_image' => $user_image]);
 //            }
-            $loggedInUser = PAuth::login($this->usersRepo->findById($user->id),$request->input('device_id'));
-            return $this->p_response->respond(['data' => $loggedInUser,
-                'session_id' => $loggedInUser->session_id
-            ]);
+//            $loggedInUser = PAuth::login($this->usersRepo->findById($user->id),$request->input('device_id'));
+//            return $this->p_response->respond(['data' => $loggedInUser,
+//                'session_id' => $loggedInUser->session_id
+//            ]);
         }
         catch(\Exception $e){
-            return $this->p_response->respondInternalServerError($e->getMessage());
+              return ['status' => 500, 'message' => "Some Thing Wet Wrong", 'data' => []];;
         }
     }
-    public function login(LoginRequest $request)
+    public function login(Request $request)
     {
+
         try {
             $user = PAuth::attempt(['email'=>$request->input('email'), 'password'=> $request->input('password')]);
-            if($user != null){
-                $user = PAuth::login($user,$request->input('device_id'));
-                return $this->p_response->respond([
-                    'data' => [
-                        'user' => $user,
-                        'welcome' => Welcome::find(1),
-                        'events' => $this->eventsRepo->getEventDetails(),
-                        'activities' => $this->activityRepo->getActivities(),
-                        'majors' => $this->sponsorsRepo->getSponsors(),
-                        'speakers' => $this->speakerRepo->getSpeakers()
 
-                    ],
-                    'session_id' => $user->session_id
-                ]);
+
+
+
+
+
+            if($user != null){
+
+
+                $user_session=    UserSession::where('device_id',$request->device_id)
+                    ->where('device_token',$request->device_token)
+                    ->where('user_id',$user->id)->get();
+
+                $user_session->session_id= bcrypt($user->id);
+                dd($user_session);
+                $user_session->save();
+
+
+
+                return ['status' => 400, 'message' => "You are Login Successfully", 'data' => []];
             }else{
-                return $this->p_response->respondInvalidCredentials();
+                return ['status' => 401, 'message' => "you entered wrong user name and password", 'data' => []];;
             }
         }
 
         catch(\Exception $e){
-            return $this->p_response->respondInternalServerError($e->getMessage());
+            return $e;
+//            return ['status' => 500, 'message' => "Some Thing Wet Wrong", 'data' => []];
         }
     }
     public function forgotPassword(ForgotPasswordRequest $request)
