@@ -53,19 +53,23 @@ class ApiController extends BaseController
         $this->notificationsRepo = $notificationsRepo;
 
     }
-    public function register(Request $request)
+
+
+
+    public function social_register(Request $request)
     {
 
         try {
 
 
             $validator = Validator::make($request->all(), [
-                'user_name' => 'required|min:2|max:50',
-                'email' => 'required|email|unique:users',
-                'first_name' => 'required|min:2|max:50',
-                'last_name' => 'required|min:2|max:50',
-                'phone' => 'required|numeric',
-                'password' => 'required|min:6',
+                'social_id' => 'required|min:2|max:50',
+                'social_type' => 'required|email|unique:users',
+
+                'device_type' => 'required',
+                'device_id' => 'required',
+                'device_token' => 'required',
+
 
             ]);
 
@@ -123,31 +127,187 @@ class ApiController extends BaseController
               return ['status' => 500, 'message' => "Some Thing Wet Wrong", 'data' => []];;
         }
     }
+
+
+    public function register(Request $request)
+    {
+
+        try {
+
+
+            $validator = Validator::make($request->all(), [
+                'user_name' => 'required|min:2|max:50',
+                'email' => 'required|email|unique:users',
+                'first_name' => 'required|min:2|max:50',
+                'last_name' => 'required|min:2|max:50',
+                'phone' => 'required|numeric',
+                'device_type' => 'required',
+                'device_id' => 'required',
+                'device_token' => 'required',
+                'password' => 'required|min:6'
+
+            ]);
+
+            if ($validator->fails()) {
+                return ['status' => 400, 'message' => $validator->errors()->all()[0], 'data' => []];
+            }
+
+
+
+            $input = request()->except('password');
+
+            $user=new User($input);
+
+
+
+            $user->password=bcrypt(request()->password);
+
+            $user->save();
+
+
+
+            $user_session = new UserSession();
+
+            $user_session->device_id= $request->device_id;
+            $user_session->user_id= $user->id;
+            $user_session->device_type= $request->device_type;
+            $user_session->device_token= $request->device_token;
+            $user_session->session_id= bcrypt($user->id);
+
+            $user_session->save();
+
+
+            $user->session_id = $user_session->session_id;
+
+
+
+
+
+            return ['status' => "200", 'message' => 'Congragulation you are registered sucessfully', 'data' => $user];
+
+
+
+
+        //    $user = $this->usersRepo->store($request->attributes());
+//            if($request->input('user_image') != null){
+//                $user_image = $this->getProfileImage($request->input('user_image'), $user->id);
+//                $this->usersRepo->updateWhere(['id' => $user->id],['user_image' => $user_image]);
+//            }
+//            $loggedInUser = PAuth::login($this->usersRepo->findById($user->id),$request->input('device_id'));
+//            return $this->p_response->respond(['data' => $loggedInUser,
+//                'session_id' => $loggedInUser->session_id
+//            ]);
+        }
+        catch(\Exception $e){
+              return ['status' => 500, 'message' => "Some Thing Wet Wrong", 'data' => []];;
+        }
+    }
+
+
+    public function session_out()
+    {
+        return ['status' => 401, 'message' => "Session out please login", 'data' => []];;
+    }
+    public function show_user(Request $request)
+    {
+
+
+
+        try {
+
+            $user = User::all();
+            return ['status' => 200, 'message' => "all user", 'data' => ['session_id'=> $user]];
+
+        }
+
+        catch(\Exception $e){
+          return $e;
+//            return ['status' => 500, 'message' => "Some Thing Wet Wrong", 'data' => []];
+        }
+    }
+    public function social_login(Request $request)
+    {
+        dd($request);
+
+        try {
+            $user = PAuth::attempt(['email'=>$request->input('email'), 'password'=> $request->input('password')]);
+
+            if($user != null){
+
+
+                $user_session=UserSession::where('device_id',$request->device_id)
+                    ->where('device_token',$request->device_token)
+                    ->where('user_id',$user->id)->first();
+
+                if($user_session!= null)
+                {
+                    //dd('already');
+                    $user_session->session_id= bcrypt($user->id);
+//                dd($user_session);
+                    $user_session->save();
+                }
+                else
+                {
+
+                   // dd('new');
+                    $user_session = new UserSession();
+
+                    $user_session->device_id= $request->device_id;
+                    $user_session->user_id= $user->id;
+                    $user_session->device_type= $request->device_type;
+                    $user_session->device_token= $request->device_token;
+                    $user_session->session_id= bcrypt($user->id);
+                    $user_session->save();
+                }
+
+                return ['status' => 400, 'message' => "You are Login Successfully", 'data' => ['session_id'=> $user_session->session_id]];
+            }else{
+                return ['status' => 401, 'message' => "you entered wrong user name and password", 'data' => []];;
+            }
+        }
+
+        catch(\Exception $e){
+            return $e;
+//            return ['status' => 500, 'message' => "Some Thing Wet Wrong", 'data' => []];
+        }
+    }
+
+
     public function login(Request $request)
     {
 
         try {
             $user = PAuth::attempt(['email'=>$request->input('email'), 'password'=> $request->input('password')]);
 
-
-
-
-
-
             if($user != null){
 
 
-                $user_session=    UserSession::where('device_id',$request->device_id)
+                $user_session=UserSession::where('device_id',$request->device_id)
                     ->where('device_token',$request->device_token)
-                    ->where('user_id',$user->id)->get();
+                    ->where('user_id',$user->id)->first();
 
-                $user_session->session_id= bcrypt($user->id);
-                dd($user_session);
-                $user_session->save();
+                if($user_session!= null)
+                {
+                    //dd('already');
+                    $user_session->session_id= bcrypt($user->id);
+//                dd($user_session);
+                    $user_session->save();
+                }
+                else
+                {
 
+                   // dd('new');
+                    $user_session = new UserSession();
 
+                    $user_session->device_id= $request->device_id;
+                    $user_session->user_id= $user->id;
+                    $user_session->device_type= $request->device_type;
+                    $user_session->device_token= $request->device_token;
+                    $user_session->session_id= bcrypt($user->id);
+                    $user_session->save();
+                }
 
-                return ['status' => 400, 'message' => "You are Login Successfully", 'data' => []];
+                return ['status' => 400, 'message' => "You are Login Successfully", 'data' => ['session_id'=> $user_session->session_id]];
             }else{
                 return ['status' => 401, 'message' => "you entered wrong user name and password", 'data' => []];;
             }

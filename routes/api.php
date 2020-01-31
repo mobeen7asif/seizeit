@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\MobileLoginSession;
 use Illuminate\Http\Request;
 
 /*
@@ -19,9 +20,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::post('/user/register', 'ApiController@register');
+Route::post('/user/social_register', 'ApiController@social_register');
 Route::post('/user/login', 'ApiController@login')
 //    ->middleware('requestHandler:LoginRequest')
 ;
+
+Route::post('user/show_user', 'ApiController@show_user')->middleware(MobileLoginSession::class);
+
 
 Route::post('/logout', 'ApiController@logout')->middleware('requestHandler:LogoutRequest');
 
@@ -37,3 +42,5 @@ Route::get('/get/data', 'ApiController@getAllData')->middleware('requestHandler:
 Route::post('/change/password', 'ApiController@changePassword')->middleware('requestHandler:ChangePasswordRequest');
 Route::post('/forgot/password', 'ApiController@forgotPassword')->middleware('requestHandler:ForgotPasswordRequest');
 Route::get('/crone', 'EventsController@crone');
+Route::get('/session_out', 'ApiController@session_out');
+Route::post('/user/social_login', 'ApiController@social_login');
