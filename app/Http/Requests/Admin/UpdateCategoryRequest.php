@@ -41,7 +41,7 @@ class UpdateCategoryRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'url'=> 'required|max:300',
+            //'url'=> 'required|max:300',
             'name'=>'required|max:190',
             'description'=>'required|max:300',
         ];

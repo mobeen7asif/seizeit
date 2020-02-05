@@ -39,7 +39,7 @@ class UpdateMajorRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'categories'=>'required',
+            //'categories'=>'required',
             'name'=>'required|max:190',
             'description'=>'required|max:300',
         ];

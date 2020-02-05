@@ -7,8 +7,8 @@
 
     <div class="content lifeContent">
         <div class="heading-sponser">
-        <h2>Add Major</h2>
-            <a class="back" href="{{url('/')}}/categorys">Back</a>
+        <h2>Add Category</h2>
+            <a class="btn btn btn-primary back" href="{{url('/')}}/categorys">Back</a>
     </div>
         <div class="userForm user">
 
@@ -31,17 +31,6 @@
                     @endif
                 </label>
                 <label class="fullField">
-                    <span>URL</span>
-                    <input type="text" name="url" value="{{old('url')}}">
-                    @if ($errors->has('url'))
-                        <div class="alert alert-danger">
-                            @foreach ($errors->get('url') as $message)
-                                {{ $message }}<br>
-                            @endforeach
-                        </div>
-                    @endif
-                </label>
-                <label class="fullField">
                     <span>Detail</span>
                     <div class="inputs"><textarea name="description">{!! old('description') !!}</textarea></div>
                     @if ($errors->has('description'))
@@ -53,7 +42,7 @@
                     @endif
                 </label>
                 <div class="btnCol">
-                    <input type="submit" name="signIn"  value="Submit">
+                    <input class="btn btn-primary" type="submit" name="signIn"  value="Submit">
                 </div>
             </form>
         </div>

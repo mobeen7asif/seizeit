@@ -7,7 +7,7 @@
     <div class="content lifeContent">
         <div class="heading-sponser">
             <h2>Edit Session</h2>
-            <a class="back" href="{{url('/')}}/update/event/{{$session['event_id']}}">Back</a>
+            <a class="btn btn btn-primary" href="{{url('/')}}/update/event/{{$session['event_id']}}">Back</a>
 
 
         </div>
@@ -122,7 +122,7 @@
                 </label>
                 <input type="hidden" name="speakers_string" id="multiple_value" value="{{','.$string}}"/>
                 <div class="btnCol">
-                    <input type="submit" name="signIn"  value="Submit">
+                    <input class="btn btn-primary" type="submit" name="signIn"  value="Submit">
                 </div>
             </form>
         </div>

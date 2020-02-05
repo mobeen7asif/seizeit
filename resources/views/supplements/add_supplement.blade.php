@@ -8,7 +8,7 @@
     <div class="content lifeContent">
         <div class="heading-sponser">
         <h2>Add Supplement</h2>
-            <a class="back" href="{{url('/')}}/supplements">Back</a>
+            <a class="btn btn btn-primary" href="{{url('/')}}/supplements">Back</a>
     </div>
         <div class="userForm user">
 
@@ -52,7 +52,7 @@
                     </div>
                 @endif
                 <div class="btnCol">
-                    <input type="submit" name="signIn"  value="Submit">
+                    <input class="btn btn-primary" type="submit" name="signIn"  value="Submit">
                 </div>
             </form>
         </div>

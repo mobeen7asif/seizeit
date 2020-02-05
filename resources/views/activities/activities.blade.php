@@ -33,7 +33,7 @@
                 <th>Description</th>
                 <th>Detail</th>
                 <th>Actions</th>
-                <th>@if(!$activities->isEmpty()) <input class="submit" id="bulk_button"  type="submit" value="Delete" > @endif</th>
+                <th>@if(!$activities->isEmpty()) <input class="btn btn-primary submit" id="bulk_button"  type="submit" value="Delete" > @endif</th>
             </tr>
             </thead>
             <tbody id="sortable">

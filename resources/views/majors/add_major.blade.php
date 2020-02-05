@@ -8,7 +8,7 @@
     <div class="content lifeContent">
         <div class="heading-sponser">
         <h2>Add Major</h2>
-            <a class="back" href="{{url('/')}}/majors">Back</a>
+            <a class="btn btn btn-primary back" href="{{url('/')}}/majors">Back</a>
     </div>
         <div class="userForm user">
 
@@ -31,7 +31,7 @@
                     @endif
                 </label>
 
-                <label class="fullField">
+                {{--<label class="fullField">
                     <span>Select Categories</span>
 
                     <select class="categories" name="categories[]" multiple="multiple">
@@ -49,7 +49,7 @@
                             @endforeach
                         </div>
                     @endif
-                </label>
+                </label>--}}
 
                 <label class="fullField">
                     <span>Detail</span>
@@ -63,7 +63,7 @@
                     @endif
                 </label>
                 <div class="btnCol">
-                    <input type="submit" name="signIn"  value="Submit">
+                    <input class="btn btn-primary" type="submit" name="signIn"  value="Submit">
                 </div>
             </form>
         </div>

@@ -7,7 +7,7 @@
     <div class="content lifeContent">
         <div class="heading-sponser">
         <h2>Add Uni</h2>
-            <a class="back" href="{{url('/')}}/uni">Back</a>
+            <a class="btn btn btn-primary back" href="{{url('/')}}/uni">Back</a>
 
 
         </div>
@@ -33,7 +33,7 @@
                 </label>
 
 
-                <label class="fullField">
+                {{--<label class="fullField">
                     <span>Select Majors</span>
 
                     <select class="majors" name="majors[]" multiple="multiple">
@@ -51,7 +51,7 @@
                             @endforeach
                         </div>
                     @endif
-                </label>
+                </label>--}}
 
 
 
@@ -84,7 +84,7 @@
                     <input type=file name="image" value="">
                 </label>--}}
                 <div class="btnCol">
-                    <input type="submit" name="signIn"  value="Submit">
+                    <input class="btn btn-primary" type="submit" name="signIn"  value="Submit">
                 </div>
             </form>
         </div>

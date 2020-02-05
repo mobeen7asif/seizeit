@@ -12,7 +12,7 @@
             {{\Session::get('success')}}
         </h4>
     @endif
-    <a class="add_s" href="{{url('/')}}/add/event">Add New Event</a>
+    <a class="btn btn-primary add_s" href="{{url('/')}}/add/event">Add New Event</a>
 
     <div class="contentPd">
         {{--{{dd($recent_activities)}}--}}

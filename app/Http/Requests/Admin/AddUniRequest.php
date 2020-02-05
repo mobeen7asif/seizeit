@@ -51,7 +51,7 @@ class AddUniRequest extends FormRequest
         $rules = [
             //'images'=>'max:'.$this->maxImages,
             'name'=>'required|max:190',
-            'majors' =>'required',
+            //'majors' =>'required',
             'uni_detail'=>'required|max:1000',
             //'designation'=>'required|max:190'
         ];

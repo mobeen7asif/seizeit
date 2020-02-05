@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Admin\AddCategoryRequest;
 use App\Http\Requests\Admin\UpdateCategoryRequest;
 
+use App\Link;
 use App\Repositories\EventsRepository;
 use App\Repositories\SpeakerRepository;
 use App\Repositories\CategoryRepository;
@@ -13,6 +14,7 @@ use App\Repositories\UniRepository;
 use App\Repositories\UsersRepository;
 use App\Uni;
 use App\User;
+use http\Client;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
@@ -37,9 +39,17 @@ class CategoriesController extends BaseController
         $categories = $this->categoryRepo->getAllCategories();
         return view('categories.categories',['title' => 'categories','categories' => $categories]);
     }
+    public function getLinks(){
+        $links = Link::all();
+        return view('links.links',['title' => 'links','links' => $links]);
+    }
 
     public function showCategoryView(){
         return view('categories.add_category',['title' => 'categories']);
+    }
+
+    public function showLinkView(){
+        return view('links.add_link',['title' => 'links']);
     }
 
     public function addCategory(AddCategoryRequest $request){
@@ -58,9 +68,22 @@ class CategoriesController extends BaseController
         return redirect()->back()->with('success','Category Added Successfully');
     }
 
+    public function addLink(Request $request){
+        $this->validate($request, array(
+            'link' => 'required',
+        ));
+        Link::create($request->all());
+        return redirect()->back()->with('success','Link Added Successfully');
+    }
+
     public function editCategoryForm($id){
         $category = $this->categoryRepo->findById($id);
         return view('categories.edit_category',['title' => 'categories','category' => $category]);
+    }
+
+    public function editLinkForm($id){
+        $link = Link::find($id);
+        return view('links.edit_link',['title' => 'links','link' => $link]);
     }
 
     public function updateCategory(UpdateCategoryRequest $request,$id){
@@ -78,15 +101,32 @@ class CategoriesController extends BaseController
 
         return redirect()->back()->with('success','Category Updated Successfully');
     }
+
+
+    public function updateLink(Request $request,$id){
+        $this->validate($request, array(
+            'link' => 'required',
+        ));
+        Link::where('id',$id)->update(['link' => $request->link]);
+        return redirect()->back()->with('success','Link Updated Successfully');
+    }
+
     public function deleteCategory($id){
         $this->categoryRepo->deleteById($id);
         return redirect()->back()->with('success','Category Deleted');
+    }
+
+    public function deleteLink($id){
+        Link::where('id',$id)->delete();
+        return redirect()->back()->with('success','Link Deleted');
     }
     public function categoryDetail($id){
     return view('categories.category_detail',['title' => 'categories','category' => $this->categoryRepo->findById($id)]);
     }
     public function subCategories($id) {
-        dd($id);
+
+
+
     }
     public function deleteCategories(Request $request){
         $this->validate(request(),[
@@ -101,6 +141,10 @@ class CategoriesController extends BaseController
         foreach($categories as $category){
             return DB::table('categories')->where('id',$item_id)->update(['sort_id' => $item_index]);
         }
+    }
+
+    public function getSub() {
+
     }
 
 

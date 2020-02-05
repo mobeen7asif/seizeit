@@ -74,17 +74,17 @@ class UsersController extends BaseController
     }
 
     public function getUni(Request $request){
-        $status = $request->get('sort_status');
+     /*   $status = $request->get('sort_status');
         if(isset($status)){
             $unis = $this->uniRepo->getByNames();
             $i = 0;
             foreach($unis as $uni){
-                $this->uniRepo->getModel()->where('id',$uni->id)->update(['sort_id' => $i]);
+                DB::table('uni')->where('id',$uni->id)->update(['sort_id' => $i]);
                 $i++;
             }
             return redirect('/uni');
-        }
-        $uni = $this->uniRepo->getAllUni();
+        }*/
+        $uni = DB::table('uni')->get();
         return view('uni.uni',['title' => 'uni','unis' => $uni]);
     }
     public function sortUni(Request $request){
@@ -105,14 +105,14 @@ class UsersController extends BaseController
 
     public function addUni(AddUniRequest $request){
         $uni_id = $this->uniRepo->store($request->storableAttrs())->id;
-        if($uni_id) {
+        /*if($uni_id) {
             $majors = [];
             foreach($request->majors as $major) {
                 $temp = ['uni_id' => $uni_id,'major_id' => $major,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')];
                 $majors[] = $temp;
             }
             UniMajor::insert($majors);
-        }
+        }*/
 
 
         $file = $request->file('image');
@@ -138,13 +138,13 @@ class UsersController extends BaseController
     public function updateUni(UpdateUniRequest $request,$id){
         $uni_id = $id;
         $this->uniRepo->updateWhere(['id' => $uni_id],$request->updateAttrs());
-        UniMajor::where('uni_id',$uni_id)->delete();
+ /*       UniMajor::where('uni_id',$uni_id)->delete();
         $majors = [];
         foreach($request->majors as $major) {
             $temp = ['uni_id' => $uni_id,'major_id' => $major,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')];
             $majors[] = $temp;
         }
-        UniMajor::insert($majors);
+        UniMajor::insert($majors);*/
         $file = $request->file('image');
         if(isset($file)){
             $public_path = '/uni/images/' . $uni_id;
@@ -162,7 +162,8 @@ class UsersController extends BaseController
         return redirect()->back()->with('success','Uni Deleted');
     }
     public function uniDetail($id){
-        return view('uni.uni_detail',['title' => 'uni','uni' => $this->uniRepo->findById($id)]);
+        $uni = $this->uniRepo->findById($id);
+        return view('uni.uni_detail',['title' => 'uni','uni' => $uni]);
     }
     public function getWelcomeView(){
         $content = Welcome::find(1);

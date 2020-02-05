@@ -33,7 +33,7 @@
                 <th>Title</th>
                 <th>View Detail</th>
                 <th>Actions</th>
-                <th>@if(!$sessions->isEmpty()) <input class="submit" id="bulk_button"  type="submit" value="Delete" > @endif</th>
+                <th>@if(!$sessions->isEmpty()) <input class="btn btn-primary submit" id="bulk_button"  type="submit" value="Delete" > @endif</th>
 
             </tr>
             </thead>

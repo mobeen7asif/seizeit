@@ -29,4 +29,14 @@ class MajorCategory extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function major()
+    {
+        return $this->belongsTo('App\Major','major_id','id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo('App\Category','category_id','id');
+    }
+
 }

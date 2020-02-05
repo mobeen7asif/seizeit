@@ -303,22 +303,22 @@ input[type="reset"],
 input[type="submit"] {
   -webkit-appearance: button; /* 2 */
   cursor: pointer; /* 3 */
- 
+
 }
 html th .submit {
-    padding: 10px 20px;
+/*    padding: 10px 20px;
     border: 0;
     background: #68353b;
-    color: #FFF;
+    color: #FFF;*/
    float: right;
     position: relative;
     z-index: 999;
-    
+
 }
 
-html th .submit:hover{
+/*html th .submit:hover{
  background: #3f2a63;
-}
+}*/
 
 /**
  * Re-set default cursor for disabled elements.

@@ -12,11 +12,11 @@
             {{\Session::get('success')}}
         </h4>
     @endif
-        <a class="add_s" href="{{url('/')}}/add/category">Add New Category</a>
+        <a class="btn btn-primary add_s" href="{{url('/')}}/add/category">Add New Category</a>
 
     <div class="contentPd">
         {{--{{dd($recent_activities)}}--}}
-        <h2 class="mainHEading">Categorys</h2>
+        <h2 class="mainHEading">Categories</h2>
         @if ($errors->has('delete_ids'))
             <div class="alert alert-danger">
                 @foreach ($errors->get('delete_ids') as $message)
@@ -31,18 +31,17 @@
             <tr>
                 <th>Name</th>
                 <th>URL</th>
-                <th>Sub Categories</th>
+                <th>Detail</th>
                 <th>Actions</th>
-                <th>@if(!$categories->isEmpty()) <input class="submit" id="bulk_button"  type="submit" value="Delete" > @endif</th>
+                <th>@if(!$categories->isEmpty()) <input class="submit" id="bulk_button"  type="submit" value="Delete"> @endif</th>
             </tr>
             </thead>
             <tbody id="sortable">
             @if(isset($categories))
                 @foreach($categories as $category)
                     <tr id="{{$category->id}}">
-                        <td>{{$category['name']}}</td>
+                        <td>{{$category->name}}</td>
                         <td>{{$category->url}}</td>
-                        <td><a href="{{url('/')}}/sub/categories/{{$category->id}}">Sub Categories</a></td>
                         <td><a href={{url('/')}}/category/detail/{{$category->id}}>View</a></td>
                         <td>
                             <a href={{url('/')}}/update/category/{{$category->id}}><i class="fa fa-edit fa-fw"></i></a>
@@ -50,12 +49,39 @@
                         </td>
                         <td><input class="delete_check" type="checkbox" value="{{$category->id}}" name="delete_ids[]"></td>
                     </tr>
+
+                    <div class="modal fade" id="model-{{$category->id}}" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Select Major</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <select class="majors" name="majors">
+                                        @foreach($categories as $category)
+                                            <option value="{{$category->id}}">{{$category->name}}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
                 @endforeach
             @endif
             </tbody>
         </table>
         </form>
-        @if(!$categories->isEmpty()) <p><label><input type="checkbox" id="checkAll"/> Check all</label></p> @endif
+{{--        @if(!$categories->isEmpty()) <p><label><input type="checkbox" id="checkAll"/> Check all</label></p> @endif--}}
     </div>
 </section>
 <?php include resource_path('views/includes/footer.php'); ?>

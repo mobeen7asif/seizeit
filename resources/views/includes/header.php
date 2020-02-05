@@ -6,7 +6,8 @@
 <header class="header">
     <div class="topNav">
         <?php if(\Illuminate\Support\Facades\Auth::check()) { ?>
-      <h2>SeizeIT</h2>
+      <h2 style="float: left;
+    margin-left: 20px;">SeizeIT</h2>
         <?php  }
         else{?>
             <ul class="pf">

@@ -1,13 +1,5 @@
 <aside class="sideBar">
-    <div class="userPro">
-        <!--<input id="profile_photo" type="file" name="" value="" class="custom-file-btn">-->
-       <!-- <figure>
-            <label for="profile_photo" class="custom-label">
-                <img id="profile_image" src="<?php /*echo url('/').'/images/default/logo.jpg'; */?>" alt="">
-            </label>
-        </figure>-->
-        <h4><?php //echo \Illuminate\Support\Facades\Auth::user()->user_name ;?></h4>
-    </div>
+
     <style>
         .custom-form{
             padding: 0 15px;
@@ -22,7 +14,7 @@
         .custom-file-btn{ display: none !important; }
         .custom-label{cursor:pointer;}
     </style>
-    <div class="mainNav">
+    <nav class="mainNav">
         <ul class="navList">
             <li <?php if($title == 'users'){echo "class='active'";}?> ><a href="<?php echo asset('/users'); ?>">Users</a></li>
             <li <?php if($title == 'admins'){echo "class='active'";}?> ><a href="<?php echo asset('/admins'); ?>">Admins</a></li>
@@ -31,9 +23,11 @@
             <li <?php if($title == 'uni'){echo "class='active'";}?> ><a href="<?php echo asset('/uni'); ?>">Universities</a></li>
             <li <?php if($title == 'majors'){echo "class='active'";}?> ><a href="<?php echo asset('/majors');?>">Majors</a></li>
             <li <?php if($title == 'categories'){echo "class='active'";}?> ><a href="<?php echo asset('/categories');?>">Categories</a></li>
+            <li <?php if($title == 'sub_categories'){echo "class='active'";}?> ><a href="<?php echo asset('/sub/categories');?>">Sub Categories</a></li>
+            <li <?php if($title == 'links'){echo "class='active'";}?> ><a href="<?php echo asset('/links');?>">Links</a></li>
             <li><a href="<?php echo asset('/logout'); ?>">Logout</a></li>
         </ul>
-    </div>
+    </nav>
     <sidebar class="copy">&copy; Copyright <?=date('Y')?>
 <!--    <div class="codingpixel">-->
 <!--        Designed & Developed by <a href="http://codingpixel.com" target="_blank">CodingPixel</a>-->

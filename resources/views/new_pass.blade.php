@@ -24,7 +24,7 @@
                         <input type="hidden" name="id" value="{{$id}}">
                         <input type="hidden" name="token" value="{{$token}}">
                         <div class="btnCol">
-                            <input type="submit" name="signIn"  value="Submit">
+                            <input class="btn btn-primary" type="submit" name="signIn"  value="Submit">
                         </div>
                     </form>
                 </div>

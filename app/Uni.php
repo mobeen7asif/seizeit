@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Scopes\UniScope;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -30,5 +31,12 @@ class Uni extends Authenticatable
     ];
     public function speakers(){
         return $this->hasMany('App\SessionSpeaker','speaker_id');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new UniScope());
     }
 }

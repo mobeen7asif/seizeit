@@ -12,7 +12,7 @@
             {{\Session::get('success')}}
         </h4>
     @endif
-        <a class="add_s" href="{{url('/')}}/add/major">Add New Major</a>
+        <a class="btn btn-primary add_s" href="{{url('/')}}/add/major">Add New Major</a>
 
     <div class="contentPd">
         {{--{{dd($recent_activities)}}--}}
@@ -33,7 +33,7 @@
                 <th>Description</th>
                 <th>Detail</th>
                 <th>Actions</th>
-                <th>@if(!$majors->isEmpty()) <input class="submit" id="bulk_button"  type="submit" value="Delete" > @endif</th>
+                <th>@if(!$majors->isEmpty()) <input class="btn btn-primary submit" id="bulk_button"  type="submit" value="Delete" > @endif</th>
             </tr>
             </thead>
             <tbody id="sortable">

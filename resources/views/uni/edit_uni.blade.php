@@ -7,7 +7,7 @@
     <div class="content lifeContent">
         <div class="heading-Sponser">
             <h2>Update Speaker</h2>
-            <a class="back" href="{{url('/')}}/uni">Back</a>
+            <a class="btn btn btn-primary back" href="{{url('/')}}/uni">Back</a>
         </div>
         <div class="userForm">
             @if(\Session::has('success'))
@@ -45,7 +45,7 @@
 
                 ?>
 
-                <label class="fullField">
+                {{--<label class="fullField">
                     <span>Select Majors</span>
 
                     <select class="majors" name="majors[]" multiple="multiple">
@@ -63,7 +63,7 @@
                             @endforeach
                         </div>
                     @endif
-                </label>
+                </label>--}}
                 {{--<label class="fullField">
                     <span>Designation</span>
                     <input type=text name="designation" value="{{$uni->designation}}">
@@ -100,7 +100,7 @@
                     @endif
                 </div>--}}
                 <div class="btnCol">
-                    <input type="submit" name="signIn"  value="Submit">
+                    <input class="btn btn-primary" type="submit" name="signIn"  value="Submit">
                 </div>
             </form>
         </div>

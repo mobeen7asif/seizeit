@@ -14,7 +14,7 @@
     @endif
 
     {{--<a class="add_s margin" href="{{url('/')}}/change/password" >Change Users Password</a>--}}
-        <a class="add_s" href="{{url('/')}}/add/user" >Add New User</a>
+        <a class="btn btn-primary add_s" href="{{url('/')}}/add/user" >Add New User</a>
     {{--<a class="add_s" href="{{url('/')}}/export/users" target="_blank">Export Users</a>--}}
     <div class="contentPd">
         {{--{{dd(!$users->isEmpty())}}--}}
@@ -35,7 +35,7 @@
                 <th>Email</th>
                 <th>Admin</th>
                 <th>Actions</th>
-                <th>@if(!$users->isEmpty()) <input class="submit" id="bulk_button"  type="submit" value="Delete" > @endif</th>
+                <th>@if(!$users->isEmpty()) <input class="btn btn-primary submit" id="bulk_button"  type="submit" value="Delete" > @endif</th>
             </tr>
             </thead>
             <tbody id="sortable">

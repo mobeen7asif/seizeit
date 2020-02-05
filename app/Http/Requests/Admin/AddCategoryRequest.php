@@ -19,7 +19,7 @@ class AddCategoryRequest extends FormRequest
         $storableAttrs = [
             'name' => $this->input('name'),
             'description' => $this->input('description'),
-            'url' => $this->input('url'),
+            //'url' => $this->input('url'),
             'sort_id' => $sort_id
         ];
         return $storableAttrs;
@@ -48,7 +48,7 @@ class AddCategoryRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'url'=> 'required|max:300',
+            //'url'=> 'required|max:300',
             'name'=>'required|max:190',
             'description'=>'required|max:300',
         ];

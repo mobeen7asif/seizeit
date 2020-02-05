@@ -7,7 +7,7 @@
     <div class="content lifeContent">
         <div class="heading-sponser">
             <h2>Add User</h2>
-            <a class="back" href="{{url('/')}}/users">Back</a>
+            <a class="btn btn btn-primary back" href="{{url('/')}}/users">Back</a>
         </div>
         <div class="userForm">
             @if(\Session::has('success'))
@@ -84,7 +84,7 @@
                     @endif
                 </label>
                 <div class="btnCol">
-                    <input type="submit" name="signIn"  value="Submit">
+                    <input class="btn btn-primary" type="submit" name="signIn"  value="Submit">
                 </div>
             </form>
         </div>

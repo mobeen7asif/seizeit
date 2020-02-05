@@ -31,7 +31,7 @@ class UniRepository extends Repository
             ->get();
     }
     public function getAllUni(){
-        return $this->getModel()->orderBy('sort_id','ASC')
+        return DB::table('uni')->orderBy('sort_id','ASC')
             ->get();
     }
     public function getByNames(){

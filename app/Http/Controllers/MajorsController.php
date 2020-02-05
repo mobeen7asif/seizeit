@@ -53,14 +53,14 @@ class MajorsController extends BaseController
     public function addMajor(AddMajorRequest $request){
 
         $major_id = $this->majorsRepo->store($request->storableAttrs())->id;
-        if($major_id) {
+       /* if($major_id) {
             $majors = [];
             foreach($request->categories as $category) {
                 $temp = ['major_id' => $major_id,'category_id' => $category,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')];
                 $majors[] = $temp;
             }
             MajorCategory::insert($majors);
-        }
+        }*/
         $file = $request->file('image');
         if(isset($file)){
             $public_path = '/major/images/' . $major_id;
@@ -94,13 +94,13 @@ class MajorsController extends BaseController
         $major_id = $id;
         $this->majorsRepo->updateWhere(['id' => $major_id],$request->updateAttrs());
 
-        MajorCategory::where('major_id',$major_id)->delete();
+  /*      MajorCategory::where('major_id',$major_id)->delete();
         $majors = [];
         foreach($request->categories as $category) {
             $temp = ['major_id' => $major_id,'category_id' => $category,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')];
             $majors[] = $temp;
         }
-        MajorCategory::insert($majors);
+        MajorCategory::insert($majors);*/
 
         $file = $request->file('image');
         if(isset($file)){

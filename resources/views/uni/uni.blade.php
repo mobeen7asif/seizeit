@@ -12,10 +12,10 @@
             {{\Session::get('success')}}
         </h4>
     @endif
-        <a class="add_s" href="{{url('/')}}/add/uni" >Add New Uni</a>
+        <a class="btn btn-primary add_s" href="{{url('/')}}/add/uni" >Add New Uni</a>
         <form class="add_s" action="{{url('/')}}/uni" method="get">
             <input name="sort_status" value="0" type="hidden">
-            <input type="submit" name="submit" value="Sort By Name">
+            {{--<input type="submit" name="submit" value="Sort By Name">--}}
         </form>
 
     <div class="contentPd">
@@ -36,17 +36,19 @@
                 <th>Name</th>
                 <th>Description</th>
                 <th>Detail</th>
+                <th>Status</th>
                 <th>Actions</th>
-                <th>@if(!$unis->isEmpty()) <input class="submit" id="bulk_button"  type="submit" value="Delete" > @endif</th>
+                <th>@if(count($unis) > 0) <input class="btn btn-primary submit" id="bulk_button"  type="submit" value="Delete" > @endif</th>
             </tr>
             </thead>
             <tbody id="sortable">
             @if(isset($unis))
                 @foreach($unis as $uni)
                     <tr id="{{$uni->id}}">
-                        <td>{{$uni['name']}}</td>
-                        <td>{{$uni['uni_detail']}}</td>
-                        <td><a href={{url('/')}}/uni/detail/{{$uni->id}}>View</a></td>
+                        <td>{{$uni->name}}</td>
+                        <td>{{$uni->uni_detail}}</td>
+                        <td>@if($uni->status == 1)<a href={{url('/')}}/uni/detail/{{$uni->id}}>View</a>@endif</td>
+                        <td>@if($uni->status == 0) <a href="{{url('/uni/status/'.$uni->id.'/1')}}">Activate</a> @else <a href="{{url('/uni/status/'.$uni->id.'/0')}}">De Activate</a> @endif</td>
                         <td class="list-table">
                             <a href={{url('/')}}/update/uni/{{$uni->id}}><i class="fa fa-edit fa-fw "></i></a>
                             <a href={{url('/')}}/delete/uni/{{$uni->id}}><i class="fa fa-trash fa-fw "></i></a>
@@ -58,7 +60,7 @@
             </tbody>
         </table>
         </form>
-        @if(!$unis->isEmpty()) <p><label><input type="checkbox" id="checkAll"/> Check all</label></p> @endif
+        @if(count($unis) > 0) <p><label><input type="checkbox" id="checkAll"/> Check all</label></p> @endif
     </div>
 </section>
 <?php include resource_path('views/includes/footer.php'); ?>

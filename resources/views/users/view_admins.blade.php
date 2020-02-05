@@ -31,7 +31,7 @@
                 <th>User Name</th>
                 <th>Email</th>
                 <th>Actions</th>
-                <th>@if(!$users->isEmpty()) <input class="submit" id="bulk_button"  type="submit" value="Delete" > @endif</th>
+                <th>@if(!$users->isEmpty()) <input class="btn btn-primary submit" id="bulk_button"  type="submit" value="Delete" > @endif</th>
             </tr>
             </thead>
             <tbody id="sortable">

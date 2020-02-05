@@ -11,6 +11,8 @@
 |
 */
 
+use App\Uni;
+
 Route::get('/', function () {
     if(\Illuminate\Support\Facades\Auth::check()){
         return redirect('/dashboard');
@@ -25,9 +27,10 @@ Route::get('/test', function () {
 
 
 
-Route::get('/login', function () {
+Route::get('/login',function()
+{
     return view('login');
-});
+})->name('login');
 
 Route::post('/login', 'UsersController@login');
 
@@ -46,6 +49,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/delete/uni/{id}', 'UsersController@deleteUni');
     Route::get('/uni/detail/{id}', 'UsersController@uniDetail');
     Route::post('/uni/bulk/delete', 'UsersController@deleteUnis');
+
+    Route::get('/uni/status/{uni_id}/{status}', function($uni_id,$status) {
+        DB::table('uni')->where('id',$uni_id)->update(['status' => $status]);
+        return redirect()->back()->with('success','Uni status updated');
+    });
+
 
     Route::get('/users', 'UsersController@getUsers');
     Route::get('/admins', 'UsersController@getAdmins');
@@ -109,6 +118,31 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/category/bulk/delete', 'CategoriesController@deleteCategories');
     Route::get('/sub/categories/{id}', 'CategoriesController@subCategories');
 
+    Route::get('/links', 'CategoriesController@getLinks');
+    Route::get('/add/link', 'CategoriesController@showLinkView');
+    Route::post('/add/link', 'CategoriesController@addLink');
+    Route::get('/update/link/{id}', 'CategoriesController@editLinkForm');
+    Route::post('/update/link/{id}', 'CategoriesController@updateLink');
+    Route::get('/delete/link/{id}', 'CategoriesController@deleteLink');
+
+
+
+    Route::get('/sub/categories', 'SubCategoriesController@getSubCategories');
+    Route::get('/add/sub/category/{major_id?}', 'SubCategoriesController@addSubCategoryVew');
+    Route::get('/update/sub/category/{sub_id}', 'SubCategoriesController@updateSubCategoryView');
+    Route::post('/update/sub/category', 'SubCategoriesController@updateSubCategory');
+    Route::get('/delete/sub/category/{id}', 'SubCategoriesController@deleteSubCategory');
+    Route::post('/sub/category/bulk/delete', 'SubCategoriesController@bulkDeleteSubCategory');
+
+    Route::get('/add/custom/category', 'SubCategoriesController@addCustomCategoryView');
+    Route::post('/add/custom/category', 'SubCategoriesController@addCustomCategory');
+
+    Route::get('/get-major-category', 'SubCategoriesController@getMajorCategories');
+
+
+
+
+
 
 
     Route::get('/activities', 'ActivitiesController@getActivities');
@@ -141,7 +175,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/sort/users', 'UsersController@sortUsers');
     Route::post('/sort/uni', 'UsersController@sortUni');
     Route::post('/sort/majors', 'MajorsController@sortMajors');
-    Route::post('/sort/categories', 'CategoriesController@sortMajors');
+    Route::post('/sort/categories', 'CategoriesController@sortCategories');
 
 
     Route::post('/sort/activities', 'ActivitiesController@sortActivities');
@@ -174,3 +208,6 @@ Route::get('/redirect_link', [
 Route::post('/reset_password', [
     'uses' => 'ForgotPasswordController@resetPassword',
 ]);
+
+
+Route::post('/add/sub/category', 'SubCategoriesController@addSubCategory');

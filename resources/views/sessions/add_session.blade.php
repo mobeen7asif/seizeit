@@ -102,7 +102,7 @@
                 </label>
                 <input type="hidden" name="speakers_string" id="multiple_value"  />
                 <div class="btnCol">
-                    <input type="submit" name="signIn"  value="Submit">
+                    <input class="btn btn-primary" type="submit" name="signIn"  value="Submit">
                 </div>
             </form>
         </div>

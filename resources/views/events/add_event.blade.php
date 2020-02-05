@@ -7,7 +7,7 @@
     <div class="content lifeContent">
         <div class="heading-sponser">
             <h2>Add Event</h2>
-            <a class="back" href="{{url('/')}}/events">Back</a>
+            <a class="btn btn btn-primary" href="{{url('/')}}/events">Back</a>
         </div>
         <div class="userForm">
             @if(\Session::has('success'))
@@ -40,7 +40,7 @@
                     @endif
                 </label>
                 <div class="btnCol">
-                    <input type="submit" name="signIn"  value="Submit">
+                    <input class="btn btn-primary" type="submit" name="signIn"  value="Submit">
                 </div>
             </form>
         </div>

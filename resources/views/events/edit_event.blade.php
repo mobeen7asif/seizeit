@@ -7,7 +7,7 @@
     <div class="content lifeContent">
         <div class="heading-sponser">
         <h2>Update Event</h2>
-            <a class="back" href="{{url('/')}}/events">Back</a>
+            <a class="btn btn btn-primary" href="{{url('/')}}/events">Back</a>
     </div>
 
 
@@ -42,7 +42,7 @@
                     @endif
                 </label>
                 <div class="btnCol">
-                    <input type="submit" name="signIn"  value="Submit">
+                    <input class="btn btn-primary" type="submit" name="signIn"  value="Submit">
                 </div>
             </form>
         </div>
@@ -56,7 +56,7 @@
                     <th>Title</th>
                     <th>View Detail</th>
                     <th>Actions</th>
-                    <th>@if(!$sessions->isEmpty()) <input class="submit" id="bulk_button"  type="submit" value="Delete" > @endif</th>
+                    <th>@if(!$sessions->isEmpty()) <input class="btn btn-primary submit" id="bulk_button"  type="submit" value="Delete" > @endif</th>
 
                 </tr>
                 </thead>

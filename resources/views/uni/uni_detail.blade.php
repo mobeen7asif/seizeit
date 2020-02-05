@@ -12,8 +12,7 @@
             {{\Session::get('success')}}
         </h4>
     @endif
-        <a class="back" href="{{url('/')}}/uni">Back</a>
-
+        <a class="btn btn btn-primary back" href="{{url('/')}}/uni">Back</a>
     <div class="contentPd">
         {{--{{dd($recent_activities)}}--}}
         <h2 class="mainHEading">Uni Detail</h2>
