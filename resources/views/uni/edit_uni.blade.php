@@ -6,7 +6,7 @@
 <section class="content publicContent editEvent">
     <div class="content lifeContent">
         <div class="heading-Sponser">
-            <h2>Update Speaker</h2>
+            <h2>Update Uni</h2>
             <a class="btn btn btn-primary back" href="{{url('/')}}/uni">Back</a>
         </div>
         <div class="userForm">
@@ -76,7 +76,7 @@
                     @endif
                 </label>--}}
                 <label class="fullField">
-                    <span>Speaker Detail</span>
+                    <span>Uni Detail</span>
                     <textarea name="uni_detail" class="wh-speaker">{!! $uni->uni_detail !!}</textarea>
                     @if ($errors->has('uni_detail'))
                         <div class="alert alert-danger">

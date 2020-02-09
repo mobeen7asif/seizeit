@@ -78,7 +78,7 @@
                     <select  class="links" name="links" onchange="selectLink(this)">
                         <option value="0">Select Link</option>
                         @foreach($links as $link)
-                            <option value="{{$link->id}}">{{$link->link}}</option>
+                            <option value="{{$link->id}}">{{$link->name}}</option>
                         @endforeach
                     </select>
                     @if ($errors->has('categories'))

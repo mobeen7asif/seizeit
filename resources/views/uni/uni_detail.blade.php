@@ -23,7 +23,7 @@
         {{--<span><b>Designation</b></span>
         <P>{{$uni->designation}}</P>
         <br>--}}
-        <span><b>Description</b></span>
+        <span><b>Detail</b></span>
         <P>{!! $uni->uni_detail !!}</P>
         <br>
         {{--<span><b>Image</b></span>

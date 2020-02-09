@@ -39,6 +39,7 @@ if (isset($arr) && is_array($arr) ) {
         $cCity = $company['preFetchedData']['organization']['contactInfo'][0]['city']." ";
         $cCountry = $company['preFetchedData']['organization']['contactInfo'][0]['country']." ";
         $cData['ContactAddress'] = $cStreet1.$cStreet2.$cCity.$cState.$cCountry;
+        $cData['Date'] = '';
         $siteData[] = $cData;
     }
     echo json_encode($siteData);

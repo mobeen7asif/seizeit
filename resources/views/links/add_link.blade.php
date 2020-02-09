@@ -20,6 +20,17 @@
             <form action="{{url('/')}}/add/link" method="post" enctype="multipart/form-data">
                 {{csrf_field()}}
                 <label class="fullField">
+                    <span>Name</span>
+                    <input type="text" name="name" value="{{old('name')}}">
+                    @if ($errors->has('name'))
+                        <div class="alert alert-danger">
+                            @foreach ($errors->get('name') as $message)
+                                {{ $message }}<br>
+                            @endforeach
+                        </div>
+                    @endif
+                </label>
+                <label class="fullField">
                     <span>Link</span>
                     <input type="text" name="link" value="{{old('link')}}">
                     @if ($errors->has('link'))

@@ -41,6 +41,10 @@
                         </div>
                     @endif
                 </label>
+                <label class="fullField">
+                    <span>Image</span>
+                    <input type=file name="image" value="" accept="image/x-png,image/gif,image/jpeg">
+                </label>
                 <div class="btnCol">
                     <input class="btn btn-primary" type="submit" name="signIn"  value="Submit">
                 </div>

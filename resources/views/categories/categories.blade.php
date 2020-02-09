@@ -29,19 +29,19 @@
         <table id="tableStyle" class="display" cellspacing="0" width="100%">
             <thead>
             <tr>
+                <th>Image</th>
                 <th>Name</th>
-                <th>URL</th>
                 <th>Detail</th>
                 <th>Actions</th>
-                <th>@if(!$categories->isEmpty()) <input class="submit" id="bulk_button"  type="submit" value="Delete"> @endif</th>
+                <th>@if(!$categories->isEmpty()) <input class="submit btn btn-danger" id="bulk_button"  type="submit" value="Delete"> @endif</th>
             </tr>
             </thead>
             <tbody id="sortable">
             @if(isset($categories))
                 @foreach($categories as $category)
                     <tr id="{{$category->id}}">
+                        <td><img style="height: 25%; width: 25%" src="{{isset($category->image) ? url('/').$category->image : url('/images/no_image.jpg')}}"/></td>
                         <td>{{$category->name}}</td>
-                        <td>{{$category->url}}</td>
                         <td><a href={{url('/')}}/category/detail/{{$category->id}}>View</a></td>
                         <td>
                             <a href={{url('/')}}/update/category/{{$category->id}}><i class="fa fa-edit fa-fw"></i></a>
@@ -81,7 +81,7 @@
             </tbody>
         </table>
         </form>
-{{--        @if(!$categories->isEmpty()) <p><label><input type="checkbox" id="checkAll"/> Check all</label></p> @endif--}}
+        @if(!$categories->isEmpty()) <p><label><input type="checkbox" id="checkAll"/> Check all</label></p> @endif
     </div>
 </section>
 <?php include resource_path('views/includes/footer.php'); ?>

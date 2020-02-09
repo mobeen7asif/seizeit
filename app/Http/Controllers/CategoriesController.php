@@ -71,6 +71,7 @@ class CategoriesController extends BaseController
     public function addLink(Request $request){
         $this->validate($request, array(
             'link' => 'required',
+            'name' => 'required'
         ));
         Link::create($request->all());
         return redirect()->back()->with('success','Link Added Successfully');
@@ -106,8 +107,9 @@ class CategoriesController extends BaseController
     public function updateLink(Request $request,$id){
         $this->validate($request, array(
             'link' => 'required',
+            'name' => 'required'
         ));
-        Link::where('id',$id)->update(['link' => $request->link]);
+        Link::where('id',$id)->update(['link' => $request->link,'name' => $request->name]);
         return redirect()->back()->with('success','Link Updated Successfully');
     }
 
@@ -134,6 +136,13 @@ class CategoriesController extends BaseController
         $this->categoryRepo->deleteRecords($request->input('delete_ids'));
         return redirect()->back()->with('success','Categorys deleted');
     }
+    public function deleteLinks(Request $request){
+        $this->validate(request(),[
+            'delete_ids' => 'required',],['delete_ids.required' => 'Select Record to Delete']);
+        Link::whereIn('id', $request->input('delete_ids'))->delete();
+        return redirect()->back()->with('success','Links deleted');
+    }
+
     public function sortCategories(Request $request){
         $categories = DB::table('categories')->orderBy('sort_id','ASC')->get();
         $item_id = $request->input('itemId');

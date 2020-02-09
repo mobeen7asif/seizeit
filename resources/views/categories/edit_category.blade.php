@@ -7,7 +7,7 @@
     <div class="content lifeContent">
         <div class="heading-sponser">
         <h2>Edit Category</h2>
-            <a class="btn btn btn-primary back" href="{{url('/')}}/categorys">Back</a>
+            <a class="btn btn btn-primary back" href="{{url('/')}}/categories">Back</a>
     </div>
         <div class="userForm">
             @if(\Session::has('success'))
@@ -40,6 +40,18 @@
                     @endif
 
                 </label>
+                <label class="fullField">
+                    <span>Image</span>
+                    <input type=file name="image" value="" accept="image/x-png,image/gif,image/jpeg">
+                </label>
+                <div class="imgCol">
+                    @if($category->image != '')
+                        <button type="button" class="del-img-btn" data-id="{{$category->id}}" data-col="image" data-table="categories">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                        <figure class="car"><img src="{{url('/').$category->image}}" style="width: 100px;"></figure>
+                    @endif
+                </div>
 
                 <div class="btnCol">
                     <input class="btn btn-primary" type="submit" name="signIn"  value="Submit">

@@ -30,10 +30,9 @@
             <thead>
             <tr>
                 <th>Name</th>
-                <th>Description</th>
                 <th>Detail</th>
                 <th>Actions</th>
-                <th>@if(!$majors->isEmpty()) <input class="btn btn-primary submit" id="bulk_button"  type="submit" value="Delete" > @endif</th>
+                <th>@if(!$majors->isEmpty()) <input class="btn btn-danger submit" id="bulk_button"  type="submit" value="Delete" > @endif</th>
             </tr>
             </thead>
             <tbody id="sortable">
@@ -41,7 +40,6 @@
                 @foreach($majors as $major)
                     <tr id="{{$major->id}}">
                         <td>{{$major['name']}}</td>
-                        <td>{!! str_limit($major->description) !!}</td>
                         <td><a href={{url('/')}}/major/detail/{{$major->id}}>View</a></td>
                         <td>
                             <a href={{url('/')}}/update/major/{{$major->id}}><i class="fa fa-edit fa-fw"></i></a>

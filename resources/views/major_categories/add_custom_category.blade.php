@@ -25,16 +25,16 @@
             <form action="{{url('/')}}/add/custom/category" method="post" enctype="multipart/form-data">
                 {{csrf_field()}}
                 <label class="fullField">
-                    <span>Select Uni</span>
-                    <select class="unis" name="uni_id">
-                        <option value="0">Select Uni</option>
+                    <span class="required">Select Uni</span>
+                    <select class="unis" name="uni_id[]" multiple required>
                         @foreach($unis as $uni)
                             <option value="{{$uni->id}}">{{$uni->name}}</option>
                         @endforeach
+
                     </select>
-                    @if ($errors->has('unis'))
+                    @if ($errors->has('uni_id'))
                         <div class="alert alert-danger">
-                            @foreach ($errors->get('unis') as $message)
+                            @foreach ($errors->get('uni_id') as $message)
                                 {{ $message }}<br>
                             @endforeach
                         </div>
@@ -43,24 +43,24 @@
 
                 <label class="fullField">
                     <span>Select Major</span>
-                    <select class="majors" name="major_id">
-                        <option value="0">Select Major</option>
+                    <select class="majors" name="major_id[]" multiple>
                         @foreach($majors as $major)
-                            <option value="{{$major->id}}">{{$major->name}}</option>
+                            <option @if(request()->route()->parameter('major_id') == $major->id) selected @endif value="{{$major->id}}">{{$major->name}}</option>
                         @endforeach
+
                     </select>
-                    @if ($errors->has('majors'))
+                    @if ($errors->has('major_id'))
                         <div class="alert alert-danger">
-                            @foreach ($errors->get('majors') as $message)
+                            @foreach ($errors->get('major_id') as $message)
                                 {{ $message }}<br>
                             @endforeach
                         </div>
                     @endif
                 </label>
+
                 <label class="fullField">
-                    <span>Select Category</span>
-                    <select  class="categories" name="category_id">
-                        <option value="0">Select Category</option>
+                    <span class="required">Select Category</span>
+                    <select id="major_categories" class="categories" multiple required name="category_id[]">
                         @foreach($categories as $category)
                             <option value="{{$category->id}}">{{$category->name}}</option>
                         @endforeach

@@ -46,7 +46,6 @@ class SubCategoriesController extends BaseController
     }
 
     public function getSubCategories(Request $request){
-
         $sub_categories = SubCategory::with('uni','major','category');
         if($request->has('unis') and $request->unis) {
             $sub_categories->where('uni_id',$request->unis);
@@ -62,6 +61,7 @@ class SubCategoriesController extends BaseController
         $majors = Major::all();
         $categories = Category::all();
 
+
         return view('major_categories.sub_categories',['title' => 'sub_categories',
             'data' => $sub_categories,
             'unis' => $unis,
@@ -72,10 +72,15 @@ class SubCategoriesController extends BaseController
 
     public function updateSubCategoryView($sub_id) {
         $sub_category = SubCategory::find($sub_id);
+        $unis = Uni::all();
+        $majors = Major::all();
+        $categories = Category::all();
         if($sub_category) {
             return view('major_categories.edit_sub_category',['title' => 'sub_categories',
-                'category' => $sub_category,'majors' => Major::all(),
-                'unis' => Uni::all()
+                'sub_category' => $sub_category,
+                'unis' => $unis,
+                'majors' => $majors,
+                'categories' => $categories,
             ]);
         }
         else {
@@ -85,14 +90,14 @@ class SubCategoriesController extends BaseController
     public function updateSubCategory(Request $request) {
         $this->validate($request,[
                 'title' => 'required',
-                'link' => 'required',
-                'email' => 'required',
-                'address' => 'required',
                 'category_id' => 'required',
                 'uni_id' => 'required'
             ]
         );
-        $requestData = $request->all();
+        $insertData = $requestData = $request->all();
+        if(!$request->has('major_id')) {
+            $requestData['major_id'] = [0];
+        }
         unset($requestData['signIn']);
         unset($requestData['_token']);
         SubCategory::where('id',$requestData['id'])->update($requestData);
@@ -130,10 +135,6 @@ class SubCategoriesController extends BaseController
     public function addCustomCategory(Request $request) {
         $this->validate($request,[
                 'title' => 'required',
-                'link' => 'required',
-                'email' => 'required',
-                'address' => 'required',
-                'major_id' => 'required',
                 'category_id' => 'required',
                 'uni_id' => 'required',
             ]
@@ -144,27 +145,37 @@ class SubCategoriesController extends BaseController
 //            dd($v);
 //        }
 
-        $requestData = $request->all();
-        $major = Major::find($request->input('major_id'));
-        $requestData['uni_id'] = $request->input('uni_id');
-        $requestData['created_at'] = date('Y-m-d H:i:s');
-        $requestData['updated_at'] = date('Y-m-d H:i:s');
+        $insertData = $requestData = $request->all();
+        if(!$request->has('major_id')) {
+            $requestData['major_id'] = [0];
+        }
         unset($requestData['signIn']);
         unset($requestData['_token']);
-        SubCategory::create($requestData);
+        foreach($requestData['uni_id'] as $uni_id) {
+            foreach ($requestData['major_id'] as $major_id) {
+                foreach ($requestData['category_id'] as $category_id) {
+                    $insertData['uni_id'] = $uni_id;
+                    $insertData['category_id'] = $category_id;
+                    $insertData['major_id'] = $major_id;
+                    $insertData['time'] = '';
+                    SubCategory::create($insertData);
+                }
+            }
+        }
+
         return redirect()->back()->with('success','Sub Category Added');
     }
 
 
     public function addSubCategoryVew($major_id = 0) {
-/*
-        $majors = Major::all();
-        if($major_id == 0) {
-            $cat_ids = MajorCategory::where('major_id',$majors[0]->id)->pluck('category_id')->toArray();
-        } else {
-            $cat_ids = MajorCategory::where('major_id',$major_id)->pluck('category_id')->toArray();
-        }
-        $categories = Category::whereIn('id',$cat_ids)->get();*/
+        /*
+                $majors = Major::all();
+                if($major_id == 0) {
+                    $cat_ids = MajorCategory::where('major_id',$majors[0]->id)->pluck('category_id')->toArray();
+                } else {
+                    $cat_ids = MajorCategory::where('major_id',$major_id)->pluck('category_id')->toArray();
+                }
+                $categories = Category::whereIn('id',$cat_ids)->get();*/
 
         $unis = Uni::all();
         $majors = Major::all();
@@ -175,7 +186,7 @@ class SubCategoriesController extends BaseController
             'majors' => $majors,
             'categories' => $categories,
             'links' => Link::all()
-            ]);
+        ]);
     }
 
 
@@ -184,10 +195,10 @@ class SubCategoriesController extends BaseController
         try
         {
 
-           /* $process = new Process('import:data');
-            $process->start();
-            dd($process->getStatus());
-            dd('hereerere');*/
+            /* $process = new Process('import:data');
+             $process->start();
+             dd($process->getStatus());
+             dd('hereerere');*/
             //SubCategory::truncate();
             set_time_limit(0);
             $link = "";
@@ -220,8 +231,10 @@ class SubCategoriesController extends BaseController
                     return ['status' => false,'message' => 'Invalid URL'];
                 }
                 $url = $link->link;
+
             }
             $skip = 0;
+
             foreach($requestData['uni_id'] as $uni_id) {
                 foreach ($requestData['major_id'] as $major_id) {
                     foreach ($requestData['category_id'] as $category_id) {
@@ -231,45 +244,46 @@ class SubCategoriesController extends BaseController
                             'skip' => $skip
                         ]]);
                         $response = json_decode($response->getBody()->getContents());
-                        dd($response);
+
+
                         if(isset($response)) {
                             //while(count($response ) > 0) {
-                                $sub_arr = [];
-                              foreach ($response as $sub_category) {
-                                  $temp = [
-                                      'link' => $sub_category->Link ?? "",
-                                      'title' => property_exists($sub_category,'Title') ? $sub_category->Title : $sub_category->Name,
-                                      'description' => $sub_category->Description ?? "",
-                                      'summary' => $sub_category->Summary ?? "",
-                                      'email' => $sub_category->Email ?? "",
-                                      'address' => property_exists($sub_category,'ContactAddress') ? $sub_category->ContactAddress : $sub_category->Location,
-                                      'time' => property_exists($sub_category,'Time') ? $sub_category->Time : $sub_category->Date,
-                                      'category_id' => $category_id,
-                                      'major_id' => $major_id,
-                                      'uni_id' => $uni_id,
-                                      'created_at' => date('Y-m-d H:i:s'),
-                                      'updated_at' => date('Y-m-d H:i:s')
-                                  ];
-                                  SubCategory::where([
-                                      'uni_id' => $uni_id,'major_id' => $major_id,'category_id' => $category_id
-                                  ])->delete();
-                                  $sub_arr[] = $temp;
-                              }
-                              try{
-                                  SubCategory::insert($sub_arr);
-                              }
-                              catch (\Exception $e){
-                                  Log::info('subcategory error',['data_input' => $sub_arr]);
-                              }
-/*
+                            $sub_arr = [];
+                            foreach ($response as $sub_category) {
+                                $temp = [
+                                    'link' => $sub_category->Link ?? "",
+                                    'title' => property_exists($sub_category,'Title') ? $sub_category->Title : $sub_category->Name,
+                                    'description' => $sub_category->Description ?? "",
+                                    'summary' => $sub_category->Summary ?? "",
+                                    'email' => $sub_category->Email ?? "",
+                                    'address' => property_exists($sub_category,'ContactAddress') ? $sub_category->ContactAddress : $sub_category->Location,
+                                    'time' => property_exists($sub_category,'Time') ? $sub_category->Time : $sub_category->Date,
+                                    'category_id' => $category_id,
+                                    'major_id' => $major_id,
+                                    'uni_id' => $uni_id,
+                                    'created_at' => date('Y-m-d H:i:s'),
+                                    'updated_at' => date('Y-m-d H:i:s')
+                                ];
+                                SubCategory::where([
+                                    'uni_id' => $uni_id,'major_id' => $major_id,'category_id' => $category_id
+                                ])->delete();
+                                $sub_arr[] = $temp;
+                            }
+                            try{
+                                SubCategory::insert($sub_arr);
+                            }
+                            catch (\Exception $e){
+                                Log::info('subcategory error',['data_input' => $sub_arr]);
+                            }
+                            /*
 
-                              $skip = $skip + 5;
-                                $response = $client->request('GET', $endpoint, ['query' => [
-                                    'size' => $size,
-                                    'url' => $url,
-                                    'skip' => $skip
-                                ]]);
-                                $response = json_decode($response->getBody()->getContents());*/
+                                                          $skip = $skip + 5;
+                                                            $response = $client->request('GET', $endpoint, ['query' => [
+                                                                'size' => $size,
+                                                                'url' => $url,
+                                                                'skip' => $skip
+                                                            ]]);
+                                                            $response = json_decode($response->getBody()->getContents());*/
                             //}
                         }
                         /*else{
@@ -396,7 +410,7 @@ class SubCategoriesController extends BaseController
         return redirect()->back()->with('success','Category Deleted');
     }
     public function categoryDetail($id){
-    return view('categories.category_detail',['title' => 'categories','category' => $this->categoryRepo->findById($id)]);
+        return view('categories.category_detail',['title' => 'categories','category' => $this->categoryRepo->findById($id)]);
     }
     public function subCategories($id) {
         set_time_limit(0);
@@ -419,7 +433,7 @@ class SubCategoriesController extends BaseController
         $this->validate(request(),[
             'delete_ids' => 'required',],['delete_ids.required' => 'Select Record to Delete']);
         $this->categoryRepo->deleteRecords($request->input('delete_ids'));
-        return redirect()->back()->with('success','Categorys deleted');
+        return redirect()->back()->with('success','Categories deleted');
     }
     public function sortCategories(Request $request){
         $categories = DB::table('categories')->orderBy('sort_id','ASC')->get();

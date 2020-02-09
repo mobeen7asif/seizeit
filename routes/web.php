@@ -124,6 +124,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/update/link/{id}', 'CategoriesController@editLinkForm');
     Route::post('/update/link/{id}', 'CategoriesController@updateLink');
     Route::get('/delete/link/{id}', 'CategoriesController@deleteLink');
+    Route::post('/link/bulk/delete', 'CategoriesController@deleteLinks');
 
 
 

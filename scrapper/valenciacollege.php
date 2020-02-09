@@ -1,8 +1,7 @@
 <?php
 require_once __DIR__."/curl.php";
 require_once __DIR__."/functions.php";
-$url = $_GET['url'];
-//$url = "https://valenciacollege.edu/academics/programs/";
+$url = "https://valenciacollege.edu/academics/programs/";
 $curl = new curl;
 $name = $curl->get($url);
 @$doc = new DOMDocument();
@@ -39,41 +38,42 @@ foreach ($mainPageLinks as $SubPageLink) {
 
 /* Data Fetch Details */
 $sublinkings = array_unique($cellData);
-$pageContent = [];
+$pageContent = null;
 foreach($sublinkings as $Sub) {
-$tag = null;
-$curl = new curl;
-$name = $curl->get($Sub);
-@$doc = new DOMDocument();
-@$doc->loadHTML($name);
-$xpath = new DomXPath($doc);
-$h1 = $xpath->query("(//*[@class='tab_content'])[last()]/h1[1]");
-$p = $xpath->query("(//*[@class='tab_content'])[last()]/p[1]");
-$tag['Link'] = $Sub;
-$tag['date'] = null;
-    foreach ($h1 as $element) {
-        $tag['Title'] = $element->nodeValue;
-    }
-
-    foreach ($p as $element) {
-        $tag['Description'] = $element->nodeValue;
-    }
-    if ( !empty($tag['description'])) {
-        $pageContent[] = $tag;
-    }
-
+    $tag = null;
+    $curl = new curl;
+    $name = $curl->get($Sub);
+    @$doc = new DOMDocument();
+    @$doc->loadHTML($name);
+    $xpath = new DomXPath($doc);
+    $h1 = $xpath->query("(//*[@class='tab_content'])[last()]/h1[1]");
+    $p = $xpath->query("(//*[@class='tab_content'])[last()]/p[1]");
+    $tag['Link'] = $Sub;
+    $tag['date'] = null;
     $tag['Time'] = '';
     $tag['ContactAddress'] = '';
 
     $tag['Summary'] = "";
     $tag['Email'] = "";
+    
+    foreach ($h1 as $element) {
+        $tag['Name'] = $element->nodeValue;
+    }
 
+    foreach ($p as $element) {
+        $tag['Description'] = $element->nodeValue;
+    }
+ 
+    if ( !empty($tag['Description'])) {
+        $pageContent[] = $tag;
+    }
 
 }
 
-echo json_encode($pageContent);
-exit;
+;
 
+print_r(json_encode($pageContent));
+exit;
 
 /* Data Fetch Details Ends */
 echo "<pre>";
@@ -88,7 +88,7 @@ $output = fopen($filename, 'w');
 $header = array_keys($pageContent[0]);
 fputcsv($output, $header);
 foreach($pageContent as $row) {
- fputcsv($output, $row);
+    fputcsv($output, $row);
 }
 fclose($output);
 echo "<a href='{$filename}'>{$filename}</a>";

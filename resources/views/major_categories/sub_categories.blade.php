@@ -36,21 +36,21 @@
                 <select class="unis" name="unis">
                     <option value="0">Select Uni</option>
                     @foreach($unis as $uni)
-                        <option value="{{$uni->id}}">{{$uni->name}}</option>
+                        <option @if(isset($_GET['unis']) and $_GET['unis'] == $uni->id) selected @endif value="{{$uni->id}}">{{$uni->name}}</option>
                     @endforeach
                 </select>
 
                 <select class="majors" name="majors">
                     <option value="0">Select Major</option>
                     @foreach($majors as $major)
-                        <option @if(request()->route()->parameter('major_id') == $major->id) selected @endif value="{{$major->id}}">{{$major->name}}</option>
+                        <option @if(isset($_GET['majors']) and $_GET['majors'] == $major->id) selected @endif value="{{$major->id}}">{{$major->name}}</option>
                     @endforeach
 
                 </select>
                 <select id="major_categories" class="categories" name="categories">
                     <option value="0">Select Category</option>
                     @foreach($categories as $category)
-                        <option value="{{$category->id}}">{{$category->name}}</option>
+                        <option @if(isset($_GET['categories']) and $_GET['categories'] == $category->id) selected @endif value="{{$category->id}}">{{$category->name}}</option>
                     @endforeach
                 </select>
                 <input class="btn btn-primary" style="padding: 4px 12px;" type="submit" value="SEARCH">
@@ -68,9 +68,9 @@
                 <th>Major</th>
                 <th>Category</th>
                 <th>Title</th>
-                <th>Detail</th>
+                <th>Description</th>
                 <th>Actions</th>
-                <th>@if(!$data->isEmpty()) <input class="submit" id="bulk_button"  type="submit" value="Delete"> @endif</th>
+                <th>@if(!$data->isEmpty()) <input class="btn btn-danger submit" id="bulk_button"  type="submit" value="Delete"> @endif</th>
             </tr>
             </thead>
             <tbody>
@@ -78,10 +78,10 @@
                 @foreach($data as $dat)
                     <tr id="{{$dat->id}}">
                         <td>{{$dat->uni->name}}</td>
-                        <td>{{$dat->major->name}}</td>
+                        <td>{{isset($dat->major) ? $dat->major->name : ''}}</td>
                         <td>{{$dat->category->name}}</td>
                         <td>{{$dat->title}}</td>
-                        <td style="cursor: pointer"><a data-toggle="modal" data-target="#model-{{$dat->id}}">Detail</a></td>
+                        <td style="cursor: pointer"><a data-toggle="modal" data-target="#model-{{$dat->id}}">View</a></td>
                         {{--<td>{{\Illuminate\Support\Str::limit($dat->email,10)}}</td>
                         <td>{{\Illuminate\Support\Str::limit($dat->link,10)}}</td>--}}
 
@@ -106,7 +106,7 @@
                                             <P>{{$dat->uni->name}}</P>
                                             <br>
                                     <span><b>Major</b></span>
-                                    <P>{{$dat->major->name}}</P>
+                                    <P>{{isset($dat->major) ? $dat->major->name : ''}}</P>
                                     <br>
                                     <span><b>Category</b></span>
                                     <P>{{$dat->category->name}}</P>
@@ -149,9 +149,11 @@
             </tbody>
         </table>
         </form>
+        @if(!$data->isEmpty()) <p style="margin-top: 10px"><label><input type="checkbox" id="checkAll"/> Check all</label></p> @endif
         {{ $data->appends($_GET)->links() }}
-       {{-- @if(!$categories->isEmpty()) <p><label><input type="checkbox" id="checkAll"/> Check all</label></p> @endif--}}
-    </div>
+
+
+
 </section>
 <?php include resource_path('views/includes/footer.php'); ?>
 

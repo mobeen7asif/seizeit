@@ -18,6 +18,17 @@
             <form action="{{url('/')}}/update/link/{{$link->id}}" method="post" enctype="multipart/form-data">
                 {{csrf_field()}}
                 <label class="fullField">
+                    <span>Name</span>
+                    <input type="text" name="name" value="{{$link->name}}">
+                    @if ($errors->has('name'))
+                        <div class="alert alert-danger">
+                            @foreach ($errors->get('name') as $message)
+                                {{ $message }}<br>
+                            @endforeach
+                        </div>
+                    @endif
+                </label>
+                <label class="fullField">
                     <span>LINK</span>
                     <input type="text" name="link" value="{{$link->link}}">
                     @if ($errors->has('link'))

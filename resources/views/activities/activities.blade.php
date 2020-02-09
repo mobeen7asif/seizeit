@@ -31,7 +31,7 @@
             <tr>
                 <th>Name</th>
                 <th>Description</th>
-                <th>Detail</th>
+                <th>Description</th>
                 <th>Actions</th>
                 <th>@if(!$activities->isEmpty()) <input class="btn btn-primary submit" id="bulk_button"  type="submit" value="Delete" > @endif</th>
             </tr>

@@ -30,8 +30,10 @@
             <thead>
             <tr>
                 <th>ID</th>
+                <th>NAME</th>
                 <th>LINK</th>
                 <th>Actions</th>
+                <th>@if(!$links->isEmpty()) <input class="submit btn btn-danger" id="bulk_button"  type="submit" value="Delete"> @endif</th>
             </tr>
             </thead>
             <tbody>
@@ -39,18 +41,20 @@
                 @foreach($links as $link)
                     <tr id="{{$link->id}}">
                         <td>{{$link->id}}</td>
-                        <td>{{\Illuminate\Support\Str::limit($link->link,100)}}</td>
+                        <td>{{$link->name}}</td>
+                        <td>{{\Illuminate\Support\Str::limit($link->link,60)}}</td>
                         <td>
                             <a href={{url('/')}}/update/link/{{$link->id}}><i class="fa fa-edit fa-fw"></i></a>
                             <a href={{url('/')}}/delete/link/{{$link->id}}><i class="fa fa-trash fa-fw "></i></a>
                         </td>
+                        <td><input class="delete_check" type="checkbox" value="{{$link->id}}" name="delete_ids[]"></td>
                     </tr>
                 @endforeach
             @endif
             </tbody>
         </table>
         </form>
-{{--        @if(!$Links->isEmpty()) <p><label><input type="checkbox" id="checkAll"/> Check all</label></p> @endif--}}
+        @if(!$links->isEmpty()) <p><label><input type="checkbox" id="checkAll"/> Check all</label></p> @endif
     </div>
 </section>
 <?php include resource_path('views/includes/footer.php'); ?>

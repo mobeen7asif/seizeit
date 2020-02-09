@@ -31,7 +31,7 @@
             <tr>
                 <th>Name</th>
                 <th>Designation</th>
-                <th>Detail</th>
+                <th>Description</th>
                 <th>Actions</th>
                 <th>@if(!$speakers->isEmpty()) <input class="submit"  type="submit" value="Delete" id="bulk_btn" > @endif</th>
             </tr>
@@ -53,7 +53,7 @@
             @endif
             </tbody>
         </table>
-            
+
         </form>
     </div>
 </section>
@@ -79,8 +79,8 @@
             bSort: false
         });
     });
-        
-        
+
+
 </script>
 
 </body>

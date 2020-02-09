@@ -6,9 +6,9 @@
 <section class="content publicContent editEvent">
     <div class="content lifeContent">
         <div class="heading-sponser">
-        <h2>Edit Sub Category</h2>
+            <h2>Edit Sub Category</h2>
             <a class="btn btn btn-primary back" href="{{url('/')}}/sub/categories">Back</a>
-    </div>
+        </div>
         <div class="userForm">
             @if(\Session::has('success'))
                 <h4 class="alert alert-success fade in">
@@ -21,12 +21,12 @@
 
 
                 <label class="fullField">
-                    <span>Select Uni</span>
-                    <select class="majors" name="uni_id" >
-                        <option value="0">Select Uni</option>
+                    <span class="required">Select Uni</span>
+                    <select class="unis" name="uni_id" required>
                         @foreach($unis as $uni)
-                            <option @if($uni->id == $category->uni_id) selected @endif value="{{$uni->id}}">{{$uni->name}}</option>
+                            <option @if($sub_category->uni_id == $uni->id) selected @endif value="{{$uni->id}}">{{$uni->name}}</option>
                         @endforeach
+
                     </select>
                     @if ($errors->has('uni_id'))
                         <div class="alert alert-danger">
@@ -39,23 +39,26 @@
 
                 <label class="fullField">
                     <span>Select Major</span>
-                    <select class="majors" name="major_id" onchange="selectMajor(this)">
-                        <option value="0">Select Major</option>
+                    <select class="majors" name="major_id">
                         @foreach($majors as $major)
-                            <option @if($category->major_id == $major->id) selected @endif value="{{$major->id}}">{{$major->name}}</option>
+                            <option @if($sub_category->major_id == $major->id) selected @endif value="{{$major->id}}">{{$major->name}}</option>
                         @endforeach
+
                     </select>
-                    @if ($errors->has('majors'))
+                    @if ($errors->has('major_id'))
                         <div class="alert alert-danger">
-                            @foreach ($errors->get('majors') as $message)
+                            @foreach ($errors->get('major_id') as $message)
                                 {{ $message }}<br>
                             @endforeach
                         </div>
                     @endif
                 </label>
                 <label class="fullField">
-                    <span>Select Category</span>
-                    <select id="major_categories" class="categories" name="category_id" onchange="selectCategory(this)">
+                    <span class="required">Select Category</span>
+                    <select class="categories"  required name="category_id">
+                        @foreach($categories as $category)
+                            <option @if($sub_category->category_id == $category->id) selected @endif value="{{$category->id}}">{{$category->name}}</option>
+                        @endforeach
                     </select>
                     @if ($errors->has('category_id'))
                         <div class="alert alert-danger">
@@ -67,7 +70,7 @@
                 </label>
                 <label class="fullField">
                     <span>Title</span>
-                    <input type="text" name="title" value="{{$category->title}}">
+                    <input type="text" name="title" value="{{$sub_category->title}}">
                     @if ($errors->has('title'))
                         <div class="alert alert-danger">
                             @foreach ($errors->get('title') as $message)
@@ -78,7 +81,7 @@
                 </label>
                 <label class="fullField">
                     <span>Email</span>
-                    <input type="text" name="email" value="{{$category->email}}">
+                    <input type="text" name="email" value="{{$sub_category->email}}">
                     @if ($errors->has('email'))
                         <div class="alert alert-danger">
                             @foreach ($errors->get('email') as $message)
@@ -89,7 +92,7 @@
                 </label>
                 <label class="fullField">
                     <span>Address</span>
-                    <input type="text" name="address" value="{{$category->address}}">
+                    <input type="text" name="address" value="{{$sub_category->address}}">
                     @if ($errors->has('address'))
                         <div class="alert alert-danger">
                             @foreach ($errors->get('address') as $message)
@@ -100,7 +103,7 @@
                 </label>
                 <label class="fullField">
                     <span>Link</span>
-                    <textarea name="link">{{$category->link}}</textarea>
+                    <textarea name="link">{{$sub_category->link}}</textarea>
                     @if ($errors->has('link'))
                         <div class="alert alert-danger">
                             @foreach ($errors->get('link') as $message)
@@ -111,7 +114,7 @@
                 </label>
                 <label class="fullField">
                     <span>Description</span>
-                    <textarea name="description">{{$category->description}}</textarea>
+                    <textarea name="description">{{$sub_category->description}}</textarea>
                     @if ($errors->has('description'))
                         <div class="alert alert-danger">
                             @foreach ($errors->get('description') as $message)
@@ -122,7 +125,7 @@
                 </label>
                 <label class="fullField">
                     <span>Summary</span>
-                    <textarea name="summary">{{$category->summary}}</textarea>
+                    <textarea name="summary">{{$sub_category->summary}}</textarea>
                     @if ($errors->has('summary'))
                         <div class="alert alert-danger">
                             @foreach ($errors->get('summary') as $message)
@@ -146,6 +149,8 @@
 
     $(document).ready(function() {
         $('.categories').select2();
+        $('.unis').select2();
+
     });
 
     $(document).ready(function() {
@@ -157,13 +162,13 @@
             url: base_url + '/get-major-category',
             type : "GET",
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            data : {'major_id':"{{$category->major_id}}"},
+            data : {'major_id':"{{$sub_category->major_id}}"},
             success: function(data){
                 if(data.status)
                 {
                     for(var i = 0; i < data.categories.length; i++) {
                         var selected = '';
-                        if(data.categories[i]['id'] == "{{$category->category_id}}") {
+                        if(data.categories[i]['id'] == "{{$sub_category->category_id}}") {
                             selected = 'selected';
                         }
                         $('#major_categories').append(`<option "${selected}" value="${data.categories[i]['id']}">
@@ -209,3 +214,4 @@
         category_id = elm.value;
     }
 </script>
+
