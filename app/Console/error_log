@@ -1,0 +1,1 @@
+[28-Jan-2020 07:01:16 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Console\Kernel' not found in /home2/automat1/public_html/seizeit/app/Console/Kernel.php on line 8

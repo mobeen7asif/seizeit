@@ -1,0 +1,1 @@
+[28-Jan-2020 17:55:44 UTC] PHP Fatal error:  Class 'App\Libs\Auth\Auth' not found in /home2/automat1/public_html/seizeit/app/Libs/Auth/PAuth.php on line 14

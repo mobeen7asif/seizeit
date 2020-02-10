@@ -7,7 +7,7 @@
     <div class="content lifeContent">
         <div class="heading-sponser">
             <h2>Update User</h2>
-            <a class="btn btn btn-primary back" href="{{url('/')}}/admins">Back</a>
+            <a class="btn btn btn-primary back" href="{{url('/')}}/users">Back</a>
         </div>
         <div class="userForm">
             @if(\Session::has('success'))

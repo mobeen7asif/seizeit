@@ -1,0 +1,24 @@
+[28-Jan-2020 17:59:05 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home2/automat1/public_html/seizeit/resources/views/users/add_user.blade.php:2
+Stack trace:
+#0 {main}
+  thrown in /home2/automat1/public_html/seizeit/resources/views/users/add_user.blade.php on line 2
+[28-Jan-2020 17:59:07 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home2/automat1/public_html/seizeit/resources/views/users/edit_admin.blade.php:2
+Stack trace:
+#0 {main}
+  thrown in /home2/automat1/public_html/seizeit/resources/views/users/edit_admin.blade.php on line 2
+[28-Jan-2020 17:59:08 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home2/automat1/public_html/seizeit/resources/views/users/edit_user.blade.php:2
+Stack trace:
+#0 {main}
+  thrown in /home2/automat1/public_html/seizeit/resources/views/users/edit_user.blade.php on line 2
+[28-Jan-2020 17:59:10 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home2/automat1/public_html/seizeit/resources/views/users/user_password.blade.php:2
+Stack trace:
+#0 {main}
+  thrown in /home2/automat1/public_html/seizeit/resources/views/users/user_password.blade.php on line 2
+[28-Jan-2020 17:59:11 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home2/automat1/public_html/seizeit/resources/views/users/view_admins.blade.php:3
+Stack trace:
+#0 {main}
+  thrown in /home2/automat1/public_html/seizeit/resources/views/users/view_admins.blade.php on line 3
+[28-Jan-2020 17:59:13 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home2/automat1/public_html/seizeit/resources/views/users/view_users.blade.php:3
+Stack trace:
+#0 {main}
+  thrown in /home2/automat1/public_html/seizeit/resources/views/users/view_users.blade.php on line 3

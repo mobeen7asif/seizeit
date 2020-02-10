@@ -49,7 +49,7 @@
                 </label>--}}
 
                 <label class="fullField">
-                    <span>Detail</span>
+                    <span>Description</span>
                     <div class="inputs"><textarea name="description">{!! $major->description !!}</textarea></div>
                     @if ($errors->has('description'))
                         <div class="alert alert-danger">

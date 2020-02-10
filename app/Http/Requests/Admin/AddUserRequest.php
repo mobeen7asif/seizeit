@@ -31,7 +31,6 @@ class AddUserRequest extends FormRequest
             'phone' => $this->input('phone'),
             'user_pass' => $user_pass,
             'password_status' => 0,
-            'session_id' => uniqid(),
             'user_type' => 0,
             'sort_id' => $sort_id
         ];

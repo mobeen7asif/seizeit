@@ -1,0 +1,16 @@
+[28-Jan-2020 17:57:21 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home2/automat1/public_html/seizeit/resources/views/categories/add_category.blade.php:2
+Stack trace:
+#0 {main}
+  thrown in /home2/automat1/public_html/seizeit/resources/views/categories/add_category.blade.php on line 2
+[28-Jan-2020 17:57:23 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home2/automat1/public_html/seizeit/resources/views/categories/categories.blade.php:3
+Stack trace:
+#0 {main}
+  thrown in /home2/automat1/public_html/seizeit/resources/views/categories/categories.blade.php on line 3
+[28-Jan-2020 17:57:24 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home2/automat1/public_html/seizeit/resources/views/categories/category_detail.blade.php:3
+Stack trace:
+#0 {main}
+  thrown in /home2/automat1/public_html/seizeit/resources/views/categories/category_detail.blade.php on line 3
+[28-Jan-2020 17:57:26 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home2/automat1/public_html/seizeit/resources/views/categories/edit_category.blade.php:2
+Stack trace:
+#0 {main}
+  thrown in /home2/automat1/public_html/seizeit/resources/views/categories/edit_category.blade.php on line 2

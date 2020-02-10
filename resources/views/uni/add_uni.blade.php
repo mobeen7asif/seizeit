@@ -68,7 +68,7 @@
                     @endif
                 </label>--}}
                 <label class="fullField">
-                    <span>Uni Detail</span>
+                    <span>Description</span>
                     <textarea name="uni_detail" class="wh-speaker">{!! old('uni_detail') !!}</textarea>
                     @if ($errors->has('uni_detail'))
                         <div class="alert alert-danger">

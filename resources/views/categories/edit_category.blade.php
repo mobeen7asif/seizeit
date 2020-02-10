@@ -29,7 +29,7 @@
                     @endif
                 </label>
                 <label class="fullField">
-                    <span>Detail</span>
+                    <span>Description</span>
                     <div class="inputs"><textarea name="description">{!! $category->description !!}</textarea></div>
                     @if ($errors->has('description'))
                         <div class="alert alert-danger">

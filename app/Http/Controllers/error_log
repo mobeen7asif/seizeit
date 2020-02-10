@@ -1,0 +1,6 @@
+[28-Jan-2020 17:54:54 UTC] PHP Fatal error:  Class 'Illuminate\Routing\Controller' not found in /home2/automat1/public_html/seizeit/app/Http/Controllers/ApiController.php on line 47
+[28-Jan-2020 17:54:57 UTC] PHP Fatal error:  Class 'Illuminate\Routing\Controller' not found in /home2/automat1/public_html/seizeit/app/Http/Controllers/CategoriesController.php on line 27
+[28-Jan-2020 17:54:59 UTC] PHP Fatal error:  Class 'Illuminate\Routing\Controller' not found in /home2/automat1/public_html/seizeit/app/Http/Controllers/Controller.php on line 10
+[28-Jan-2020 17:55:00 UTC] PHP Fatal error:  Class 'Illuminate\Routing\Controller' not found in /home2/automat1/public_html/seizeit/app/Http/Controllers/MajorsController.php on line 33
+[28-Jan-2020 17:55:02 UTC] PHP Fatal error:  Class 'Illuminate\Routing\Controller' not found in /home2/automat1/public_html/seizeit/app/Http/Controllers/SubCategoriesController.php on line 33
+[28-Jan-2020 17:55:03 UTC] PHP Fatal error:  Class 'Illuminate\Routing\Controller' not found in /home2/automat1/public_html/seizeit/app/Http/Controllers/UsersController.php on line 39

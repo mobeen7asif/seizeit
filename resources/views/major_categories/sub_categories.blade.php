@@ -79,7 +79,7 @@
                     <tr id="{{$dat->id}}">
                         <td>{{$dat->uni->name}}</td>
                         <td>{{isset($dat->major) ? $dat->major->name : ''}}</td>
-                        <td>{{$dat->category->name}}</td>
+                        <td>{{isset($dat->category)? $dat->category->name: ''}}</td>
                         <td>{{$dat->title}}</td>
                         <td style="cursor: pointer"><a data-toggle="modal" data-target="#model-{{$dat->id}}">View</a></td>
                         {{--<td>{{\Illuminate\Support\Str::limit($dat->email,10)}}</td>

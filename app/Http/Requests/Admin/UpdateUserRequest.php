@@ -9,15 +9,19 @@ class UpdateUserRequest extends FormRequest
 {
     public function updateAttrs()
     {
+
+
         $storableAttrs = [
             'user_name' => $this->input('user_name'),
             'email' => $this->input('email'),
             'first_name' => $this->input('first_name'),
             'last_name' => $this->input('last_name'),
             'phone' => $this->input('phone'),
-            'password' => bcrypt($this->input('password')),
             'user_pass' => $this->input('password'),
         ];
+        if($this->has('password') and $this->input('password') != '') {
+            $storableAttrs['password'] = bcrypt($this->input('password'));
+        }
         return $storableAttrs;
     }
     /**
@@ -48,7 +52,6 @@ class UpdateUserRequest extends FormRequest
             'first_name'=>'required|max:190',
             'last_name'=>'required|max:190',
             'user_name'=>'required|max:190',
-            'password'=>'required|max:190',
             'email'=>'required|email|email|unique:users,email,'.$this->route()->parameter('user_id').'|max:255',
         ];
         return $rules;

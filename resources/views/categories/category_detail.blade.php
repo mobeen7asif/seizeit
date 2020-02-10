@@ -18,15 +18,14 @@
         {{--{{dd($recent_activities)}}--}}
         <h2 class="mainHEading">Category  Detail</h2>
         {{--{{dd($session)}}--}}
+         <div style="width: 15%; height: 15%">
+            <img  src="{{isset($category->image) ? url('/').$category->image : url('/images/no_image.jpg')}}"/>
+        </div> 
+        <br>
         <span><b>Name</b></span>
         <P>{{$category->name}}</P>
-        <br>
-        <div style="width: 15%; height: 15%">
-            <img  src="{{isset($category->image) ? url('/').$category->image : url('/images/no_image.jpg')}}"/>
-        </div>
-
-        <br>
-        <span><b>Detail</b></span>
+        <br> 
+        <span><b>Description</b></span>
         <p>{!! $category->description !!}</p>
     </div>
 </section>

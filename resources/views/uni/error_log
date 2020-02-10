@@ -1,0 +1,16 @@
+[28-Jan-2020 17:58:53 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home2/automat1/public_html/seizeit/resources/views/uni/add_uni.blade.php:2
+Stack trace:
+#0 {main}
+  thrown in /home2/automat1/public_html/seizeit/resources/views/uni/add_uni.blade.php on line 2
+[28-Jan-2020 17:58:54 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home2/automat1/public_html/seizeit/resources/views/uni/edit_uni.blade.php:2
+Stack trace:
+#0 {main}
+  thrown in /home2/automat1/public_html/seizeit/resources/views/uni/edit_uni.blade.php on line 2
+[28-Jan-2020 17:58:56 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home2/automat1/public_html/seizeit/resources/views/uni/uni.blade.php:3
+Stack trace:
+#0 {main}
+  thrown in /home2/automat1/public_html/seizeit/resources/views/uni/uni.blade.php on line 3
+[28-Jan-2020 17:58:58 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home2/automat1/public_html/seizeit/resources/views/uni/uni_detail.blade.php:3
+Stack trace:
+#0 {main}
+  thrown in /home2/automat1/public_html/seizeit/resources/views/uni/uni_detail.blade.php on line 3

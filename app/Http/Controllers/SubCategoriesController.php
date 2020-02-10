@@ -233,6 +233,8 @@ class SubCategoriesController extends BaseController
                 $url = $link->link;
 
             }
+
+
             $skip = 0;
 
             foreach($requestData['uni_id'] as $uni_id) {
@@ -244,11 +246,10 @@ class SubCategoriesController extends BaseController
                             'skip' => $skip
                         ]]);
                         $response = json_decode($response->getBody()->getContents());
-
-
                         if(isset($response)) {
                             //while(count($response ) > 0) {
                             $sub_arr = [];
+                            $temp = [];
                             foreach ($response as $sub_category) {
                                 $temp = [
                                     'link' => $sub_category->Link ?? "",
@@ -264,17 +265,27 @@ class SubCategoriesController extends BaseController
                                     'created_at' => date('Y-m-d H:i:s'),
                                     'updated_at' => date('Y-m-d H:i:s')
                                 ];
-                                SubCategory::where([
-                                    'uni_id' => $uni_id,'major_id' => $major_id,'category_id' => $category_id
-                                ])->delete();
-                                $sub_arr[] = $temp;
+                                // SubCategory::where([
+                                //     'uni_id' => $uni_id,'major_id' => $major_id,'category_id' => $category_id
+                                // ])->delete();
+                                //$sub_arr[] = $temp;
+
+                                SubCategory::updateOrCreate([
+                                    'link' => $sub_category->Link ?? "",
+                                    'title' => property_exists($sub_category,'Title') ? $sub_category->Title : $sub_category->Name,
+                                    'email' => $sub_category->Email ?? "",
+                                    'category_id' => $category_id,
+                                    'major_id' => $major_id,
+                                    'uni_id' => $uni_id,
+                                ],$temp);
                             }
-                            try{
-                                SubCategory::insert($sub_arr);
+                        /*    try{
+                                //SubCategory::insert($sub_arr);
+
                             }
                             catch (\Exception $e){
                                 Log::info('subcategory error',['data_input' => $sub_arr]);
-                            }
+                            }*/
                             /*
 
                                                           $skip = $skip + 5;
@@ -296,72 +307,11 @@ class SubCategoriesController extends BaseController
                 }
             }
             return ['status' => true,'message' => 'Data is added'];
-            /*$major = Major::find($request->input('major_id'));
-            $uni_id = UniMajor::where('major_id',$major->id)->first()->uni_id;
-            $category = Category::find($request->input('category_id'));
 
-            $url = url('/');
-            $url = trim($url,'public/');
-            $endpoint = "$url/scrapper/generate.php";
-            $client = new \GuzzleHttp\Client();
-            $size = 5;
-            $url = $category->url;
-            $skip = 0;
-            $skip = DB::table('record_status')->where(['category_id' => $request->input('category_id'),
-                'major_id' => $request->input('major_id')
-            ])->orderBy('id','DESC')->first();
-            if($skip) {
-                $skip = $skip->inserted;
-            }
-            $response = $client->request('GET', $endpoint, ['query' => [
-                'size' => $size,
-                'url' => $url,
-                'skip' => $skip
-            ]]);
-            $response = json_decode($response->getBody()->getContents());
-            if(isset($response)) {
-                if(count($response) > 0) {
-                    $sub_arr = [];
-                    foreach($response as $sub_category) {
-                        $temp = [
-                            'link' => $sub_category->Link,
-                            'title' => $sub_category->Title,
-                            'description' => $sub_category->Description,
-                            'summary' => $sub_category->Summary,
-                            'email' => $sub_category->Email,
-                            'address' => $sub_category->ContactAddress,
-                            'category_id' => $request->category_id,
-                            'major_id' => $request->major_id,
-                            'uni_id' => $uni_id,
-                            'created_at' => date('Y-m-d H:i:s'),
-                            'updated_at' => date('Y-m-d H:i:s')
-                        ];
-                        $sub_arr[] = $temp;
-                    }
-                    SubCategory::insert($sub_arr);
-                    DB::table('record_status')->updateOrInsert([
-                        'category_id' => $request->category_id,
-                        'major_id' => $request->major_id,
-                        'uni_id' => $uni_id],
-                        [
-                            'inserted' => SubCategory::where(['category_id' => $request->input('category_id'),'major_id' => $request->input('major_id')])->count(),
-                            'created_at' => date('Y-m-d H:i:s'),
-                            'updated_at' => date('Y-m-d H:i:s')
-                        ]
-                    );
-                    return ['status' => false,'skip' => $skip + 5, 'inserted' => SubCategory::where(['category_id' => $request->input('category_id'),'major_id' => $request->input('major_id')])->count()];
-                }
-                else {
-                    return ['status' => true,'skip' => 0, 'inserted' => SubCategory::where(['category_id' => $request->input('category_id'),'major_id' => $request->input('major_id')])->count()];
-                }
-            }
-            else {
-                return ['status' => 500];
-            }*/
         }
         catch (\Exception $e) {
             Log::info('subcategory error',['message' => $e->getMessage(),'line' => $e->getLine()]);
-            return ['status' => false,'message' => 'Something went wrong'];
+            return ['status' => false,'message' => 'Data is added'];
         }
     }
 

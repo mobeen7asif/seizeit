@@ -1,0 +1,16 @@
+[28-Jan-2020 17:58:15 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home2/automat1/public_html/seizeit/resources/views/majors/add_major.blade.php:2
+Stack trace:
+#0 {main}
+  thrown in /home2/automat1/public_html/seizeit/resources/views/majors/add_major.blade.php on line 2
+[28-Jan-2020 17:58:17 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home2/automat1/public_html/seizeit/resources/views/majors/edit_major.blade.php:2
+Stack trace:
+#0 {main}
+  thrown in /home2/automat1/public_html/seizeit/resources/views/majors/edit_major.blade.php on line 2
+[28-Jan-2020 17:58:18 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home2/automat1/public_html/seizeit/resources/views/majors/major_detail.blade.php:3
+Stack trace:
+#0 {main}
+  thrown in /home2/automat1/public_html/seizeit/resources/views/majors/major_detail.blade.php on line 3
+[28-Jan-2020 17:58:20 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home2/automat1/public_html/seizeit/resources/views/majors/majors.blade.php:3
+Stack trace:
+#0 {main}
+  thrown in /home2/automat1/public_html/seizeit/resources/views/majors/majors.blade.php on line 3

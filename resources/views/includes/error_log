@@ -1,0 +1,16 @@
+[28-Jan-2020 17:57:51 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function url() in /home2/automat1/public_html/seizeit/resources/views/includes/footer.php:1
+Stack trace:
+#0 {main}
+  thrown in /home2/automat1/public_html/seizeit/resources/views/includes/footer.php on line 1
+[28-Jan-2020 17:57:52 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function csrf_token() in /home2/automat1/public_html/seizeit/resources/views/includes/head.php:4
+Stack trace:
+#0 {main}
+  thrown in /home2/automat1/public_html/seizeit/resources/views/includes/head.php on line 4
+[28-Jan-2020 17:57:54 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Support\Facades\Auth' not found in /home2/automat1/public_html/seizeit/resources/views/includes/header.php:8
+Stack trace:
+#0 {main}
+  thrown in /home2/automat1/public_html/seizeit/resources/views/includes/header.php on line 8
+[28-Jan-2020 17:57:55 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function asset() in /home2/automat1/public_html/seizeit/resources/views/includes/sidebar.php:19
+Stack trace:
+#0 {main}
+  thrown in /home2/automat1/public_html/seizeit/resources/views/includes/sidebar.php on line 19

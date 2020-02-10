@@ -13,6 +13,11 @@ use Illuminate\Http\Request;
 |
 */
 
+
+Route::post('/user/register', 'ApiController@register')->middleware('requestHandler:RegisterRequest');
+Route::post('/user/login', 'ApiController@login')->middleware('requestHandler:LoginRequest');
+Route::post('/logout', 'ApiController@logout')->middleware('requestHandler:LogoutRequest');
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

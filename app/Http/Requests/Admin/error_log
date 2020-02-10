@@ -1,0 +1,10 @@
+[29-Jan-2020 00:03:01 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Http\FormRequest' not found in /home2/automat1/public_html/seizeit/app/Http/Requests/Admin/AddCategoryRequest.php on line 9
+[29-Jan-2020 00:03:07 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Http\FormRequest' not found in /home2/automat1/public_html/seizeit/app/Http/Requests/Admin/AddMajorRequest.php on line 9
+[29-Jan-2020 00:03:13 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Http\FormRequest' not found in /home2/automat1/public_html/seizeit/app/Http/Requests/Admin/AddUniRequest.php on line 9
+[29-Jan-2020 00:03:19 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Http\FormRequest' not found in /home2/automat1/public_html/seizeit/app/Http/Requests/Admin/AddUserRequest.php on line 8
+[29-Jan-2020 00:03:26 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Http\FormRequest' not found in /home2/automat1/public_html/seizeit/app/Http/Requests/Admin/Request.php on line 7
+[29-Jan-2020 00:03:33 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Http\FormRequest' not found in /home2/automat1/public_html/seizeit/app/Http/Requests/Admin/UpdateAdminRequest.php on line 8
+[29-Jan-2020 00:03:44 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Http\FormRequest' not found in /home2/automat1/public_html/seizeit/app/Http/Requests/Admin/UpdateCategoryRequest.php on line 9
+[29-Jan-2020 00:03:50 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Http\FormRequest' not found in /home2/automat1/public_html/seizeit/app/Http/Requests/Admin/UpdateMajorRequest.php on line 8
+[29-Jan-2020 00:03:58 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Http\FormRequest' not found in /home2/automat1/public_html/seizeit/app/Http/Requests/Admin/UpdateUniRequest.php on line 8
+[29-Jan-2020 00:04:05 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Http\FormRequest' not found in /home2/automat1/public_html/seizeit/app/Http/Requests/Admin/UpdateUserRequest.php on line 8

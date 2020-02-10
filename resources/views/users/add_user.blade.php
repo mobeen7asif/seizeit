@@ -75,9 +75,9 @@
                 <label class="fullField">
                     <span>Password</span>
                     <input type=password name="password">
-                    @if ($errors->has('place'))
+                    @if ($errors->has('password'))
                         <div class="alert alert-danger">
-                            @foreach ($errors->get('place') as $message)
+                            @foreach ($errors->get('password') as $message)
                                 {{ $message }}<br>
                             @endforeach
                         </div>

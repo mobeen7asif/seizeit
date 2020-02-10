@@ -21,7 +21,7 @@
         <span><b>Name</b></span>
         <P>{{$major->name}}</P>
         <br>
-        <span><b>Detail</b></span>
+        <span><b>Description</b></span>
         <p>{!! $major->description !!}</p>
     </div>
 </section>
