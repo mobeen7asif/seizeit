@@ -19,6 +19,7 @@ use App\SubCategory;
 use App\Uni;
 use App\UniMajor;
 use App\User;
+use Carbon\Carbon;
 use http\Client;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
@@ -56,7 +57,9 @@ class SubCategoriesController extends BaseController
         if($request->has('categories') and $request->categories) {
             $sub_categories->where('category_id',$request->categories);
         }
-        $sub_categories = $sub_categories->paginate(50);
+        $page_size = $request->get('page_size');
+        $page_size = isset($page_size) ? $page_size : 10;
+        $sub_categories = $sub_categories->orderBy('created_at','DESC')->paginate($page_size);
         $unis = Uni::all();
         $majors = Major::all();
         $categories = Category::all();
@@ -94,13 +97,42 @@ class SubCategoriesController extends BaseController
                 'uni_id' => 'required'
             ]
         );
-        $insertData = $requestData = $request->all();
+        $requestData = $request->all();
         if(!$request->has('major_id')) {
             $requestData['major_id'] = [0];
         }
         unset($requestData['signIn']);
         unset($requestData['_token']);
-        SubCategory::where('id',$requestData['id'])->update($requestData);
+
+        $insertData = $requestData;
+
+        foreach($requestData['uni_id'] as $uni_id) {
+            foreach ($requestData['major_id'] as $major_id) {
+                foreach ($requestData['category_id'] as $category_id) {
+                    $insertData['uni_id'] = $uni_id;
+                    $insertData['category_id'] = $category_id;
+                    $insertData['major_id'] = $major_id;
+                    $insertData['time'] = '';
+                    SubCategory::updateOrCreate([
+                        'link' => $requestData['link'],
+                        'title' => $requestData['title'],
+                        'category_id' => $category_id,
+                        'major_id' => $major_id,
+                        'uni_id' => $uni_id,
+                    ],$insertData);
+                    //SubCategory::create($insertData);
+                }
+            }
+        }
+
+//
+//        $insertData = $requestData = $request->all();
+//        if(!$request->has('major_id')) {
+//            $requestData['major_id'] = [0];
+//        }
+//        unset($requestData['signIn']);
+//        unset($requestData['_token']);
+//        SubCategory::where('id',$requestData['id'])->update($requestData);
         return redirect()->back()->with('success','Sub Category Updated');
 
     }
@@ -218,14 +250,101 @@ class SubCategoriesController extends BaseController
                 else if($link->link == 'https://valenciacollege.edu/academics/programs/') {
                     $endpoint = "$url/scrapper/valenciacollege.php";
                 }
-                else if($link->link == 'https://events.valenciacollege.edu/calendar/week/') {
-                    $endpoint = "$url/scrapper/newEvent.php";
+                else if($link->link == 'https://events.valenciacollege.edu/calendar') {
+                    try {
+                        $endpoint = "$url/scrapper/newEvent.php";
+                        $url = "https://events.valenciacollege.edu/calendar/week/2020/2/18";
+                        $this->getEventsData($requestData,$endpoint,$client,$url,"");
+                        return ['status' => true,'message' => 'Data is added'];
+
+                        $endpoint = "$url/scrapper/newEvent.php";
+                        $now = Carbon::now();
+                        $now = $now->month;
+                        while($now <= 12) {
+                            $date = "month/2020/$now/15";
+                            $url = $link->link."/$date";
+                            //$this->getEventsData($requestData,$endpoint,$client,$url,$date);
+                            $now++;
+                        }
+                        return ['status' => true,'message' => 'Data is added'];
+                    }
+                    catch (\Exception $e) {
+                        Log::info('events_error',['message' => $e->getMessage(),'line' => $e->getLine()]);
+                        return ['status' => false,'message' => 'Data is added'];
+                    }
+
                 }
-                else if($link->link == 'https://www.indeed.com/jobs?as_and=physician+assistant&as_phr=&as_any=&as_not=&as_ttl=&as_cmp=&jt=all&st=&as_src=&salary=&radius=100&l=Orlando%2C+FL&fromage=any&limit=100&sort=&psf=advsrch&from=advancedsearch') {
+
+                else if($request->selected_link == 'Jobs') {
+                    $job_title = $request->job_title;
+                    $job_location = $request->job_location;
+                    $job_title = urlencode($job_title);
+                    $job_location = urlencode($job_location);
                     $endpoint = "$url/scrapper/indeed.php";
+                    $start = 0;
+                    $index = 0;
+                    $total_records = 0;
+
+                    //get total record count
+
+                    $url  = "https://www.indeed.com/jobs?q=$job_title&l=$job_location&radius=5";
+                    $result = $this->getJobsData($requestData,$endpoint,$client,$url,true);
+                    $result = explode(' ',$result);
+                    if(count($result) > 0) {
+                        $total_records = str_replace(',','', $result[3]);
+                        $total_records = round($total_records / 10);
+                    }
+                    else {
+                        return ['status' => true,'message' => 'Data not found'];
+                    }
+                    while($start < $total_records) {
+                        $page_no = $start * 10;
+                        $url  = "https://www.indeed.com/jobs?q=$job_title&l=$job_location&radius=5&start=$page_no";
+                        Log::info('subcategory error',['data_input' => $url]);
+                        $this->getJobsData($requestData,$endpoint,$client,$url,false);
+                        $start++;
+                    }
+                    return ['status' => true,'message' => 'Data is added'];
                 }
-                else if($link->link == 'https://valenciacollege.campuslabs.com/engage/api/discovery/search/organizations?orderBy[0]=UpperName%20asc&top=600&filter=&query=&skip=0') {
+
+                else if($request->selected_link == 'Internships') {
+                    $job_title = $request->job_title;
+                    $job_location = $request->job_location;
+                    $job_title = urlencode($job_title);
+                    $job_location = urlencode($job_location);
+                    $endpoint = "$url/scrapper/indeed.php";
+                    $start = 0;
+                    $index = 0;
+                    $total_records = 0;
+
+                    //get total record count
+
+                    $url = "https://www.indeed.com/jobs?q=$job_title&l=$job_location&jt=internship";
+                    $result = $this->getJobsData($requestData,$endpoint,$client,$url,true);
+                    $result = explode(' ',$result);
+                    if(count($result) > 0) {
+                        $total_records = $result[3];
+                        $total_records = round($total_records / 10);
+                    }
+                    else {
+                        return ['status' => true,'message' => 'Data not found'];
+                    }
+                    while($start < $total_records) {
+                        $page_no = $start * 10;
+                        $url = "https://www.indeed.com/jobs?q=$job_title&l=$job_location&jt=internship&start=$page_no";
+                        Log::info('subcategory error',['data_input' => $url]);
+                        $this->getJobsData($requestData,$endpoint,$client,$url,false);
+                        $start++;
+                    }
+                    return ['status' => true,'message' => 'Data is added'];
+
+
+                }
+                else if($link->link == 'https://valenciacollege.campuslabs.com/engage/api/discovery/search/organizations?orderBy[0]=UpperName%20asc&top=1000&filter=&query=&skip=0') {
                     $endpoint = "$url/scrapper/generate.php";
+                }
+                else if($link->link == 'https://valenciacollege.edu/finaid/scholarship-bulletin-board.php') {
+                    $endpoint = "$url/scrapper/scholarship.php";
                 }
                 else {
                     return ['status' => false,'message' => 'Invalid URL'];
@@ -233,7 +352,6 @@ class SubCategoriesController extends BaseController
                 $url = $link->link;
 
             }
-
 
             $skip = 0;
 
@@ -270,14 +388,21 @@ class SubCategoriesController extends BaseController
                                 // ])->delete();
                                 //$sub_arr[] = $temp;
 
-                                SubCategory::updateOrCreate([
-                                    'link' => $sub_category->Link ?? "",
-                                    'title' => property_exists($sub_category,'Title') ? $sub_category->Title : $sub_category->Name,
-                                    'email' => $sub_category->Email ?? "",
-                                    'category_id' => $category_id,
-                                    'major_id' => $major_id,
-                                    'uni_id' => $uni_id,
-                                ],$temp);
+                                try {
+                                    SubCategory::updateOrCreate([
+                                        'link' => $sub_category->Link ?? "",
+                                        'title' => property_exists($sub_category,'Title') ? $sub_category->Title : $sub_category->Name,
+                                        'email' => $sub_category->Email ?? "",
+                                        'category_id' => $category_id,
+                                        'major_id' => $major_id,
+                                        'uni_id' => $uni_id,
+                                    ],$temp);
+                                }
+                                catch(\Exception $e) {
+                                    Log::info('subcategory error',['error_mesage' => $e->getMessage(),'data_input' => $temp]);
+                                    continue;
+                                }
+
                             }
                         /*    try{
                                 //SubCategory::insert($sub_arr);
@@ -312,6 +437,140 @@ class SubCategoriesController extends BaseController
         catch (\Exception $e) {
             Log::info('subcategory error',['message' => $e->getMessage(),'line' => $e->getLine()]);
             return ['status' => false,'message' => 'Data is added'];
+        }
+    }
+
+
+    public function getJobsData($requestData,$endpoint,$client,$url,$size) {
+        if($size) {
+            $response = $client->request('GET', $endpoint, ['query' => [
+                'url' => $url,
+                'size' => $size
+            ]]);
+            $response = $response->getBody()->getContents();
+            return trim($response);
+        }
+
+        foreach($requestData['uni_id'] as $uni_id) {
+            foreach ($requestData['major_id'] as $major_id) {
+                foreach ($requestData['category_id'] as $category_id) {
+                    $response = $client->request('GET', $endpoint, ['query' => [
+                        'url' => $url,
+                        'size' => $size
+                    ]]);
+                    $response = json_decode($response->getBody()->getContents());
+                    if(isset($response)) {
+                        //while(count($response ) > 0) {
+                        foreach ($response as $sub_category) {
+                            $temp = [
+                                'link' => $sub_category->Link ?? "",
+                                'title' => property_exists($sub_category,'Title') ? $sub_category->Title : $sub_category->Name,
+                                'description' => $sub_category->Description ?? "",
+                                'summary' => $sub_category->Summary ?? "",
+                                'email' => $sub_category->Email ?? "",
+                                'address' => property_exists($sub_category,'ContactAddress') ? $sub_category->ContactAddress : $sub_category->Location,
+                                'time' => property_exists($sub_category,'Time') ? $sub_category->Time : $sub_category->Date,
+                                'category_id' => $category_id,
+                                'major_id' => $major_id,
+                                'uni_id' => $uni_id,
+                                'created_at' => date('Y-m-d H:i:s'),
+                                'updated_at' => date('Y-m-d H:i:s')
+                            ];
+
+                            try {
+                                SubCategory::updateOrCreate([
+                                    'link' => $sub_category->Link,
+                                    'title' => $sub_category->Title,
+                                    'category_id' => $category_id,
+                                    'major_id' => $major_id,
+                                    'uni_id' => $uni_id,
+                                ],$temp);
+                            }
+                            catch(\Exception $e) {
+                                Log::info('subcategory error',['error' => $e->getMessage(),'data_input' => $temp]);
+                                continue;
+                            }
+
+                        }
+                    }
+                    else {
+                        return ['status' => false,'message' => 'Failed to fetch data'];
+                    }
+                }
+            }
+        }
+        return ['status' => true];
+    }
+
+    public function getEventsData($requestData,$endpoint,$client,$url,$date) {
+        foreach($requestData['uni_id'] as $uni_id) {
+            foreach ($requestData['major_id'] as $major_id) {
+                foreach ($requestData['category_id'] as $category_id) {
+                    $response = $client->request('GET', $endpoint, ['query' => [
+                        'url' => $url,
+                    ]]);
+
+                    $response = json_decode($response->getBody()->getContents());
+                    if(isset($response)) {
+                        //while(count($response ) > 0) {
+                        foreach ($response as $sub_category) {
+                            $temp = [
+                                'link' => $sub_category->Link ?? "",
+                                'title' => property_exists($sub_category,'Title') ? $sub_category->Title : $sub_category->Name,
+                                'description' => $sub_category->Description ?? "",
+                                'summary' => $sub_category->Summary ?? "",
+                                'email' => $sub_category->Email ?? "",
+                                'address' => property_exists($sub_category,'ContactAddress') ? $sub_category->ContactAddress : $sub_category->Location,
+                                'time' => property_exists($sub_category,'Time') ? $sub_category->Time : $sub_category->Date,
+                                'category_id' => $category_id,
+                                'major_id' => $major_id,
+                                'uni_id' => $uni_id,
+                                'created_at' => date('Y-m-d H:i:s'),
+                                'updated_at' => date('Y-m-d H:i:s')
+                            ];
+
+                            try {
+                                SubCategory::updateOrCreate([
+                                    'link' => $sub_category->Link ?? "",
+                                    'title' => property_exists($sub_category,'Title') ? $sub_category->Title : $sub_category->Name,
+                                    'email' => $sub_category->Email ?? "",
+                                    'category_id' => $category_id,
+                                    'major_id' => $major_id,
+                                    'uni_id' => $uni_id,
+                                ],$temp);
+                            }
+                            catch(\Exception $e) {
+                                Log::info('subcategory error',['data_input' => $temp]);
+                                continue;
+                            }
+
+                        }
+                        /*    try{
+                                //SubCategory::insert($sub_arr);
+
+                            }
+                            catch (\Exception $e){
+                                Log::info('subcategory error',['data_input' => $sub_arr]);
+                            }*/
+                        /*
+
+                                                      $skip = $skip + 5;
+                                                        $response = $client->request('GET', $endpoint, ['query' => [
+                                                            'size' => $size,
+                                                            'url' => $url,
+                                                            'skip' => $skip
+                                                        ]]);
+                                                        $response = json_decode($response->getBody()->getContents());*/
+                        //}
+                    }
+                    /*else{
+                        $skip = 0;
+                    }*/
+                    else {
+                        return ['status' => false,'message' => 'Failed to fetch data'];
+                    }
+                }
+            }
         }
     }
 

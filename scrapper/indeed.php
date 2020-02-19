@@ -1,11 +1,35 @@
 <?php
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
+set_time_limit(0);
 require_once __DIR__."/curl.php";
 $keyWord = "physician assistant";
 $Location = "Orlando, FL";
 $keyWord = urlencode($keyWord);
+$size = $_GET['size'];
+
+
+
+
 $Location = urlencode($Location);
 //$mkURL = "https://www.indeed.com/jobs?as_and={$keyWord}&as_phr=&as_any=&as_not=&as_ttl=&as_cmp=&jt=all&st=&as_src=&salary=&radius=100&l=Orlando%2C+FL&fromage=any&limit=100&sort=&psf=advsrch&from=advancedsearch";
 $mkURL = $_GET['url'];
+
+
+if($size == true) {
+    $curl = new curl;
+    $name = $curl->get($mkURL);
+    @$doc = new DOMDocument();
+    @$doc->loadHTML($name);
+    $xpath = new DomXPath($doc);
+    $count_div = $xpath->query("(//*[@id='searchCountPages'])");
+    foreach ($count_div as $element) {
+        $page_count = $element->nodeValue;
+    }
+    echo $page_count;
+    exit;
+}
+
+
 $curl = new curl;
 $name = $curl->get($mkURL);
 preg_match_all('/\d\]= {(.*?)};/', $name, $output_array);

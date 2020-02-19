@@ -1,11 +1,12 @@
 <?php
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
+set_time_limit(0);
 require_once __DIR__."/curl.php";
 $WeekCalender = "2020/1/10";
-
-$url = $_GET['url'];
-
-$mkURL = "$url{$WeekCalender}";
 //$mkURL = "https://events.valenciacollege.edu/calendar/week/{$WeekCalender}";
+$mkURL = "https://events.valenciacollege.edu/calendar/week/2020/2/18";
+
+//$mkURL = $_GET['url'];
 $curl = new curl;
 $name = $curl->get($mkURL);
 @$doc = new DOMDocument();
@@ -13,6 +14,7 @@ $name = $curl->get($mkURL);
 $xpath = new DomXPath($doc);
 $newArr = null;
 $Events = $xpath->query('//div[@class="item event_item vevent"]');
+
 foreach($Events as $uIndex => $event) {
     $nameArr = null;
     $descArr = null;
@@ -72,22 +74,23 @@ foreach($Events as $uIndex => $event) {
     }
     /* Event Location Ends*/
     $AllArr['Link'] = $linkArr;
-    $AllArr['Title'] = preg_replace('/\s+/', ' ', $nameArr);
+    $AllArr['Name'] = preg_replace('/\s+/', ' ', $nameArr);
     $AllArr['Description'] = $descArr;
     $AllArr['Time'] = $TimeArr;
-    $AllArr['ContactAddress'] = preg_replace('/\s+/', ' ', $locationArr);
+    $AllArr['Location'] = preg_replace('/\s+/', ' ', $locationArr);
 
     $AllArr['Summary'] = "";
     $AllArr['Email'] = "";
-
     $newArr[] =  $AllArr;
 }
+
+
 echo json_encode($newArr);
 exit;
-
 echo "<pre>";
 print_r($newArr);
 echo "</pre>";
+exit;
 
 $filename = 'events.csv';
 //header("Content-type: text/csv");
@@ -96,7 +99,7 @@ $output = fopen($filename, 'w');
 $header = array_keys($newArr[0]);
 fputcsv($output, $header);
 foreach($newArr as $row) {
- fputcsv($output, $row);
+    fputcsv($output, $row);
 }
 fclose($output);
 echo "<a href='{$filename}'>{$filename}</a>";

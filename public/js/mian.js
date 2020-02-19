@@ -1,4 +1,4 @@
-$(document).ready(function() {	
+$(document).ready(function() {
 	$('ul li:nth-child(5n)').addClass('fifth-child');
 	$('ul li:nth-child(4n)').addClass('fourth-child');
 	$('ul li:nth-child(3n)').addClass('third-item');
@@ -33,7 +33,7 @@ $(document).ready(function() {
 });
 
 
-$(window).on('scroll',function() {    
+$(window).on('scroll',function() {
     var scroll = $(window).scrollTop();
 
     if (scroll >= 300) {
@@ -62,8 +62,11 @@ $(document).ready(function () {
 			orderData: [1, 0]
 		}],
 		order: [[0, false]],
-		bSort: false
+		bSort: false,
+        lengthMenu : [[10, 25, 50, -1], [10, 25, 50, "All"]]
+
 	});
+
 });
 $('.mainNav').mCustomScrollbar({
 	theme: "dark-3"

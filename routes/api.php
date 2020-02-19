@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\MobileLoginSession;
 use Illuminate\Http\Request;
 
 /*
@@ -13,11 +14,16 @@ use Illuminate\Http\Request;
 |
 */
 
-
-Route::post('/user/register', 'ApiController@register')->middleware('requestHandler:RegisterRequest');
-Route::post('/user/login', 'ApiController@login')->middleware('requestHandler:LoginRequest');
-Route::post('/logout', 'ApiController@logout')->middleware('requestHandler:LogoutRequest');
-
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::post('/user/register', 'ApiController@register');
+Route::post('/user/social/login', 'ApiController@socialLogin');
+Route::post('/user/login', 'ApiController@login');
+
+Route::group(['middleware' => 'requestHandler'], function () {
+Route::get('/get/data', 'ApiController@getData');
+});
+

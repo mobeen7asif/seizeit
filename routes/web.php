@@ -12,6 +12,7 @@
 */
 
 use App\Uni;
+use Illuminate\Support\Facades\Artisan;
 
 Route::get('/', function () {
     if(\Illuminate\Support\Facades\Auth::check()){
@@ -212,3 +213,9 @@ Route::post('/reset_password', [
 
 
 Route::post('/add/sub/category', 'SubCategoriesController@addSubCategory');
+
+
+Route::get('/cache-clear', function() {
+    Artisan::call('cache:clear');
+    return "Cache is cleared";
+});

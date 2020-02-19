@@ -90,6 +90,23 @@
                     @endif
                 </label>
 
+                <div class="job_link">
+                    <label class="fullField">
+                        <span>Job Title</span>
+                        <input type="text" class="job" name="name" onchange="selectJobTitle(this)">
+                    </label>
+
+                    <label class="fullField">
+                        <span>Job Location</span>
+                        <input type="text" class="job" name="name" onchange="selectJobLocation(this)">
+                    </label>
+                </div>
+
+
+
+
+
+
             <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
 
             <span style="font-weight: bold" id="status"></span>
@@ -108,8 +125,14 @@
 
 <script>
 
+
+    var job_title = "";
+    var job_location = "";
+
     $(document).ready(function() {
         $('.categories').select2();
+        $('.job_link').hide();
+        $('.internship_link').hide();
     });
 
     $(document).ready(function() {
@@ -122,6 +145,21 @@
         $('.links').select2();
     });
 
+    var selected_link = "";
+    $('.links').change(function () {
+        selected_link = $(".links option:selected").text();
+        if(selected_link == 'Jobs' || selected_link == 'Internships') {
+            $('.job_link').show();
+        }
+        else {
+            $('.job_link').hide();
+            job_title = "";
+            job_location = "";
+            $('.job').val('');
+        }
+
+    });
+
     var category_id = 0;
     var major_id = 0;
     var skip = 0;
@@ -130,6 +168,16 @@
     var majors = [];
     var categories = [];
     var link = '';
+
+
+
+    function selectJobTitle(title) {
+        job_title = title.value;
+    }
+
+    function selectJobLocation(location) {
+        job_location =  location.value;
+    }
 
     function selectUni(uni) {
         unis = $('.unis').val();
@@ -152,6 +200,9 @@
     });*/
 
 
+
+
+
     function addSub() {
         if(unis.length == 0) {
             alert('Please select uni');
@@ -169,6 +220,16 @@
             alert('Please select category');
             return false;
         }
+        if(selected_link == "Jobs" || selected_link == "Internships") {
+            if(job_title.length == 0) {
+                alert('Please select job title');
+                return false;
+            }
+            if(job_location.length == 0) {
+                alert('Please select job location');
+                return false;
+            }
+        }
         $('#submit_button').prop('disabled', true);
         $('#submit_button').addClass('disable_cursor');
         $('.unis').prop('disabled', true);
@@ -180,7 +241,7 @@
             url: base_url + '/add/sub/category',
             type : "POST",
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            data : {'skip': 0,'major_id':majors , 'link': link,'category_id':categories,'uni_id':unis,"_token": "{{ csrf_token() }}"},
+            data : {'selected_link':selected_link,'job_title':job_title,'job_location': job_location,'skip': 0,'major_id':majors , 'link': link,'category_id':categories,'uni_id':unis,"_token": "{{ csrf_token() }}"},
             success: function(data){
                 if(data.status == 500){
                     $('#loader').hide();

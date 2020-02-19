@@ -2,6 +2,8 @@
 require_once __DIR__."/curl.php";
 require_once __DIR__."/functions.php";
 $url = "https://valenciacollege.edu/academics/programs/";
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
+set_time_limit(0);
 $curl = new curl;
 $name = $curl->get($url);
 @$doc = new DOMDocument();
@@ -48,14 +50,15 @@ foreach($sublinkings as $Sub) {
     $xpath = new DomXPath($doc);
     $h1 = $xpath->query("(//*[@class='tab_content'])[last()]/h1[1]");
     $p = $xpath->query("(//*[@class='tab_content'])[last()]/p[1]");
-    $tag['Link'] = $Sub;
-    $tag['date'] = null;
+
     $tag['Time'] = '';
     $tag['ContactAddress'] = '';
 
     $tag['Summary'] = "";
     $tag['Email'] = "";
-    
+
+    $tag['Link'] = $Sub;
+    $tag['Date'] = null;
     foreach ($h1 as $element) {
         $tag['Name'] = $element->nodeValue;
     }
@@ -63,18 +66,16 @@ foreach($sublinkings as $Sub) {
     foreach ($p as $element) {
         $tag['Description'] = $element->nodeValue;
     }
- 
     if ( !empty($tag['Description'])) {
         $pageContent[] = $tag;
     }
 
 }
 
-;
 
-print_r(json_encode($pageContent));
+
+echo json_encode($pageContent);
 exit;
-
 /* Data Fetch Details Ends */
 echo "<pre>";
 print_r($pageContent);

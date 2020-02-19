@@ -3,8 +3,9 @@
 namespace App\Http\Middleware;
 
 use App\Libs\Auth\Auth;
+use App\LoginUser;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Requests\Request;
+use Requests\Request;
 use Closure;
 use App\Http\Response;
 
@@ -25,27 +26,24 @@ class RequestHandler
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next, $customRequest = "")
+    public function handle($request, Closure $next)
     {
-        $requestClass = "App\Http\Requests\\".$customRequest;
-        /** @var Request $customRequest */
-        $customRequest = new $requestClass();
-
-        if($customRequest->authenticatable){
             if(isset(getallheaders()['Authorization']) && getallheaders()['Authorization'] != ""){
-                if(!Auth::authenticateWithToken(getallheaders()['Authorization']))
-                    return $this->response->respondAuthenticationFailed();
+                $user_session = LoginUser::where('session_id',getallheaders()['Authorization'])->first();
+                if(!$user_session) {
+                    return ['status' => 401, 'message' => 'You are not logged in', 'data' => []];
+                }
+                else {
+                    return $next($request);
+                }
+
+
             }else{
-                return $this->response->respondAuthenticationFailed();
+                return response()->json(['status' => 401, 'message' => 'You are not logged in', 'data' => []]);
+                return ['status' => 401, 'message' => 'You are not logged in', 'data' => []];
             }
-        }
 
-        if(!$customRequest->authorize())
-            return $this->response->respondOwnershipConstraintViolation();
-        if(!$this->validate($customRequest))
-            return $this->response->respondValidationFails($this->validationMessages);
 
-        return $next($request);
     }
 
 }

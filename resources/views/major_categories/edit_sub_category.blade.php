@@ -22,7 +22,7 @@
 
                 <label class="fullField">
                     <span class="required">Select Uni</span>
-                    <select class="unis" name="uni_id" required>
+                    <select class="unis" name="uni_id[]" required multiple>
                         @foreach($unis as $uni)
                             <option @if($sub_category->uni_id == $uni->id) selected @endif value="{{$uni->id}}">{{$uni->name}}</option>
                         @endforeach
@@ -39,7 +39,7 @@
 
                 <label class="fullField">
                     <span>Select Major</span>
-                    <select class="majors" name="major_id">
+                    <select class="majors" name="major_id[]" multiple>
                         @foreach($majors as $major)
                             <option @if($sub_category->major_id == $major->id) selected @endif value="{{$major->id}}">{{$major->name}}</option>
                         @endforeach
@@ -55,7 +55,7 @@
                 </label>
                 <label class="fullField">
                     <span class="required">Select Category</span>
-                    <select class="categories"  required name="category_id">
+                    <select class="categories"  required name="category_id[]" multiple>
                         @foreach($categories as $category)
                             <option @if($sub_category->category_id == $category->id) selected @endif value="{{$category->id}}">{{$category->name}}</option>
                         @endforeach

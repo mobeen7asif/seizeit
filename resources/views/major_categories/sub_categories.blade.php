@@ -3,9 +3,51 @@
 <?php include resource_path('views/includes/head.php'); ?>
 <style>
     .select2-container {
-        width: 25% !important;
+        width: 200px !important;
     }
- </style>
+    .input-number {
+        width: 80px;
+        padding: 0 12px;
+        vertical-align: top;
+        text-align: center;
+        outline: none;
+    }
+
+    .input-number,
+    .input-number-decrement,
+    .input-number-increment {
+        border: 1px solid #ccc;
+        height: 32px;
+        user-select: none;
+    }
+
+    .input-number-decrement,
+    .input-number-increment {
+        display: inline-block;
+        width: 30px;
+        line-height: 30px;
+        background: #f1f1f1;
+        color: #444;
+        text-align: center;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    .input-number-decrement:active,
+    .input-number-increment:active {
+        background: #ddd;
+    }
+
+    .input-number-decrement {
+        border-right: none;
+        border-radius: 4px 0 0 4px;
+    }
+
+    .input-number-increment {
+        border-left: none;
+        border-radius: 0 4px 4px 0;
+    }
+
+</style>
 <body>
 
 <?php include resource_path('views/includes/header.php'); ?>
@@ -33,6 +75,12 @@
 
 
             <form method="GET" action="{{url('/sub/categories')}}">
+
+
+                <span class="input-number-decrement">–</span><input  name="page_size" class="input-number" type="text" @if(isset($_GET['page_size'])) value="{{$_GET['page_size']}}" @else value="10"   @endif min="5" max="100"><span class="input-number-increment">+</span>
+
+
+
                 <select class="unis" name="unis">
                     <option value="0">Select Uni</option>
                     @foreach($unis as $uni)
@@ -158,6 +206,49 @@
 <?php include resource_path('views/includes/footer.php'); ?>
 
 <script>
+
+
+    (function() {
+
+        window.inputNumber = function(el) {
+
+            var min = el.attr('min') || false;
+            var max = el.attr('max') || false;
+
+            var els = {};
+
+            els.dec = el.prev();
+            els.inc = el.next();
+
+            el.each(function() {
+                init($(this));
+            });
+
+            function init(el) {
+
+                els.dec.on('click', decrement);
+                els.inc.on('click', increment);
+
+                function decrement() {
+                    var value = el[0].value;
+                    value--;
+                    if(!min || value >= min) {
+                        el[0].value = value;
+                    }
+                }
+
+                function increment() {
+                    var value = el[0].value;
+                    value++;
+                    if(!max || value <= max) {
+                        el[0].value = value++;
+                    }
+                }
+            }
+        }
+    })();
+
+    inputNumber($('.input-number'));
 
     $(document).ready(function() {
         $('.categories').select2();
