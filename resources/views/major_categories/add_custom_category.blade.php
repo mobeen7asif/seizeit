@@ -41,6 +41,11 @@
                     @endif
                 </label>
 
+
+                <div style="margin-top: 4px;height: 19px">
+                    <input style="float: left; width: 30px; margin-top: 2px;box-shadow: none"  type="checkbox" id="check_all" >
+                    <label style="color: black;font-size: 13px;padding-left: 0px">Select All</label>
+                </div>
                 <label class="fullField">
                     <span>Select Major</span>
                     <select class="majors" name="major_id[]" multiple>
@@ -164,6 +169,16 @@
     $(document).ready(function() {
         $('.majors').select2();
         $('.unis').select2();
+    });
+
+    $("#check_all").click(function() {
+        if ($("#check_all").is(':checked')) {
+            $(".majors > option").prop("selected", "selected");
+            $(".majors").trigger("change");
+        } else {
+            $(".majors > option").removeAttr("selected");
+            $(".majors").trigger("change");
+        }
     });
 
     var category_id = 0;

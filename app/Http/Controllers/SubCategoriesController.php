@@ -48,6 +48,7 @@ class SubCategoriesController extends BaseController
     }
 
     public function getSubCategories(Request $request){
+
         $sub_categories = SubCategory::with('uni','major','category');
         if($request->has('unis') and $request->unis) {
             $sub_categories->where('uni_id',$request->unis);
@@ -58,9 +59,15 @@ class SubCategoriesController extends BaseController
         if($request->has('categories') and $request->categories) {
             $sub_categories->where('category_id',$request->categories);
         }
+
         $page_size = $request->get('page_size');
         $page_size = isset($page_size) ? $page_size : 10;
-        $sub_categories = $sub_categories->orderBy('created_at','DESC')->paginate($page_size);
+        if($request->has('sort')) {
+            $sub_categories = $sub_categories->orderBy('title',$request->sort)->paginate($page_size);
+        }
+        else {
+            $sub_categories = $sub_categories->orderBy('created_at','DESC')->paginate($page_size);
+        }
         $unis = Uni::all();
         $majors = Major::all();
         $categories = Category::all();
@@ -134,7 +141,7 @@ class SubCategoriesController extends BaseController
 //        unset($requestData['signIn']);
 //        unset($requestData['_token']);
 //        SubCategory::where('id',$requestData['id'])->update($requestData);
-        return redirect()->back()->with('success','Sub Category Updated');
+        return redirect('sub/categories')->with('success','Sub Category Updated');
 
     }
 
@@ -236,7 +243,9 @@ class SubCategoriesController extends BaseController
             set_time_limit(0);
             $link = "";
             $requestData = $request->all();
-
+            if(!$request->major_id) {
+                $requestData['major_id'] = [0];
+            }
             $url = url('/');
             $url = trim($url,'public/');
             $endpoint = "$url/scrapper/generate.php";

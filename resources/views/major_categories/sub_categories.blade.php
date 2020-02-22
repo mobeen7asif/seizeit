@@ -52,6 +52,17 @@
 
 <?php include resource_path('views/includes/header.php'); ?>
 <?php include resource_path('views/includes/sidebar.php'); ?>
+
+
+@php
+
+    function clean($string) {
+   $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
+   $string = preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
+
+   return preg_replace('/-+/', '-', $string); // Replaces multiple hyphens with single one.
+}
+    @endphp
 <section class="content lifeContent">
 
     @if(\Session::has('success'))
@@ -106,7 +117,6 @@
             </form>
 
         </div>
-
         <form method="post" action="{{url('/')}}/sub/category/bulk/delete">
             {{csrf_field()}}
         <table id="mytable" class="display" cellspacing="0" width="100%">
@@ -115,7 +125,34 @@
                 <th>Uni</th>
                 <th>Major</th>
                 <th>Category</th>
-                <th>Title</th>
+                <th>
+                    @php
+                    $url = "";
+                        $prev_params = "";
+                            if(isset($_GET)) {
+                                if(count($_GET) > 0) {
+                                $prev_params = "";
+                                foreach($_GET as $key => $value) {
+                                if($key != "sort") {
+                                $prev_params .= $key.'='.$value.'&';
+                                }
+
+                                }
+                                }
+                            }
+                    if($prev_params == "") {
+                        $url = url('/sub/categories');
+                    }
+                    else {
+                    $url = url('/sub/categories')."?$prev_params";
+                    }
+                    @endphp
+                    <div>
+                        <a href="<?php echo $prev_params != "" ? $url.'sort=asc' : $url.'?sort=asc' ?>"><i class="fa fa-fw fa-sort-asc"></i></a>
+                        <a href="<?php echo $prev_params != "" ? $url.'sort=desc' : $url.'?sort=desc' ?>"><i class="fa fa-fw fa-sort-desc"></i></a>
+                    </div>
+
+                    Title</th>
                 <th>Description</th>
                 <th>Actions</th>
                 <th>@if(!$data->isEmpty()) <input class="btn btn-danger submit" id="bulk_button"  type="submit" value="Delete"> @endif</th>
@@ -135,14 +172,13 @@
 
                         <td>
                             <a href={{url('/')}}/update/sub/category/{{$dat->id}}><i class="fa fa-edit fa-fw"></i></a>
-                            <a href={{url('/')}}/delete/sub/category/{{$dat->id}}><i class="fa fa-trash fa-fw "></i></a>
+                            <a data-toggle="modal" data-target="#deletePopup-{{$dat->id}}" href="#"><i class="fa fa-trash fa-fw "></i></a>
                         </td>
                         <td><input class="delete_check" type="checkbox" value="{{$dat->id}}" name="delete_ids[]"></td>
                     </tr>
 
                     <div class="modal fade" id="model-{{$dat->id}}" role="dialog">
                         <div class="modal-dialog">
-
                             <!-- Modal content-->
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -162,9 +198,6 @@
                                     <span><b>Title</b></span>
                                     <P>{{$dat->title}}</P>
                                     <br>
-                                    <span><b>Category</b></span>
-                                    <P>{{$dat->title}}</P>
-                                    <br>
                                     <span><b>Email</b></span>
                                     <P>{{$dat->email}}</P>
                                     <br>
@@ -175,10 +208,10 @@
                                     <P>{{$dat->link}}</P>
                                     <br>
                                     <span><b>Description</b></span>
-                                    <P>{{$dat->description}}</P>
+                                    <P>{{\App\Libs\Helpers\Helper::clean($dat->description)}}</P>
                                     <br>
                                     <span><b>Summary</b></span>
-                                    <P>{{$dat->summary}}</P>
+                                    <P>{{\App\Libs\Helpers\Helper::clean($dat->summary)}}</P>
                                     <br>
 
 
@@ -187,9 +220,30 @@
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
-
                         </div>
                     </div>
+
+                    <!-- Delete Model-->
+                    <div class="modal fade deletePopup" id="deletePopup-{{$dat->id}}" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content delete-popup">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <div class="modal-body">
+                                    <div class="txt">
+                                        <h2>Confirmation Message</h2>
+                                        <p>Would you really want to delete?</p>
+                                    </div>
+                                    <a class="btn btn btn-black" href={{url('/')}}/delete/sub/category/{{$dat->id}}>Yes</a>
+                                    <a class="btn btn btn-primary" href="#" data-dismiss="modal">No</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
 
 
                 @endforeach

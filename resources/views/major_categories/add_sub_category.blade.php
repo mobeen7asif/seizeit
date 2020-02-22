@@ -24,7 +24,7 @@
 
 
             <label class="fullField">
-                <span>Select Uni</span>
+                <span class="required">Select Uni</span>
                 <select class="unis" name="majors" multiple onchange="selectUni(this)">
                     @foreach($unis as $uni)
                         <option value="{{$uni->id}}">{{$uni->name}}</option>
@@ -40,11 +40,17 @@
                 @endif
             </label>
 
+
+
+                <div style="margin-top: 4px;height: 19px">
+                    <input style="float: left; width: 30px; margin-top: 2px;box-shadow: none"  type="checkbox" id="check_all" >
+                    <label style="color: black;font-size: 13px;padding-left: 0px">Select All</label>
+                </div>
             <label class="fullField">
-                <span>Select Major</span>
-                <select class="majors" name="majors" multiple onchange="selectMajor(this)">
+                <span style="display: inline-block">Select Major</span>
+                <select class="majors" name="majors" multiple>
                     @foreach($majors as $major)
-                        <option @if(request()->route()->parameter('major_id') == $major->id) selected @endif value="{{$major->id}}">{{$major->name}}</option>
+                        <option value="{{$major->id}}">{{$major->name}}</option>
                     @endforeach
 
                 </select>
@@ -58,7 +64,7 @@
             </label>
 
             <label class="fullField">
-                <span>Select Category</span>
+                <span class="required">Select Category</span>
                 <select id="major_categories" class="categories" multiple name="categories" onchange="selectCategory(this)">
                     @foreach($categories as $category)
                         <option value="{{$category->id}}">{{$category->name}}</option>
@@ -74,7 +80,7 @@
             </label>
 
                 <label class="fullField">
-                    <span>Select Link</span>
+                    <span class="required">Select Link</span>
                     <select  class="links" name="links" onchange="selectLink(this)">
                         <option value="0">Select Link</option>
                         @foreach($links as $link)
@@ -156,9 +162,23 @@
         $('.internship_link').hide();
     });
 
-    $(document).ready(function() {
-        $('.majors').select2();
+    $(".majors").select2();
+
+    $("#check_all").click(function() {
+        if ($("#check_all").is(':checked')) {
+            $(".majors > option").prop("selected", "selected");
+            $(".majors").trigger("change");
+        } else {
+            $(".majors > option").removeAttr("selected");
+            $(".majors").trigger("change");
+        }
     });
+
+
+
+/*    $(document).ready(function() {
+        $('.majors').select2();
+    });*/
     $(document).ready(function() {
         $('.unis').select2();
     });
@@ -200,9 +220,7 @@
     function selectUni(uni) {
         unis = $('.unis').val();
     }
-    function selectMajor(uni) {
-        majors = $('.majors').val();
-    }
+
     function selectCategory(elm)
     {
         categories = $('.categories').val();
@@ -224,10 +242,10 @@
             alert('Please select uni');
             return false;
         }
-        if(majors.length == 0) {
+        /*if(majors.length == 0) {
             alert('Please select major');
             return false;
-        }
+        }*/
         if(link == 0) {
             alert('Please select link');
             return false;
@@ -253,11 +271,12 @@
         $('.categories').prop('disabled', true);
         $('#loader').show();
 
+        console.log(majors);
         $.ajax({
             url: base_url + '/add/sub/category',
             type : "POST",
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            data : {'radius': radius,'selected_link':selected_link,'job_title':job_title,'job_location': job_location,'skip': 0,'major_id':majors , 'link': link,'category_id':categories,'uni_id':unis,"_token": "{{ csrf_token() }}"},
+            data : {'radius': radius,'selected_link':selected_link,'job_title':job_title,'job_location': job_location,'skip': 0,'major_id':$(".majors").val() , 'link': link,'category_id':categories,'uni_id':unis,"_token": "{{ csrf_token() }}"},
             success: function(data){
                 if(data.status == 500){
                     $('#loader').hide();

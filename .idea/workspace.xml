@@ -4,9 +4,12 @@
     <list default="true" id="6edb0fe0-449c-4a42-9fd8-251860911e5d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SubCategoriesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SubCategoriesController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Libs/Helpers/Helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Libs/Helpers/Helper.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/theme.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/theme.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/major_categories/add_custom_category.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/major_categories/add_custom_category.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/major_categories/add_sub_category.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/major_categories/add_sub_category.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scrapper/newEvent.php" beforeDir="false" afterPath="$PROJECT_DIR$/scrapper/newEvent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/major_categories/edit_sub_category.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/major_categories/edit_sub_category.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/major_categories/sub_categories.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/major_categories/sub_categories.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -118,23 +121,23 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/scrapper" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../wave_app" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\seizeit\scrapper" />
-      <recent name="C:\xampp\htdocs\seizeit\config" />
-      <recent name="C:\xampp\htdocs\seizeit\app\Http\Requests" />
-      <recent name="C:\xampp\htdocs\seizeit\app" />
-      <recent name="C:\xampp\htdocs\seizeit\app\Http\Middleware" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\seizeit\resources" />
       <recent name="C:\xampp\htdocs\seizeit\app\Http\Requests" />
       <recent name="C:\xampp\htdocs\seizeit\app\Http\Requests\Admin" />
       <recent name="C:\xampp\htdocs\seizeit\resources\views\major_categories" />
       <recent name="C:\xampp\htdocs\seizeit\public" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\seizeit\scrapper" />
+      <recent name="C:\xampp\htdocs\seizeit\config" />
+      <recent name="C:\xampp\htdocs\seizeit\app\Http\Requests" />
+      <recent name="C:\xampp\htdocs\seizeit\app" />
+      <recent name="C:\xampp\htdocs\seizeit\app\Http\Middleware" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -194,6 +197,7 @@
       <workItem from="1581774210749" duration="14973000" />
       <workItem from="1581954296359" duration="10216000" />
       <workItem from="1582030338601" duration="23032000" />
+      <workItem from="1582381322015" duration="13823000" />
     </task>
     <servers />
   </component>
