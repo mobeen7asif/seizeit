@@ -100,6 +100,18 @@
                         <span>Job Location</span>
                         <input type="text" class="job" name="name" onchange="selectJobLocation(this)">
                     </label>
+
+                    <label class="fullField radius_label">
+                        <span>Select Radius</span>
+                        <select  class="radius" name="radius" onchange="selectRadius(this)">
+                            <option selected value="5">5 Miles</option>
+                            <option value="10">10 Miles</option>
+                            <option value="15">15 Miles</option>
+                            <option value="25">20 Miles</option>
+                            <option value="50">50 Miles</option>
+                            <option value="100">100 Miles</option>
+                        </select>
+                    </label>
                 </div>
 
 
@@ -128,6 +140,15 @@
 
     var job_title = "";
     var job_location = "";
+    var category_id = 0;
+    var major_id = 0;
+    var skip = 0;
+
+    var unis = [];
+    var majors = [];
+    var categories = [];
+    var link = '';
+    var radius = 5;
 
     $(document).ready(function() {
         $('.categories').select2();
@@ -145,6 +166,10 @@
         $('.links').select2();
     });
 
+    $(document).ready(function() {
+        $('.radius').select2();
+    });
+
     var selected_link = "";
     $('.links').change(function () {
         selected_link = $(".links option:selected").text();
@@ -160,14 +185,7 @@
 
     });
 
-    var category_id = 0;
-    var major_id = 0;
-    var skip = 0;
 
-    var unis = [];
-    var majors = [];
-    var categories = [];
-    var link = '';
 
 
 
@@ -192,12 +210,10 @@
     function selectLink(elm) {
         link = $('.links').val();
     }
-/*    $('.unis').on('select2:unselecting', function (e) {
-        alert('You clicked on X'+e.value);
-    });
-    $('.unis').on('select2:selecting', function (e) {
-        alert('You asdasd on X'+e.value);
-    });*/
+    function selectRadius(elm) {
+        radius = elm.value;
+    }
+
 
 
 
@@ -241,7 +257,7 @@
             url: base_url + '/add/sub/category',
             type : "POST",
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            data : {'selected_link':selected_link,'job_title':job_title,'job_location': job_location,'skip': 0,'major_id':majors , 'link': link,'category_id':categories,'uni_id':unis,"_token": "{{ csrf_token() }}"},
+            data : {'radius': radius,'selected_link':selected_link,'job_title':job_title,'job_location': job_location,'skip': 0,'major_id':majors , 'link': link,'category_id':categories,'uni_id':unis,"_token": "{{ csrf_token() }}"},
             success: function(data){
                 if(data.status == 500){
                     $('#loader').hide();

@@ -4,9 +4,9 @@ set_time_limit(0);
 require_once __DIR__."/curl.php";
 $WeekCalender = "2020/1/10";
 //$mkURL = "https://events.valenciacollege.edu/calendar/week/{$WeekCalender}";
-$mkURL = "https://events.valenciacollege.edu/calendar/week/2020/2/18";
+//$mkURL = "https://events.valenciacollege.edu/calendar/week/2020/2/18";
 
-//$mkURL = $_GET['url'];
+$mkURL = $_GET['url'];
 $curl = new curl;
 $name = $curl->get($mkURL);
 @$doc = new DOMDocument();

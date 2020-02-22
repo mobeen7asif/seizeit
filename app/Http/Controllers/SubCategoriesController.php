@@ -20,6 +20,7 @@ use App\Uni;
 use App\UniMajor;
 use App\User;
 use Carbon\Carbon;
+use GuzzleHttp\Exception\ClientException;
 use http\Client;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
@@ -250,12 +251,12 @@ class SubCategoriesController extends BaseController
                 else if($link->link == 'https://valenciacollege.edu/academics/programs/') {
                     $endpoint = "$url/scrapper/valenciacollege.php";
                 }
-                else if($link->link == 'https://events.valenciacollege.edu/calendar') {
+                else if($request->selected_link == 'InfoSession_Valencia') {
                     try {
-                        $endpoint = "$url/scrapper/newEvent.php";
+                      /*  $endpoint = "$url/scrapper/newEvent.php";
                         $url = "https://events.valenciacollege.edu/calendar/week/2020/2/18";
                         $this->getEventsData($requestData,$endpoint,$client,$url,"");
-                        return ['status' => true,'message' => 'Data is added'];
+                        return ['status' => true,'message' => 'Data is added'];*/
 
                         $endpoint = "$url/scrapper/newEvent.php";
                         $now = Carbon::now();
@@ -263,13 +264,13 @@ class SubCategoriesController extends BaseController
                         while($now <= 12) {
                             $date = "month/2020/$now/15";
                             $url = $link->link."/$date";
-                            //$this->getEventsData($requestData,$endpoint,$client,$url,$date);
+                            $this->getEventsData($requestData,$endpoint,$client,$url,$date);
                             $now++;
                         }
                         return ['status' => true,'message' => 'Data is added'];
                     }
                     catch (\Exception $e) {
-                        Log::info('events_error',['message' => $e->getMessage(),'line' => $e->getLine()]);
+                        Log::info('events_error',['message' => $e->getMessage(),'line' => $e->getLine(),'code' => $e->getCode()]);
                         return ['status' => false,'message' => 'Data is added'];
                     }
 
@@ -281,13 +282,13 @@ class SubCategoriesController extends BaseController
                     $job_title = urlencode($job_title);
                     $job_location = urlencode($job_location);
                     $endpoint = "$url/scrapper/indeed.php";
+                    $radius = $request->radius;
                     $start = 0;
                     $index = 0;
                     $total_records = 0;
 
                     //get total record count
-
-                    $url  = "https://www.indeed.com/jobs?q=$job_title&l=$job_location&radius=5";
+                    $url  = "https://www.indeed.com/jobs?q=$job_title&l=$job_location&radius=$radius";
                     $result = $this->getJobsData($requestData,$endpoint,$client,$url,true);
                     $result = explode(' ',$result);
                     if(count($result) > 0) {
@@ -299,7 +300,7 @@ class SubCategoriesController extends BaseController
                     }
                     while($start < $total_records) {
                         $page_no = $start * 10;
-                        $url  = "https://www.indeed.com/jobs?q=$job_title&l=$job_location&radius=5&start=$page_no";
+                        $url  = "https://www.indeed.com/jobs?q=$job_title&l=$job_location&radius=$radius&start=$page_no";
                         Log::info('subcategory error',['data_input' => $url]);
                         $this->getJobsData($requestData,$endpoint,$client,$url,false);
                         $start++;
@@ -313,13 +314,14 @@ class SubCategoriesController extends BaseController
                     $job_title = urlencode($job_title);
                     $job_location = urlencode($job_location);
                     $endpoint = "$url/scrapper/indeed.php";
+                    $radius = $request->radius;
                     $start = 0;
                     $index = 0;
                     $total_records = 0;
 
                     //get total record count
 
-                    $url = "https://www.indeed.com/jobs?q=$job_title&l=$job_location&jt=internship";
+                    $url = "https://www.indeed.com/jobs?q=$job_title&l=$job_location&jt=internship&radius=$radius";
                     $result = $this->getJobsData($requestData,$endpoint,$client,$url,true);
                     $result = explode(' ',$result);
                     if(count($result) > 0) {
@@ -331,7 +333,7 @@ class SubCategoriesController extends BaseController
                     }
                     while($start < $total_records) {
                         $page_no = $start * 10;
-                        $url = "https://www.indeed.com/jobs?q=$job_title&l=$job_location&jt=internship&start=$page_no";
+                        $url = "https://www.indeed.com/jobs?q=$job_title&l=$job_location&radius=$radius&jt=internship&start=$page_no";
                         Log::info('subcategory error',['data_input' => $url]);
                         $this->getJobsData($requestData,$endpoint,$client,$url,false);
                         $start++;
@@ -506,9 +508,18 @@ class SubCategoriesController extends BaseController
         foreach($requestData['uni_id'] as $uni_id) {
             foreach ($requestData['major_id'] as $major_id) {
                 foreach ($requestData['category_id'] as $category_id) {
-                    $response = $client->request('GET', $endpoint, ['query' => [
-                        'url' => $url,
-                    ]]);
+
+//                    $client->setDefaultOption('headers', array('User-Agent' => 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:17.0) Gecko/20100101 Firefox/17.0'));
+
+                    try {
+                        $response = $client->request('GET', $endpoint, ['query' => [
+                            'url' => $url,
+                        ]]);
+                    } catch (ClientException $e) {
+                        Log::info('events_curl_error',['events_curl_error' => $e->getMessage(),'line' => $e->getLine(),'code' =>$e->getResponse()]);
+                    }
+
+
 
                     $response = json_decode($response->getBody()->getContents());
                     if(isset($response)) {
@@ -540,7 +551,7 @@ class SubCategoriesController extends BaseController
                                 ],$temp);
                             }
                             catch(\Exception $e) {
-                                Log::info('subcategory error',['data_input' => $temp]);
+                                Log::info('getEventsData()_error',['error' => $e->getTrace(),'data_input' => $temp]);
                                 continue;
                             }
 

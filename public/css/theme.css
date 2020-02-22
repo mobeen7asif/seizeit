@@ -696,3 +696,7 @@ textarea {
     color: red;
 }
 
+.radius_label > span {
+    width: 100%!important;
+}
+

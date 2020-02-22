@@ -2,32 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6edb0fe0-449c-4a42-9fd8-251860911e5d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/MobileLoginSession.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/UserSession.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scrapper/scholarship.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ApiController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ApiController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SubCategoriesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SubCategoriesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/RequestHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/RequestHandler.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/mian.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/mian.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/theme.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/theme.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/major_categories/add_sub_category.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/major_categories/add_sub_category.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/major_categories/edit_sub_category.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/major_categories/edit_sub_category.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/major_categories/sub_categories.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/major_categories/sub_categories.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scrapper.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scrapper/bizzabo.php" beforeDir="false" afterPath="$PROJECT_DIR$/scrapper/bizzabo.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scrapper/generate.php" beforeDir="false" afterPath="$PROJECT_DIR$/scrapper/generate.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scrapper/indeed.php" beforeDir="false" afterPath="$PROJECT_DIR$/scrapper/indeed.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scrapper/newEvent.php" beforeDir="false" afterPath="$PROJECT_DIR$/scrapper/newEvent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scrapper/valenciacollege.csv" beforeDir="false" afterPath="$PROJECT_DIR$/scrapper/valenciacollege.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scrapper/valenciacollege.php" beforeDir="false" afterPath="$PROJECT_DIR$/scrapper/valenciacollege.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seizeit.zip" beforeDir="false" afterPath="$PROJECT_DIR$/seizeit.zip" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -214,7 +193,7 @@
       <workItem from="1581689824629" duration="5258000" />
       <workItem from="1581774210749" duration="14973000" />
       <workItem from="1581954296359" duration="10216000" />
-      <workItem from="1582030338601" duration="17815000" />
+      <workItem from="1582030338601" duration="23032000" />
     </task>
     <servers />
   </component>
