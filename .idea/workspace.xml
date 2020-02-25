@@ -2,14 +2,96 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6edb0fe0-449c-4a42-9fd8-251860911e5d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/LICENSE.TXT" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/changelog.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/jquery.tinymce.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/langs/readme.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/license.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/advlist/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/anchor/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/autolink/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/autoresize/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/autosave/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/bbcode/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/charmap/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/code/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/codesample/css/prism.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/codesample/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/colorpicker/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/contextmenu/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/directionality/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/emoticons/img/smiley-cool.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/emoticons/img/smiley-cry.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/emoticons/img/smiley-embarassed.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/emoticons/img/smiley-foot-in-mouth.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/emoticons/img/smiley-frown.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/emoticons/img/smiley-innocent.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/emoticons/img/smiley-kiss.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/emoticons/img/smiley-laughing.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/emoticons/img/smiley-money-mouth.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/emoticons/img/smiley-sealed.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/emoticons/img/smiley-smile.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/emoticons/img/smiley-surprised.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/emoticons/img/smiley-tongue-out.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/emoticons/img/smiley-undecided.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/emoticons/img/smiley-wink.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/emoticons/img/smiley-yell.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/emoticons/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/fullpage/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/fullscreen/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/help/img/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/help/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/hr/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/image/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/imagetools/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/importcss/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/insertdatetime/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/legacyoutput/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/link/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/lists/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/media/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/nonbreaking/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/noneditable/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/pagebreak/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/paste/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/preview/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/print/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/save/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/searchreplace/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/spellchecker/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/tabfocus/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/table/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/template/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/textcolor/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/textpattern/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/toc/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/visualblocks/css/visualblocks.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/visualblocks/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/visualchars/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/plugins/wordcount/plugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/skins/lightgray/content.inline.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/skins/lightgray/content.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/skins/lightgray/fonts/tinymce-small.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/skins/lightgray/fonts/tinymce-small.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/skins/lightgray/fonts/tinymce-small.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/skins/lightgray/fonts/tinymce-small.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/skins/lightgray/fonts/tinymce.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/skins/lightgray/fonts/tinymce.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/skins/lightgray/fonts/tinymce.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/skins/lightgray/fonts/tinymce.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/skins/lightgray/img/anchor.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/skins/lightgray/img/loader.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/skins/lightgray/img/object.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/skins/lightgray/img/trans.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/skins/lightgray/skin.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/themes/inlite/theme.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/themes/modern/theme.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/js/vendor/tinymce/js/tinymce/tinymce.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SubCategoriesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SubCategoriesController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Libs/Helpers/Helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Libs/Helpers/Helper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/theme.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/theme.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/major_categories/add_custom_category.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/major_categories/add_custom_category.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/major_categories/add_sub_category.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/major_categories/add_sub_category.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/major_categories/edit_sub_category.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/major_categories/edit_sub_category.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/major_categories/sub_categories.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/major_categories/sub_categories.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/sessions/add_session.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/sessions/add_session.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -121,7 +203,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../wave_app" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
@@ -133,11 +215,11 @@
       <recent name="C:\xampp\htdocs\seizeit\public" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\seizeit\public" />
       <recent name="C:\xampp\htdocs\seizeit\scrapper" />
       <recent name="C:\xampp\htdocs\seizeit\config" />
       <recent name="C:\xampp\htdocs\seizeit\app\Http\Requests" />
       <recent name="C:\xampp\htdocs\seizeit\app" />
-      <recent name="C:\xampp\htdocs\seizeit\app\Http\Middleware" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -197,7 +279,9 @@
       <workItem from="1581774210749" duration="14973000" />
       <workItem from="1581954296359" duration="10216000" />
       <workItem from="1582030338601" duration="23032000" />
-      <workItem from="1582381322015" duration="13823000" />
+      <workItem from="1582381322015" duration="24584000" />
+      <workItem from="1582569206463" duration="1546000" />
+      <workItem from="1582637910807" duration="418000" />
     </task>
     <servers />
   </component>

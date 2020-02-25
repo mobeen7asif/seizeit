@@ -113,43 +113,7 @@
 <script src="{{ URL::to('src/js/vendor/tinymce/js/tinymce/tinymce.min.js') }}"></script>
 
 <script>
-    var editor_config = {
-        path_absolute :"{{url('/')}}/",
-        selector: "textarea",
-        plugins: [
-            "advlist autolink lists link image charmap print preview hr anchor pagebreak",
-            "searchreplace wordcount visualblocks visualchars code fullscrenn",
-            "inserdatetime media  nonbreaking save table contextmenu directonality",
-            "emotions template pasts textcolor colorpicker textpattren"
-        ],
-        toolbar:"insertfile undo redo | stylesheet | bolditalic | alignleft aligncenter alignright alignjustify | bullist | numlist | linkimagemedi | outdent |indenet",
-        relative_url: false,
-        file_browser_callback: function(field_name,url,type,win)
-        {
-            var x = window.innerWidth | document.documentElement.ClientWidth | document.getElementsByTagName('body')[0].clientWidth;
-            var y = window.innerHeight | document.documentElement.ClientHeight | document.getElementsByTagName('body')[0].clientHeight;
 
-            var cmsURL = editor_config.path_absoulte +'laravel-filemanager?field_name'+field
-            if(type == 'image')
-            {
-                cmsURL = cmsURL+"&type=Image";
-            }
-            else
-            {
-                cmsURL = cmsURL +"&type=File"
-            }
-            tinyMCE.activeEditor.windowManager.open({
-                file : cmsURL,
-                title: 'Filemanager',
-                width : x*0.8,
-                height : y*0.8,
-                resizeable : "yes",
-                close_previous : "no"
-            });
-        }
-
-    };
-    tinymce.init(editor_config);
 </script>
 
 

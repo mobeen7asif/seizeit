@@ -118,6 +118,25 @@
 
         </div>
         <form method="post" action="{{url('/')}}/sub/category/bulk/delete">
+
+
+
+            <!-- Delete Model-->
+            <div class="modal fade deletePopup" id="delete-all" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content delete-popup">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <div class="modal-body">
+                            <div class="txt">
+                                <h2>Confirmation Message</h2>
+                                <p>Would you really want to delete?</p>
+                            </div>
+                            <input style="padding: 10px 50px;" class="btn btn btn-black" type="submit" value="YES" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             {{csrf_field()}}
         <table id="mytable" class="display" cellspacing="0" width="100%">
             <thead>
@@ -147,15 +166,15 @@
                     $url = url('/sub/categories')."?$prev_params";
                     }
                     @endphp
-                    <div>
-                        <a href="<?php echo $prev_params != "" ? $url.'sort=asc' : $url.'?sort=asc' ?>"><i class="fa fa-fw fa-sort-asc"></i></a>
-                        <a href="<?php echo $prev_params != "" ? $url.'sort=desc' : $url.'?sort=desc' ?>"><i class="fa fa-fw fa-sort-desc"></i></a>
+                    <div style="display: inline-block">
+                        <a style="display: block;height: 5px" href="<?php echo $prev_params != "" ? $url.'sort=asc' : $url.'?sort=asc' ?>"><i class="fa fa-fw fa-sort-asc"></i></a>
+                        <a style="display: block" href="<?php echo $prev_params != "" ? $url.'sort=desc' : $url.'?sort=desc' ?>"><i class="fa fa-fw fa-sort-desc"></i></a>
                     </div>
 
                     Title</th>
                 <th>Description</th>
                 <th>Actions</th>
-                <th>@if(!$data->isEmpty()) <input class="btn btn-danger submit" id="bulk_button"  type="submit" value="Delete"> @endif</th>
+                <th>@if(!$data->isEmpty()) <input data-toggle="modal" data-target="#delete-all" class="btn btn-danger submit" id="bulk_button"  type="button" value="Delete"> @endif</th>
             </tr>
             </thead>
             <tbody>
@@ -165,7 +184,7 @@
                         <td>{{$dat->uni->name}}</td>
                         <td>{{isset($dat->major) ? $dat->major->name : ''}}</td>
                         <td>{{isset($dat->category)? $dat->category->name: ''}}</td>
-                        <td>{{$dat->title}}</td>
+                        <td>{{htmlspecialchars_decode($dat->title)}}</td>
                         <td style="cursor: pointer"><a data-toggle="modal" data-target="#model-{{$dat->id}}">View</a></td>
                         {{--<td>{{\Illuminate\Support\Str::limit($dat->email,10)}}</td>
                         <td>{{\Illuminate\Support\Str::limit($dat->link,10)}}</td>--}}
@@ -196,7 +215,7 @@
                                     <P>{{$dat->category->name}}</P>
                                     <br>
                                     <span><b>Title</b></span>
-                                    <P>{{$dat->title}}</P>
+                                    <P>{{App\Libs\Helpers\Helper::clean($dat->title)}}</P>
                                     <br>
                                     <span><b>Email</b></span>
                                     <P>{{$dat->email}}</P>
@@ -208,10 +227,16 @@
                                     <P>{{$dat->link}}</P>
                                     <br>
                                     <span><b>Description</b></span>
-                                    <P>{{\App\Libs\Helpers\Helper::clean($dat->description)}}</P>
+                                    @php
+                                        $str = preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($match) {
+                return mb_convert_encoding(pack('H*', $match[1]), 'UTF-8', 'UCS-2BE');
+            }, htmlspecialchars_decode($dat->description));
+                                    @endphp
+
+                                    <p>{!! str_replace('\n','',$str) !!}</p>
                                     <br>
                                     <span><b>Summary</b></span>
-                                    <P>{{\App\Libs\Helpers\Helper::clean($dat->summary)}}</P>
+                                    <?php print_r(str_replace('\n','',App\Libs\Helpers\Helper::clean($dat->summary))) ?>
                                     <br>
 
 
@@ -259,7 +284,12 @@
 </section>
 <?php include resource_path('views/includes/footer.php'); ?>
 
+<script src="{{ URL::to('src/js/vendor/tinymce/js/tinymce/tinymce.min.js') }}"></script>
+
 <script>
+
+
+
 
 
     (function() {
