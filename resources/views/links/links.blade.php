@@ -25,6 +25,25 @@
             </div>
         @endif
         <form method="post" action="{{url('/')}}/link/bulk/delete">
+
+
+
+            <!-- Delete Model-->
+            <div class="modal fade deletePopup" id="delete-all" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content delete-popup">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <div class="modal-body">
+                            <div class="txt">
+                                <h2>Confirmation Message</h2>
+                                <p>Would you really want to delete?</p>
+                            </div>
+                            <input style="padding: 10px 50px;" class="btn btn btn-black" type="submit" value="YES" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             {{csrf_field()}}
         <table id="tableStyle" class="display" cellspacing="0" width="100%">
             <thead>
@@ -33,7 +52,7 @@
                 <th>NAME</th>
                 <th>LINK</th>
                 <th>Actions</th>
-                <th>@if(!$links->isEmpty()) <input class="submit btn btn-danger" id="bulk_button"  type="submit" value="Delete"> @endif</th>
+                <th>@if(count($links) > 0) <input data-toggle="modal" data-target="#delete-all" class="btn btn-danger submit" id="bulk_button"  type="button" value="Delete"> @endif</th>
             </tr>
             </thead>
             <tbody>
@@ -45,10 +64,29 @@
                         <td>{{\Illuminate\Support\Str::limit($link->link,60)}}</td>
                         <td>
                             <a href={{url('/')}}/update/link/{{$link->id}}><i class="fa fa-edit fa-fw"></i></a>
-                            <a href={{url('/')}}/delete/link/{{$link->id}}><i class="fa fa-trash fa-fw "></i></a>
+                            <a data-toggle="modal" data-target="#deletePopup-{{$link->id}}" href="#"><i class="fa fa-trash fa-fw "></i></a>
                         </td>
                         <td><input class="delete_check" type="checkbox" value="{{$link->id}}" name="delete_ids[]"></td>
                     </tr>
+
+
+                    <!-- Delete Model-->
+                    <div class="modal fade deletePopup" id="deletePopup-{{$link->id}}" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content delete-popup">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <div class="modal-body">
+                                    <div class="txt">
+                                        <h2>Confirmation Message</h2>
+                                        <p>Would you really want to delete?</p>
+                                    </div>
+                                    <a class="btn btn btn-black" href={{url('/')}}/delete/link/{{$link->id}}>Yes</a>
+                                    <a class="btn btn btn-primary" href="#" data-dismiss="modal">No</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 @endforeach
             @endif
             </tbody>

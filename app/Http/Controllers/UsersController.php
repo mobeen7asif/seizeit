@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Category;
 use App\Http\Requests\Admin\AddUniRequest;
 
 use App\Http\Requests\Admin\AddUserRequest;
@@ -19,6 +20,7 @@ use App\Repositories\ImagesRepository;
 use App\Repositories\MajorRepository;
 use App\Repositories\UniRepository;
 use App\Repositories\UsersRepository;
+use App\SubCategory;
 use App\Uni;
 use App\UniMajor;
 use App\User;
@@ -31,6 +33,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Response;
 use Maatwebsite\Excel\Facades\Excel;
@@ -117,7 +120,7 @@ class UsersController extends BaseController
 
         $file = $request->file('image');
         if(isset($file)){
-            $public_path = '/uni/images/' . $uni_id;
+            $public_path = '/unis/images/' . $uni_id;
             $destinationPath = public_path($public_path);
             $filename = $file->getClientOriginalName();
             $file->move($destinationPath, $filename);
@@ -147,7 +150,7 @@ class UsersController extends BaseController
         UniMajor::insert($majors);*/
         $file = $request->file('image');
         if(isset($file)){
-            $public_path = '/uni/images/' . $uni_id;
+            $public_path = '/unis/images/' . $uni_id;
             $destinationPath = public_path($public_path);
             $filename = $file->getClientOriginalName();
             $file->move($destinationPath, $filename);
@@ -248,6 +251,46 @@ class UsersController extends BaseController
         $this->usersRepo->updateWhere(['id' => $user_id],$request->updateAttrs());
         return redirect()->back()->with('success','User has been updated');
     }
+
+    public function transferView(){
+        return view('uni.transfer_data',['title' => 'users','categories' => Category::all(),'unis' => Uni::all()]);
+    }
+    public function trasnferData(Request $request) {
+        try {
+            $requestData = $request->all();
+            $sub_categories = SubCategory::where(['uni_id' => $requestData['uni_id'], 'category_id' => $requestData['category_id']])->get();
+            foreach ($sub_categories as $sub_category) {
+                foreach($requestData['category_id'] as $category_id) {
+                    $temp = [
+                        'link' => $sub_category->link,
+                        'title' => $sub_category->title,
+                        'description' => $sub_category->description,
+                        'summary' => $sub_category->summary,
+                        'email' => $sub_category->email,
+                        'address' => $sub_category->address,
+                        'time' => $sub_category->time,
+                        'category_id' => $category_id,
+                        'major_id' => $sub_category->major_id,
+                        'uni_id' => $requestData['to_uni_id'],
+                        'created_at' => date('Y-m-d H:i:s'),
+                        'updated_at' => date('Y-m-d H:i:s')
+                    ];
+                    SubCategory::updateOrCreate([
+                        'title' => $sub_category->title,
+                        'description' => $sub_category->description,
+                        'category_id' => $category_id,
+                        'major_id' => $sub_category->major_id,
+                        'uni_id' => $requestData['to_uni_id'],
+                    ],$temp);
+                }
+            }
+            return ['status' => true,'message' => 'Data is added'];
+        } catch (\Exception $e) {
+            Log::info('transferData_error',['message' => $e->getMessage(),'line' => $e->getLine()]);
+            return ['status' => false,'message' => $e->getMessage()];
+        }
+    }
+
     public function updateAdmin(UpdateAdminRequest $request,$user_id){
         $this->usersRepo->updateWhere(['id' => $user_id],$request->updateAttrs());
         return redirect()->back()->with('success','Admin has been updated');

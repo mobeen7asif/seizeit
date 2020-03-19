@@ -119,6 +119,16 @@
                         </select>
                     </label>
                 </div>
+                <div class="calender">
+                    <label  style="position: relative" id = "example">
+                    </label>
+{{--                    @if($info_session != 0)
+                        <span style="margin-left: 80px">{{'Data is added upto '.$info_session.' week'}}</span>
+                        @endif--}}
+
+                </div>
+
+
 
 
 
@@ -139,11 +149,17 @@
 </section>
 <?php include resource_path('views/includes/footer.php'); ?>
 
-<script src="{{ URL::to('src/js/vendor/tinymce/js/tinymce/tinymce.min.js') }}"></script>
+
+
+
+
+
+
+
 
 <script>
 
-
+    var weekpicker = $("#example").weekpicker();
     var job_title = "";
     var job_location = "";
     var category_id = 0;
@@ -155,11 +171,13 @@
     var categories = [];
     var link = '';
     var radius = 5;
+    var week = 0;
 
     $(document).ready(function() {
         $('.categories').select2();
         $('.job_link').hide();
         $('.internship_link').hide();
+        $('.calender').hide();
     });
 
     $(".majors").select2();
@@ -196,8 +214,13 @@
         if(selected_link == 'Jobs' || selected_link == 'Internships') {
             $('.job_link').show();
         }
-        else {
+        else if(selected_link == 'InfoSession_Valencia') {
+            $('.calender').show();
+        }
+        else
+        {
             $('.job_link').hide();
+            $('.calender').hide();
             job_title = "";
             job_location = "";
             $('.job').val('');
@@ -276,7 +299,7 @@
             url: base_url + '/add/sub/category',
             type : "POST",
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            data : {'radius': radius,'selected_link':selected_link,'job_title':job_title,'job_location': job_location,'skip': 0,'major_id':$(".majors").val() , 'link': link,'category_id':categories,'uni_id':unis,"_token": "{{ csrf_token() }}"},
+            data : {'week': weekpicker.getWeek(),'radius': radius,'selected_link':selected_link,'job_title':job_title,'job_location': job_location,'skip': 0,'major_id':$(".majors").val() , 'link': link,'category_id':categories,'uni_id':unis,"_token": "{{ csrf_token() }}"},
             success: function(data){
                 if(data.status == 500){
                     $('#loader').hide();

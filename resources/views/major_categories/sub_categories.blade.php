@@ -233,10 +233,16 @@
             }, htmlspecialchars_decode($dat->description));
                                     @endphp
 
-                                    <p>{!! str_replace('\n','',$str) !!}</p>
+                                    <p>{!! str_replace('\n',' ',$str) !!}</p>
                                     <br>
                                     <span><b>Summary</b></span>
-                                    <?php print_r(str_replace('\n','',App\Libs\Helpers\Helper::clean($dat->summary))) ?>
+                                    @php
+                                        $str = preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($match) {
+                return mb_convert_encoding(pack('H*', $match[1]), 'UTF-8', 'UCS-2BE');
+            }, htmlspecialchars_decode($dat->summary));
+                                    @endphp
+
+                                    <p>{!! str_replace('\n',' ',$str) !!}</p>
                                     <br>
 
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 
 use App\Category;
+use App\Libs\Auth\Auth;
 use App\Libs\Auth\PAuth;
 use App\Libs\Helpers\Helper;
 use App\Major;
@@ -32,6 +33,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Requests\ForgotPasswordRequest;
+use function foo\func;
 
 
 class ApiController extends BaseController
@@ -80,6 +83,7 @@ class ApiController extends BaseController
 
             $user = User::where(['social_id' => $request->social_id,'social_type' => $request->social_type])->first();
             $input = $request->only('first_name', 'last_name','social_id','social_type','email');
+            $input['user_type'] = 0;
             if(!$user) {
                 $check_pre_user = User::where('email',$request->email)->first();
                 if($check_pre_user) {
@@ -87,7 +91,17 @@ class ApiController extends BaseController
                 }
                 else {
                     $user = User::create($input);
+
                 }
+                $user = User::where('email',$request->email)->first();
+                $viewData['first_name'] = $user->first_name;
+                $viewData['last_name'] = $user->last_name;
+                //send welcome email
+                Mail::send('welcome_email', $viewData, function ($m) use ($user) {
+                    $m->from('noreply@joinseizeit.com', 'SeizeIt');
+                    $m->to($user->email)->subject('Thank you!');
+
+                });
 
             }
             else {
@@ -125,21 +139,17 @@ class ApiController extends BaseController
 
             return ['status' => 200, 'data' => [
                 'user' => $user,
-                'unis' => Uni::all(),
-                'majors' => Major::all()
             ],'message' => 'User Logged in'];
 
         }
         catch(\Exception $e){
-            dd($e->getLine());
-              return ['status' => 500, 'message' => "Something went wrong", 'data' => []];
+              return ['status' => 500, 'message' => $e->getMessage(), 'data' => []];
         }
     }
 
 
     public function register(Request $request)
     {
-
         try {
             $validator = Validator::make($request->all(), [
                 'user_name' => 'min:2|max:50',
@@ -158,7 +168,7 @@ class ApiController extends BaseController
             }
 
             $input = request()->only('first_name','last_name','email','user_name');
-
+            $input['user_type'] = 0;
             $user=new User($input);
             $user->password=bcrypt(request()->password);
             $user->save();
@@ -174,16 +184,23 @@ class ApiController extends BaseController
             $user_session->session_id= bcrypt($user->id);
             $user_session->save();
             $user->session_id = $user_session->session_id;
+
+            $viewData['first_name'] = $user->first_name;
+            $viewData['last_name'] = $user->last_name;
+            //send welcome email
+            Mail::send('welcome_email', $viewData, function ($m) use ($user) {
+                $m->from('noreply@joinseizeit.com', 'SeizeIt');
+                $m->to($user->email)->subject('Thank you!');
+
+            });
+
             return ['status' => 200, 'data' => [
                 'user' => $user,
-                'unis' => Uni::all(),
-                'majors' => Major::all()
             ],'message' => 'User registered'];
 
         }
         catch(\Exception $e){
-            dd($e->getMessage());
-              return ['status' => 500, 'message' => "Something went wrong", 'data' => []];
+              return ['status' => 500, 'message' => $e->getMessage(), 'data' => []];
         }
     }
 
@@ -250,8 +267,6 @@ class ApiController extends BaseController
 
                 return ['status' => 200, 'data' => [
                     'user' => $user,
-                    'unis' => Uni::all(),
-                    'majors' => Major::all()
                 ],'message' => 'User Logged in'];
             }else{
                 return ['status' => 401, 'message' => "Invalid email or password", 'data' => []];
@@ -259,18 +274,140 @@ class ApiController extends BaseController
         }
 
         catch(\Exception $e){
-            return $e;
-//            return ['status' => 500, 'message' => "Some Thing Wet Wrong", 'data' => []];
+            return ['status' => 500, 'message' => $e->getMessage(), 'data' => []];
         }
     }
 
     public function getData(Request $request) {
+        $page = $request->page;
+        $page = !empty($page) ? $page : 1;
         $data = SubCategory::with('uni','major','category')->where([
             'uni_id' => $request->uni_id,
             'major_id' => $request->major_id,
             'category_id' => $request->category_id
-        ])->get();
-        return ['status' => true, 'data' => $data];
+        ])->offset($page*10-10)->limit(10)->get();
+
+        return ['status' => 200, 'data' => $data,'page' => (count($data) >= 10) ? $page+1:null];
+    }
+
+    public function getDetail(Request $request) {
+
+        try {
+            $validator = Validator::make($request->all(), [
+                'id' => 'required|exists:sub_categories,id',
+            ]);
+
+            if ($validator->fails()) {
+                return ['status' => 400, 'message' => $validator->errors()->all()[0], 'data' => []];
+            }
+
+            $data = SubCategory::with('uni', 'major', 'category')->where([
+                'id' => $request->id,
+            ])->first();
+
+            return ['status' => 200, 'message' => 'Data found', 'data' => $data];
+        } catch(\Exception $e) {
+            return ['status' => 500, 'data' => [], 'message' => $e->getMessage()];
+        }
+    }
+
+    public function getUniMajors(Request $request) {
+        try {
+            $uni = Uni::all();
+            $uni = $uni->map(function($data) {
+                if(!empty($data->image)) {
+                    $data->image =  url('/').$data->image;
+                }
+                else {
+                    $data->image =  '';
+                }
+                return $data;
+
+            });
+
+            return ['status' => true, 'message' => 'Data found', 'data' => [
+                'uni' => $uni,
+                'majors' => Major::all()
+            ]];
+        }
+        catch(\Exception $e) {
+            return ['status' => 500, 'data' => [], 'message' => $e->getMessage()];
+        }
+    }
+    public function getCategories(Request $request) {
+        try {
+            $categories = Category::all();
+            $categories = $categories->map(function($category) {
+                if(!empty($category->image)) {
+                    $category->image =  url('/').$category->image;
+                }
+                else {
+                    $category->image =  '';
+                }
+                return $category;
+
+            });
+            return ['status' => 200, 'message' => 'Data found', 'data' => $categories];
+        }
+        catch(\Exception $e) {
+            return ['status' => 500, 'data' => [], 'message' => $e->getMessage()];
+        }
+    }
+
+
+    public function forgotPassword(Request $request)
+    {
+        try {
+            $user = $this->usersRepo->findByEmail($request->input('email'));
+            if($user != null){
+                $length = 50;
+                $token = bin2hex(random_bytes($length));
+                $user->token = $token;
+                $user->update();
+                $viewData['id'] = $user->id;
+                $viewData['token'] = $user->token;
+                Mail::send('forgetpass', $viewData, function ($m) use ($user) {
+                    $m->from('noreply@joinseizeit.com', 'SeizeIt');
+                    $m->to($user->email)->subject('Forget Password');
+
+                });
+                return ['status' => 200,'message' => 'Email is send to your account','data' => []];
+            }
+            return ['status' => 404,'message' => 'User not exists','data' => []];
+
+        }
+        catch(\Exception $e){
+            return ['status' => 500,'message' => $e->getMessage(),'data' => []];
+        }
+    }
+    public function feedback(Request $request) {
+
+        try {
+            $validator = Validator::make($request->all(), [
+                'rating' => 'required',
+                'message' => 'required'
+            ]);
+
+            if ($validator->fails()) {
+                return ['status' => 400, 'message' => $validator->errors()->all()[0], 'data' => []];
+            }
+            $user = Auth::user();
+            $request->request->add(['first_name' => $user->first_name,'last_name' => $user->last_name]);
+            $requestData = $request->all();
+            $viewData['rating'] = $requestData['rating'];
+            $viewData['feedback'] = $requestData['message'];
+            $viewData['first_name'] = $user->first_name;
+            $viewData['last_name'] = $user->last_name;
+            Mail::send('feedback', $viewData, function ($m) use($user) {
+                $m->from('admin@seizeit.com', 'SeizeIt');
+                $m->to('joinseizeit@outlook.com')->subject('User Feedback');
+
+            });
+
+            return ['status' => 200, 'message' => 'Feedback is submitted', 'data' => []];
+        } catch(\Exception $e) {
+            return ['status' => 500, 'data' => [], 'message' => $e->getMessage()];
+        }
     }
 
 

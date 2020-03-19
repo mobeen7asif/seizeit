@@ -51,22 +51,18 @@ foreach($sublinkings as $Sub) {
     $h1 = $xpath->query("(//*[@class='tab_content'])[last()]/h1[1]");
     $p = $xpath->query("(//*[@class='tab_content'])[last()]/p[1]");
 
-    $tag['Time'] = '';
-    $tag['ContactAddress'] = '';
 
-    $tag['Summary'] = "";
-    $tag['Email'] = "";
 
-    $tag['Link'] = $Sub;
-    $tag['Date'] = null;
+    $tag['link'] = $Sub;
+    $tag['date'] = null;
     foreach ($h1 as $element) {
-        $tag['Name'] = $element->nodeValue;
+        $tag['name'] = $element->nodeValue;
     }
 
     foreach ($p as $element) {
-        $tag['Description'] = $element->nodeValue;
+        $tag['description'] = $element->nodeValue;
     }
-    if ( !empty($tag['Description'])) {
+    if ( !empty($tag['description'])) {
         $pageContent[] = $tag;
     }
 

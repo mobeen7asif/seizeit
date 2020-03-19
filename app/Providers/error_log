@@ -1,5 +1,0 @@
-[28-Jan-2020 07:11:11 UTC] PHP Fatal error:  Class 'Illuminate\Support\ServiceProvider' not found in /home2/automat1/public_html/seizeit/app/Providers/AppServiceProvider.php on line 7
-[28-Jan-2020 07:11:35 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Support\Providers\AuthServiceProvider' not found in /home2/automat1/public_html/seizeit/app/Providers/AuthServiceProvider.php on line 8
-[28-Jan-2020 07:12:00 UTC] PHP Fatal error:  Class 'Illuminate\Support\ServiceProvider' not found in /home2/automat1/public_html/seizeit/app/Providers/BroadcastServiceProvider.php on line 8
-[28-Jan-2020 07:12:25 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Support\Providers\EventServiceProvider' not found in /home2/automat1/public_html/seizeit/app/Providers/EventServiceProvider.php on line 10
-[28-Jan-2020 07:12:52 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Support\Providers\RouteServiceProvider' not found in /home2/automat1/public_html/seizeit/app/Providers/RouteServiceProvider.php on line 8

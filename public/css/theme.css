@@ -736,3 +736,6 @@ textarea {
     border-color: #1d1c1c;
     color: #FFF;
 }
+.fa-chevron-left {
+    margin-top: 10px;
+}

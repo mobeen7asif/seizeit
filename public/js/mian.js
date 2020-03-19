@@ -62,8 +62,13 @@ $(document).ready(function () {
 			orderData: [1, 0]
 		}],
 		order: [[0, false]],
-		bSort: false,
-        lengthMenu : [[10, 25, 50, -1], [10, 25, 50, "All"]]
+		bSort: true,
+        ordering: true,
+        lengthMenu : [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        aoColumnDefs: [{
+            bSortable: false,
+            aTargets: [-1,-2,-3] /* 1st one, start by the right */
+        }]
 
 	});
 

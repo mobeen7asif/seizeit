@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Libs\Auth\Auth;
 use App\LoginUser;
+use App\User;
 use Illuminate\Support\Facades\Validator;
 use Requests\Request;
 use Closure;
@@ -30,17 +31,20 @@ class RequestHandler
     {
             if(isset(getallheaders()['Authorization']) && getallheaders()['Authorization'] != ""){
                 $user_session = LoginUser::where('session_id',getallheaders()['Authorization'])->first();
-                if(!$user_session) {
-                    return ['status' => 401, 'message' => 'You are not logged in', 'data' => []];
+                if($user_session) {
+                    $user = User::where('id',$user_session->user_id)->first();
+                    if(!$user) {
+                        return response()->json(['status' => 401, 'message' => 'Invalid Token', 'data' => []]);
+                    }
+                    return $next($request);
                 }
                 else {
-                    return $next($request);
+                    return response()->json(['status' => 401, 'message' => 'You are not logged in', 'data' => []]);
                 }
 
 
             }else{
                 return response()->json(['status' => 401, 'message' => 'You are not logged in', 'data' => []]);
-                return ['status' => 401, 'message' => 'You are not logged in', 'data' => []];
             }
 
 

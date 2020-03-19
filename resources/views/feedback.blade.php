@@ -2,10 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Feeback</title>
 </head>
 <body>
-<h1>Click the following link to change your password.</h1>
-<a href="{{url('/')}}/redirect_link?user={{$id}}&token={{$token}}">Reset</a>
+
+<h4>{{$first_name}} has submitted the following feedback</h4>
+<p>App Rating : {{$rating}}</p>
+<p>Comments : {{$feedback}}</p>
 </body>
 </html>

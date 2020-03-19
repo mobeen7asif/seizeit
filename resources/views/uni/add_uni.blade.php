@@ -79,6 +79,10 @@
                     @endif
 
                 </label>
+                <label class="fullField">
+                    <span>Image</span>
+                    <input type=file name="image" value="" accept="image/x-png,image/gif,image/jpeg">
+                </label>
                {{-- <label class="fullField">
                     <span>Image</span>
                     <input type=file name="image" value="">

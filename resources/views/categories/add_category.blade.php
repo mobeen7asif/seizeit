@@ -8,7 +8,7 @@
     <div class="content lifeContent">
         <div class="heading-sponser">
         <h2>Add Category</h2>
-            <a class="btn btn btn-primary back" href="{{url('/')}}/categorys">Back</a>
+            <a class="btn btn btn-primary back" href="{{url('/')}}/categories">Back</a>
     </div>
         <div class="userForm user">
 

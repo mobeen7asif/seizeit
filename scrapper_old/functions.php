@@ -1,0 +1,2 @@
+<?php
+$numberOfResults = 5;

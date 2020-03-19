@@ -50,7 +50,7 @@ foreach($scholar as $uIndex => $data) {
     $newArr['Title'] = trim($linkArr);
     $newArr['Time'] = $dated;
     $newArr['Link'] = $links;
-    $newArr['Location'] = $links;
+    $newArr['Location'] = "";
     $printArr[] = $newArr;
 }
 

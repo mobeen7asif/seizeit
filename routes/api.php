@@ -22,8 +22,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/user/register', 'ApiController@register');
 Route::post('/user/social/login', 'ApiController@socialLogin');
 Route::post('/user/login', 'ApiController@login');
-
+Route::post('/forgot/password', 'ApiController@forgotPassword');
 Route::group(['middleware' => 'requestHandler'], function () {
-Route::get('/get/data', 'ApiController@getData');
+    Route::get('/get/category-data', 'ApiController@getData');
+    Route::get('/get/detail', 'ApiController@getDetail');
+    Route::get('/get/uni-majors', 'ApiController@getUniMajors');
+    Route::get('/get/categories', 'ApiController@getCategories');
+    Route::post('/user/feedback', 'ApiController@feedback');
 });
 

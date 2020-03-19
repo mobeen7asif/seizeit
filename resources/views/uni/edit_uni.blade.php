@@ -99,6 +99,18 @@
                         <figure class="car"><img src="{{url('/').$uni->image}}" style="width: 100px;"></figure>
                     @endif
                 </div>--}}
+                <label class="fullField">
+                    <span>Image</span>
+                    <input type=file name="image" value="" accept="image/x-png,image/gif,image/jpeg">
+                </label>
+                <div class="imgCol">
+                    @if($uni->image != '')
+                        <button type="button" class="del-img-btn" data-id="{{$uni->id}}" data-col="image" data-table="uni">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                        <figure class="car"><img src="{{url('/').$uni->image}}" style="width: 100px;"></figure>
+                    @endif
+                </div>
                 <div class="btnCol">
                     <input class="btn btn-primary" type="submit" name="signIn"  value="Submit">
                 </div>

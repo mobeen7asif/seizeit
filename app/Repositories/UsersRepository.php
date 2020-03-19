@@ -8,8 +8,10 @@
 
 namespace App\Repositories;
 
+use App\LoginUser;
 use App\Models\FranchiseInfo;
 use App\User;
+use App\UserSession;
 use Illuminate\Support\Facades\DB;
 
 class UsersRepository extends Repository
@@ -25,9 +27,8 @@ class UsersRepository extends Repository
     }
     public function findByToken($token)
     {
-        $usersTable = $this->getModel()->getTable();
-        return $this->getModel()->where('session_id', $token)
-            ->first();
+        $user_session = LoginUser::where('session_id', $token)->first();
+        return User::find($user_session->user_id);
     }
     public function getAllUsers(){
         return $this->getModel()->where('user_type',0)->orderBy('sort_id','ASC')->get();

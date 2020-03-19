@@ -25,6 +25,22 @@
             </div>
         @endif
         <form method="post" action="{{url('/')}}/category/bulk/delete">
+            <!-- Delete Model-->
+            <div class="modal fade deletePopup" id="delete-all" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content delete-popup">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <div class="modal-body">
+                            <div class="txt">
+                                <h2>Confirmation Message</h2>
+                                <p>Would you really want to delete?</p>
+                            </div>
+                            <input style="padding: 10px 50px;" class="btn btn btn-black" type="submit" value="YES" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             {{csrf_field()}}
         <table id="tableStyle" class="display" cellspacing="0" width="100%">
             <thead>
@@ -33,45 +49,39 @@
                 <th>Name</th>
                 <th>Detail</th>
                 <th>Actions</th>
-                <th>@if(!$categories->isEmpty()) <input class="submit btn btn-danger" id="bulk_button"  type="submit" value="Delete"> @endif</th>
+                <th>@if(count($categories) > 0) <input data-toggle="modal" data-target="#delete-all" class="btn btn-danger submit" id="bulk_button"  type="button" value="Delete"> @endif</th>
             </tr>
             </thead>
             <tbody id="sortable">
             @if(isset($categories))
                 @foreach($categories as $category)
                     <tr id="{{$category->id}}">
-                        <td><img style="height: 25%; width: 25%" src="{{isset($category->image) ? url('/').$category->image : url('/images/no_image.jpg')}}"/></td>
+                        <td><img style="height: auto; width: 20%" src="{{isset($category->image) ? url('/').$category->image : url('/images/no_image.jpg')}}"/></td>
                         <td>{{$category->name}}</td>
                         <td><a href={{url('/')}}/category/detail/{{$category->id}}>View</a></td>
                         <td>
                             <a href={{url('/')}}/update/category/{{$category->id}}><i class="fa fa-edit fa-fw"></i></a>
-                            <a href={{url('/')}}/delete/category/{{$category->id}}><i class="fa fa-trash fa-fw "></i></a>
+                            <a data-toggle="modal" data-target="#deletePopup-{{$category->id}}" href="#"><i class="fa fa-trash fa-fw "></i></a>
                         </td>
                         <td><input class="delete_check" type="checkbox" value="{{$category->id}}" name="delete_ids[]"></td>
                     </tr>
 
-                    <div class="modal fade" id="model-{{$category->id}}" role="dialog">
+
+
+                    <!-- Delete Model-->
+                    <div class="modal fade deletePopup" id="deletePopup-{{$category->id}}" role="dialog">
                         <div class="modal-dialog">
-
-                            <!-- Modal content-->
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Select Major</h4>
-                                </div>
+                            <div class="modal-content delete-popup">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 <div class="modal-body">
-                                    <select class="majors" name="majors">
-                                        @foreach($categories as $category)
-                                            <option value="{{$category->id}}">{{$category->name}}</option>
-                                        @endforeach
-
-                                    </select>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <div class="txt">
+                                        <h2>Confirmation Message</h2>
+                                        <p>Would you really want to delete?</p>
+                                    </div>
+                                    <a class="btn btn btn-black" href={{url('/')}}/delete/category/{{$category->id}}>Yes</a>
+                                    <a class="btn btn btn-primary" href="#" data-dismiss="modal">No</a>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 

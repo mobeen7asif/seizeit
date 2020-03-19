@@ -14,6 +14,14 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" type="text/javascript"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js" type="text/javascript"></script>
+<script src="https://cdn.rawgit.com/pingcheng/bootstrap4-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js" type="text/javascript" ></script>
+<!-- Bootstrap 4 Weekpicker JavaScript -->
+<script src="https://www.jqueryscript.net/demo/Week-Picker-Bootstrap-4/bootstrap-weekpicker.js?v2" type="text/javascript" ></script>
+
+
 
 
 

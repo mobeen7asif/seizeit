@@ -27,30 +27,66 @@
             </div>
         @endif
         <form method="post" action="{{url('/')}}/user/bulk/delete">
+
+
+            <!-- Delete Model-->
+            <div class="modal fade deletePopup" id="delete-all" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content delete-popup">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <div class="modal-body">
+                            <div class="txt">
+                                <h2>Confirmation Message</h2>
+                                <p>Would you really want to delete?</p>
+                            </div>
+                            <input style="padding: 10px 50px;" class="btn btn btn-black" type="submit" value="YES" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             {{csrf_field()}}
         <table id="tableStyle" class="display" cellspacing="0" width="100%">
             <thead>
             <tr>
-                <th>User Name</th>
+                <th>Name</th>
                 <th>Email</th>
                 <th>Admin</th>
                 <th>Actions</th>
-                <th>@if(!$users->isEmpty()) <input class="btn btn-danger submit" id="bulk_button"  type="submit" value="Delete" > @endif</th>
+                <th>@if(!$users->isEmpty()) <input data-toggle="modal" data-target="#delete-all" class="btn btn-danger submit" id="bulk_button"  type="button" value="Delete"> @endif</th>
             </tr>
             </thead>
             <tbody id="sortable">
             @if(isset($users))
                 @foreach($users as $user)
                     <tr id="{{$user->id}}">
-                        <td>{{$user['user_name']}}</td>
+                        <td>{{$user['first_name'].' '.$user['last_name']}}</td>
                         <td>{{$user['email']}}</td>
                         <td><input class="admin_check" type="checkbox" value="{{$user->id}}" name="admin_ids[]"></td>
                         <td>
                             <a href={{url('/')}}/update/user/{{$user->id}}><i class="fa fa-edit fa-fw "></i></a>
-                            <a href={{url('/')}}/delete/user/{{$user->id}}><i class="fa fa-trash fa-fw "></i></a>
+                            <a data-toggle="modal" data-target="#deletePopup-{{$user->id}}" href="#"><i class="fa fa-trash fa-fw "></i></a>
                         </td>
                         <td><input class="delete_check" type="checkbox" value="{{$user->id}}" name="delete_ids[]"></td>
                     </tr>
+
+                    <!-- Delete Model-->
+                    <div class="modal fade deletePopup" id="deletePopup-{{$user->id}}" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content delete-popup">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <div class="modal-body">
+                                    <div class="txt">
+                                        <h2>Confirmation Message</h2>
+                                        <p>Would you really want to delete?</p>
+                                    </div>
+                                    <a class="btn btn btn-black" href={{url('/')}}/delete/user/{{$user->id}}>Yes</a>
+                                    <a class="btn btn btn-primary" href="#" data-dismiss="modal">No</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 @endforeach
             @endif
             </tbody>
@@ -177,7 +213,13 @@
                 orderData: [1, 0]
             }],
             order: [[0, false]],
-            bSort: false
+            bSort: true,
+            ordering: true,
+            lengthMenu : [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            aoColumnDefs: [{
+                bSortable: false,
+                aTargets: [-1,-2,-3] /* 1st one, start by the right */
+            }]
         });
     });
     $('.mainNav').mCustomScrollbar({

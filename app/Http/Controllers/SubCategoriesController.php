@@ -147,11 +147,19 @@ class SubCategoriesController extends BaseController
 
     public function deleteSubCategory($id) {
         SubCategory::where('id',$id)->delete();
+        $sub_categories = SubCategory::where('scrap_link','InfoSession_Valencia')->first();
+        if(!$sub_categories) {
+            DB::table('info_session')->delete();
+        }
         return redirect()->back()->with('success','Sub Category deleted');
     }
 
     public function bulkDeleteSubCategory() {
         SubCategory::whereIn('id',request()->delete_ids)->delete();
+        $sub_categories = SubCategory::where('scrap_link','InfoSession_Valencia')->first();
+        if(!$sub_categories) {
+            DB::table('info_session')->delete();
+        }
         return redirect()->back()->with('success','Sub Categories deleted');
     }
 
@@ -220,12 +228,13 @@ class SubCategoriesController extends BaseController
         $unis = Uni::all();
         $majors = Major::all();
         $categories = Category::all();
-
+        $info_session = DB::table('info_session')->orderBy('id','desc')->first();
         return view('major_categories.add_sub_category',['title' => 'sub_categories',
             'unis' => $unis,
             'majors' => $majors,
             'categories' => $categories,
-            'links' => Link::all()
+            'links' => Link::all(),
+            'info_session' => isset($info_session) ? $info_session->week : 0
         ]);
     }
 
@@ -262,10 +271,26 @@ class SubCategoriesController extends BaseController
                 }
                 else if($request->selected_link == 'InfoSession_Valencia') {
                     try {
-                      /*  $endpoint = "$url/scrapper/newEvent.php";
-                        $url = "https://events.valenciacollege.edu/calendar/week/2020/2/18";
-                        $this->getEventsData($requestData,$endpoint,$client,$url,"");
-                        return ['status' => true,'message' => 'Data is added'];*/
+                       $endpoint = "$url/scrapper/newEvent.php";
+                       $week = $request->week;
+                        $now = Carbon::now();
+                        $year = $now->year;
+                        $dateRange = $this->getStartAndEndDate($week,$year);
+                        $startDate = $dateRange['week_start'];
+                        $url = "https://events.valenciacollege.edu/calendar/week/$startDate";
+
+                        $info_id = DB::table('info_session')->insertGetId([
+                            'link_id' => $link->id,
+                            'week' => $request->week,
+                            'start_date' => $dateRange['week_start'],
+                            'end_date' => $dateRange['week_end']
+                        ]);
+                        $requestData['link'] = $request->selected_link;
+                        $res = $this->getEventsData($requestData,$endpoint,$client,$url,"");
+                        /*if($res['status']) {
+                            DB::table('info_session')->delete();
+                        }*/
+                        return ['status' => true,'message' => 'Data is added'];
 
                         $endpoint = "$url/scrapper/newEvent.php";
                         $now = Carbon::now();
@@ -279,12 +304,12 @@ class SubCategoriesController extends BaseController
                         return ['status' => true,'message' => 'Data is added'];
                     }
                     catch (\Exception $e) {
+                        DB::table('info_session')->where('id',$info_id)->delete();
                         Log::info('events_error',['message' => $e->getMessage(),'line' => $e->getLine(),'code' => $e->getCode()]);
                         return ['status' => false,'message' => 'Data is added'];
                     }
 
                 }
-
                 else if($request->selected_link == 'Jobs') {
                     $job_title = $request->job_title;
                     $job_location = $request->job_location;
@@ -351,6 +376,7 @@ class SubCategoriesController extends BaseController
 
 
                 }
+
                 else if($link->link == 'https://valenciacollege.campuslabs.com/engage/api/discovery/search/organizations?orderBy[0]=UpperName%20asc&top=1000&filter=&query=&skip=0') {
                     $endpoint = "$url/scrapper/generate.php";
                 }
@@ -363,9 +389,7 @@ class SubCategoriesController extends BaseController
                 $url = $link->link;
 
             }
-
             $skip = 0;
-
             foreach($requestData['uni_id'] as $uni_id) {
                 foreach ($requestData['major_id'] as $major_id) {
                     foreach ($requestData['category_id'] as $category_id) {
@@ -451,6 +475,15 @@ class SubCategoriesController extends BaseController
         }
     }
 
+    public function getStartAndEndDate($week, $year) {
+        $dto = new \DateTime();
+        $dto->setISODate($year, $week);
+        $ret['week_start'] = $dto->format('yy/m/d');
+        $dto->modify('+6 days');
+        $ret['week_end'] = $dto->format('yy/m/d');
+        return $ret;
+    }
+
 
     public function getJobsData($requestData,$endpoint,$client,$url,$size) {
         if($size) {
@@ -527,9 +560,6 @@ class SubCategoriesController extends BaseController
                     } catch (ClientException $e) {
                         Log::info('events_curl_error',['events_curl_error' => $e->getMessage(),'line' => $e->getLine(),'code' =>$e->getResponse()]);
                     }
-
-
-
                     $response = json_decode($response->getBody()->getContents());
                     if(isset($response)) {
                         //while(count($response ) > 0) {
@@ -557,6 +587,7 @@ class SubCategoriesController extends BaseController
                                     'category_id' => $category_id,
                                     'major_id' => $major_id,
                                     'uni_id' => $uni_id,
+                                    'scrap_link' => $requestData['link']
                                 ],$temp);
                             }
                             catch(\Exception $e) {
@@ -565,27 +596,8 @@ class SubCategoriesController extends BaseController
                             }
 
                         }
-                        /*    try{
-                                //SubCategory::insert($sub_arr);
-
-                            }
-                            catch (\Exception $e){
-                                Log::info('subcategory error',['data_input' => $sub_arr]);
-                            }*/
-                        /*
-
-                                                      $skip = $skip + 5;
-                                                        $response = $client->request('GET', $endpoint, ['query' => [
-                                                            'size' => $size,
-                                                            'url' => $url,
-                                                            'skip' => $skip
-                                                        ]]);
-                                                        $response = json_decode($response->getBody()->getContents());*/
-                        //}
+                        return ['status' => true];
                     }
-                    /*else{
-                        $skip = 0;
-                    }*/
                     else {
                         return ['status' => false,'message' => 'Failed to fetch data'];
                     }
