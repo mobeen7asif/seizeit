@@ -305,15 +305,26 @@ class ApiController extends BaseController
                 'id' => $request->id,
             ])->first();
 
+            $data->description = isset($data->description) ? $this->removeSpecialChars($data->description) : $data->description;
+            $data->summary = isset($data->summary) ? $this->removeSpecialChars($data->summary) : $data->summary;
+
+
             return ['status' => 200, 'message' => 'Data found', 'data' => $data];
         } catch(\Exception $e) {
             return ['status' => 500, 'data' => [], 'message' => $e->getMessage()];
         }
     }
+    public function removeSpecialChars($data_str) {
+        $str = preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($match) {
+            return mb_convert_encoding(pack('H*', $match[1]), 'UTF-8', 'UCS-2BE');
+        }, htmlspecialchars_decode($data_str));
+        return str_replace('\n',' ',$str);
+
+    }
 
     public function getUniMajors(Request $request) {
         try {
-            $uni = Uni::all();
+            $uni = Uni::where('status',1)->get();
             $uni = $uni->map(function($data) {
                 if(!empty($data->image)) {
                     $data->image =  url('/').$data->image;
@@ -327,7 +338,7 @@ class ApiController extends BaseController
 
             return ['status' => true, 'message' => 'Data found', 'data' => [
                 'uni' => $uni,
-                'majors' => Major::all()
+                'majors' => Major::orderBy('name','ASC')->get()
             ]];
         }
         catch(\Exception $e) {
@@ -373,7 +384,7 @@ class ApiController extends BaseController
                 });
                 return ['status' => 200,'message' => 'Email is send to your account','data' => []];
             }
-            return ['status' => 404,'message' => 'User not exists','data' => []];
+            return ['status' => 404,'message' => 'This user does not exist','data' => []];
 
         }
         catch(\Exception $e){
@@ -408,6 +419,35 @@ class ApiController extends BaseController
         } catch(\Exception $e) {
             return ['status' => 500, 'data' => [], 'message' => $e->getMessage()];
         }
+    }
+
+
+    public function removeUScript(Request $request) {
+        $sub_categories = SubCategory::where('uni_id',51)->get();
+        foreach ($sub_categories as $sub_category) {
+            $temp = [
+                'link' => $sub_category->link,
+                'title' => $sub_category->title,
+                'description' => $sub_category->description,
+                'summary' => $sub_category->summary,
+                'email' => $sub_category->email,
+                'address' => $sub_category->address,
+                'time' => $sub_category->time,
+                'category_id' => $sub_category->category_id,
+                'major_id' => $sub_category->major_id,
+                'uni_id' => $requestData['to_uni_id'],
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ];
+            SubCategory::updateOrCreate([
+                'title' => $sub_category->title,
+                'description' => $sub_category->description,
+                'category_id' => $sub_category->category_id,
+                'major_id' => $sub_category->major_id,
+                'uni_id' => $requestData['to_uni_id'],
+            ],$temp);
+        }
+
     }
 
 

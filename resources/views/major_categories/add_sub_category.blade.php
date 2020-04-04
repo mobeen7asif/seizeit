@@ -303,7 +303,7 @@
             success: function(data){
                 if(data.status == 500){
                     $('#loader').hide();
-                    alert('Something went wrong');
+                    alert('Something went wrong! Try again later');
                 }
                 else {
                     $('#loader').hide();

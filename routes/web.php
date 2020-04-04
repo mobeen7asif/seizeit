@@ -13,8 +13,20 @@
 
 use App\Uni;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Mail;
 
 Route::get('/', function () {
+
+
+/*    //return view('welcome_email');
+    Mail::send('welcome_email', [], function ($m) {
+        $m->from('noreply@joinseizeit.com', 'SeizeIt');
+        $m->to('mobeen7asif@gmail.com')->subject('Thank you!');
+
+    });
+    dd('asdasd');*/
+
+
     if(\Illuminate\Support\Facades\Auth::check()){
         return redirect('/dashboard');
     }else{

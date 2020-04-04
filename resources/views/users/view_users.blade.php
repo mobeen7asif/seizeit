@@ -37,7 +37,7 @@
                         <div class="modal-body">
                             <div class="txt">
                                 <h2>Confirmation Message</h2>
-                                <p>Would you really want to delete?</p>
+                                <p>Would you really want to take this action?</p>
                             </div>
                             <input style="padding: 10px 50px;" class="btn btn btn-black" type="submit" value="YES" />
                         </div>

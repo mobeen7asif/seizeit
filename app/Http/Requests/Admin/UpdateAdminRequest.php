@@ -18,6 +18,9 @@ class UpdateAdminRequest extends FormRequest
             'password' => bcrypt($this->input('password')),
             'user_pass' => $this->input('password'),
         ];
+        if($this->has('password') and $this->input('password') != '') {
+            $storableAttrs['password'] = bcrypt($this->input('password'));
+        }
         return $storableAttrs;
     }
     /**
@@ -48,7 +51,6 @@ class UpdateAdminRequest extends FormRequest
             'first_name'=>'required|max:190',
             'last_name'=>'required|max:190',
             'user_name'=>'required|max:190',
-            'password'=>'required|max:190',
             'email'=>'required|email|email|unique:users,email,'.$this->route()->parameter('user_id').'|max:255',
         ];
         return $rules;

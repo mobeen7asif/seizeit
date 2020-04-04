@@ -86,6 +86,10 @@ class SubCategoriesController extends BaseController
         $unis = Uni::all();
         $majors = Major::all();
         $categories = Category::all();
+
+        $sub_category->description = isset($sub_category->description) ? $this->removeSpecialChars($sub_category->description) : $sub_category->description;
+        $sub_category->summary = isset($sub_category->summary) ? $this->removeSpecialChars($sub_category->summary) : $sub_category->summary;
+
         if($sub_category) {
             return view('major_categories.edit_sub_category',['title' => 'sub_categories',
                 'sub_category' => $sub_category,
@@ -97,6 +101,14 @@ class SubCategoriesController extends BaseController
         else {
             return redirect('/sub/categories')->with('error','Category not exist');
         }
+    }
+
+    public function removeSpecialChars($data_str) {
+        $str = preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($match) {
+            return mb_convert_encoding(pack('H*', $match[1]), 'UTF-8', 'UCS-2BE');
+        }, htmlspecialchars_decode($data_str));
+        return str_replace('\n',' ',$str);
+
     }
     public function updateSubCategory(Request $request) {
         $this->validate($request,[

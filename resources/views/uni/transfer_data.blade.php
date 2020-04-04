@@ -153,7 +153,7 @@
             success: function(data){
                 if(!data.status){
                     $('#loader').hide();
-                    alert('Something went wrong');
+                    alert('Something went wrong! Try again later');
                     $('#submit_button').prop('disabled', false);
                     $('#submit_button').addClass('disable_cursor');
                     $('.unis').prop('disabled', false);

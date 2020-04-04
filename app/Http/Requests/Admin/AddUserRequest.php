@@ -25,7 +25,7 @@ class AddUserRequest extends FormRequest
         $storableAttrs = [
             'user_name' => $this->input('user_name'),
             'email' => $this->input('email'),
-            'password' => bcrypt($user_pass),
+            'password' => bcrypt($this->input('password')),
             'first_name' => $this->input('first_name'),
             'last_name' => $this->input('last_name'),
             'phone' => $this->input('phone'),

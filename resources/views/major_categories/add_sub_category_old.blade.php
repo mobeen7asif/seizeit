@@ -119,7 +119,7 @@
             data : {'skip': 0,'major_id':major_id , 'category_id':category_id,"_token": "{{ csrf_token() }}"},
             success: function(data){
                 if(data.status == 500){
-                    alert('Something went wrong');
+                    alert('Something went wrong! Try again later');
                 }
                 if(!data.status)
                 {

@@ -33,10 +33,10 @@ class Uni extends Authenticatable
         return $this->hasMany('App\SessionSpeaker','speaker_id');
     }
 
-    protected static function boot()
+/*    protected static function boot()
     {
         parent::boot();
 
         static::addGlobalScope(new UniScope());
-    }
+    }*/
 }

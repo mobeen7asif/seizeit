@@ -257,10 +257,16 @@ class UsersController extends BaseController
     }
     public function trasnferData(Request $request) {
         try {
+
+            set_time_limit(0);
             $requestData = $request->all();
-            $sub_categories = SubCategory::where(['uni_id' => $requestData['uni_id'], 'category_id' => $requestData['category_id']])->get();
+
+
+            $ids = SubCategory::where('uni_id',$requestData['uni_id'])->pluck('id');
+
+
+            $sub_categories = SubCategory::whereIn('id',$ids->toArray())->get();
             foreach ($sub_categories as $sub_category) {
-                foreach($requestData['category_id'] as $category_id) {
                     $temp = [
                         'link' => $sub_category->link,
                         'title' => $sub_category->title,
@@ -269,7 +275,7 @@ class UsersController extends BaseController
                         'email' => $sub_category->email,
                         'address' => $sub_category->address,
                         'time' => $sub_category->time,
-                        'category_id' => $category_id,
+                        'category_id' => $sub_category->category_id,
                         'major_id' => $sub_category->major_id,
                         'uni_id' => $requestData['to_uni_id'],
                         'created_at' => date('Y-m-d H:i:s'),
@@ -278,11 +284,10 @@ class UsersController extends BaseController
                     SubCategory::updateOrCreate([
                         'title' => $sub_category->title,
                         'description' => $sub_category->description,
-                        'category_id' => $category_id,
+                        'category_id' => $sub_category->category_id,
                         'major_id' => $sub_category->major_id,
                         'uni_id' => $requestData['to_uni_id'],
                     ],$temp);
-                }
             }
             return ['status' => true,'message' => 'Data is added'];
         } catch (\Exception $e) {
