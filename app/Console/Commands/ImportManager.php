@@ -29,7 +29,6 @@ class ImportManager extends Command
      */
     public function __construct()
     {
-        dd('yes');
         parent::__construct();
     }
 

@@ -1,0 +1,162 @@
+[2020-04-09 00:00:07] production.INFO: working  
+[2020-04-09 00:00:10] production.INFO: working  
+[2020-04-09 00:00:10] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 00:30:05] production.INFO: working  
+[2020-04-09 00:30:07] production.INFO: working  
+[2020-04-09 00:30:07] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 01:00:07] production.INFO: working  
+[2020-04-09 01:00:08] production.INFO: working  
+[2020-04-09 01:00:08] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 01:30:02] production.INFO: working  
+[2020-04-09 01:30:03] production.INFO: working  
+[2020-04-09 01:30:03] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 02:00:01] production.INFO: working  
+[2020-04-09 02:00:01] production.INFO: working  
+[2020-04-09 02:00:02] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 02:00:02] production.INFO: data finished {"data finished":"data finished"} 
+[2020-04-09 02:30:02] production.INFO: working  
+[2020-04-09 02:30:04] production.INFO: working  
+[2020-04-09 02:30:04] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 02:30:04] production.INFO: data finished {"data finished":"data finished"} 
+[2020-04-09 03:00:01] production.INFO: working  
+[2020-04-09 03:00:03] production.INFO: working  
+[2020-04-09 03:00:03] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 03:00:03] production.INFO: data finished {"data finished":"data finished"} 
+[2020-04-09 03:30:03] production.INFO: working  
+[2020-04-09 03:30:06] production.INFO: working  
+[2020-04-09 03:30:06] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 04:00:03] production.INFO: working  
+[2020-04-09 04:00:05] production.INFO: working  
+[2020-04-09 04:00:05] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 04:30:02] production.INFO: working  
+[2020-04-09 04:30:04] production.INFO: working  
+[2020-04-09 04:30:04] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 05:00:02] production.INFO: working  
+[2020-04-09 05:00:03] production.INFO: working  
+[2020-04-09 05:00:03] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 05:30:01] production.INFO: working  
+[2020-04-09 05:30:02] production.INFO: working  
+[2020-04-09 05:30:02] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 06:00:10] production.INFO: working  
+[2020-04-09 06:00:11] production.INFO: working  
+[2020-04-09 06:00:11] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 06:30:07] production.INFO: working  
+[2020-04-09 06:30:08] production.INFO: working  
+[2020-04-09 06:30:08] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 07:00:07] production.INFO: working  
+[2020-04-09 07:00:08] production.INFO: working  
+[2020-04-09 07:00:08] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 07:30:09] production.INFO: working  
+[2020-04-09 07:30:11] production.INFO: working  
+[2020-04-09 07:30:11] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 08:00:06] production.INFO: working  
+[2020-04-09 08:00:07] production.INFO: working  
+[2020-04-09 08:00:07] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 08:30:08] production.INFO: working  
+[2020-04-09 08:30:09] production.INFO: working  
+[2020-04-09 08:30:09] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 09:00:09] production.INFO: working  
+[2020-04-09 09:00:11] production.INFO: working  
+[2020-04-09 09:00:11] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 09:30:08] production.INFO: working  
+[2020-04-09 09:30:10] production.INFO: working  
+[2020-04-09 09:30:11] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 10:00:06] production.INFO: working  
+[2020-04-09 10:00:08] production.INFO: working  
+[2020-04-09 10:00:08] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 10:30:01] production.INFO: working  
+[2020-04-09 10:30:01] production.INFO: working  
+[2020-04-09 10:30:02] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 11:00:08] production.INFO: working  
+[2020-04-09 11:00:10] production.INFO: working  
+[2020-04-09 11:00:10] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 11:30:02] production.INFO: working  
+[2020-04-09 11:30:02] production.INFO: working  
+[2020-04-09 11:30:02] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 12:00:08] production.INFO: working  
+[2020-04-09 12:00:10] production.INFO: working  
+[2020-04-09 12:00:10] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 12:30:01] production.INFO: working  
+[2020-04-09 12:30:01] production.INFO: working  
+[2020-04-09 12:30:01] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 13:00:02] production.INFO: working  
+[2020-04-09 13:00:04] production.INFO: working  
+[2020-04-09 13:00:04] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 13:30:01] production.INFO: working  
+[2020-04-09 13:30:02] production.INFO: working  
+[2020-04-09 13:30:02] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 14:00:02] production.INFO: working  
+[2020-04-09 14:00:02] production.INFO: working  
+[2020-04-09 14:00:02] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 14:30:02] production.INFO: working  
+[2020-04-09 14:30:04] production.INFO: working  
+[2020-04-09 14:30:04] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 14:44:56] production.ERROR: SQLSTATE[HY000] [1130] Host 'localhost' is not allowed to connect to this MySQL server (SQL: select * from `login_users` where `session_id` = $2y$10$QA/HTkbr7vELnUkIc3Ab6uXV5xQ3WAAfmoA/kgNrBqcQniSmeHxYO limit 1) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 1130): SQLSTATE[HY000] [1130] Host 'localhost' is not allowed to connect to this MySQL server (SQL: select * from `login_users` where `session_id` = $2y$10$QA/HTkbr7vELnUkIc3Ab6uXV5xQ3WAAfmoA/kgNrBqcQniSmeHxYO limit 1) at /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Database/Connection.php:664, PDOException(code: 1130): SQLSTATE[HY000] [1130] Host 'localhost' is not allowed to connect to this MySQL server at /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Database/Connectors/Connector.php:70)
+[stacktrace]
+#0 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Database/Connection.php(624): Illuminate\\Database\\Connection->runQueryCallback('select * from `...', Array, Object(Closure))
+#1 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Database/Connection.php(333): Illuminate\\Database\\Connection->run('select * from `...', Array, Object(Closure))
+#2 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(2130): Illuminate\\Database\\Connection->select('select * from `...', Array, true)
+#3 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(2118): Illuminate\\Database\\Query\\Builder->runSelect()
+#4 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(2604): Illuminate\\Database\\Query\\Builder->Illuminate\\Database\\Query\\{closure}()
+#5 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(2119): Illuminate\\Database\\Query\\Builder->onceWithColumns(Array, Object(Closure))
+#6 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(521): Illuminate\\Database\\Query\\Builder->get(Array)
+#7 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(505): Illuminate\\Database\\Eloquent\\Builder->getModels(Array)
+#8 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Database/Concerns/BuildsQueries.php(77): Illuminate\\Database\\Eloquent\\Builder->get(Array)
+#9 /home/r3t7d120d89b/public_html/admin/app/Http/Middleware/RequestHandler.php(33): Illuminate\\Database\\Eloquent\\Builder->first()
+#10 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(163): App\\Http\\Middleware\\RequestHandler->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#11 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#12 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(41): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#13 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(163): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#14 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#15 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php(58): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#16 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(163): Illuminate\\Routing\\Middleware\\ThrottleRequests->handle(Object(Illuminate\\Http\\Request), Object(Closure), 60, '1')
+#17 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#18 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(104): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#19 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Routing/Router.php(682): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#20 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Routing/Router.php(657): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#21 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Routing/Router.php(623): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#22 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Routing/Router.php(612): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#23 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(176): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#24 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(30): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#25 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#26 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(163): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#27 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#28 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#29 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(163): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#30 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#31 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#32 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(163): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#33 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#34 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/CheckForMaintenanceMode.php(62): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#35 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(163): Illuminate\\Foundation\\Http\\Middleware\\CheckForMaintenanceMode->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#36 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#37 /home/r3t7d120d89b/public_html/admin/vendor/fideloper/proxy/src/TrustProxies.php(57): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#38 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(163): Fideloper\\Proxy\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#40 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(104): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#41 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#42 /home/r3t7d120d89b/public_html/admin/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#43 /home/r3t7d120d89b/public_html/admin/public/index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#44 {main}
+"} 
+[2020-04-09 15:00:04] production.INFO: working  
+[2020-04-09 15:00:09] production.INFO: working  
+[2020-04-09 15:00:09] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 15:30:04] production.INFO: working  
+[2020-04-09 15:30:07] production.INFO: working  
+[2020-04-09 15:30:07] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 16:00:02] production.INFO: working  
+[2020-04-09 16:00:04] production.INFO: working  
+[2020-04-09 16:00:04] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 16:30:06] production.INFO: working  
+[2020-04-09 16:30:07] production.INFO: working  
+[2020-04-09 16:30:07] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 17:00:02] production.INFO: working  
+[2020-04-09 17:00:04] production.INFO: working  
+[2020-04-09 17:00:04] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 17:30:08] production.INFO: working  
+[2020-04-09 17:30:11] production.INFO: working  
+[2020-04-09 17:30:11] production.INFO: comman_work {"comman_work":"working"} 
+[2020-04-09 18:00:01] production.INFO: working  
+[2020-04-09 18:00:04] production.INFO: working  
+[2020-04-09 18:00:04] production.INFO: comman_work {"comman_work":"working"} 

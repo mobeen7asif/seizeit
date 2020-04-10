@@ -48,7 +48,6 @@ class SubCategoriesController extends BaseController
     }
 
     public function getSubCategories(Request $request){
-
         $sub_categories = SubCategory::with('uni','major','category');
         if($request->has('unis') and $request->unis) {
             $sub_categories->where('uni_id',$request->unis);
@@ -71,7 +70,6 @@ class SubCategoriesController extends BaseController
         $unis = Uni::all();
         $majors = Major::all();
         $categories = Category::all();
-
 
         return view('major_categories.sub_categories',['title' => 'sub_categories',
             'data' => $sub_categories,
@@ -338,8 +336,11 @@ class SubCategoriesController extends BaseController
                     $result = $this->getJobsData($requestData,$endpoint,$client,$url,true);
                     $result = explode(' ',$result);
                     if(count($result) > 0) {
-                        $total_records = str_replace(',','', $result[3]);
+                        $total_records = $result[3];
                         $total_records = round($total_records / 10);
+                        if($total_records <= 0.5) {
+                            $total_records = 1;
+                        }
                     }
                     else {
                         return ['status' => true,'message' => 'Data not found'];
@@ -373,6 +374,9 @@ class SubCategoriesController extends BaseController
                     if(count($result) > 0) {
                         $total_records = $result[3];
                         $total_records = round($total_records / 10);
+                        if($total_records <= 0.5) {
+                            $total_records = 1;
+                        }
                     }
                     else {
                         return ['status' => true,'message' => 'Data not found'];
@@ -380,7 +384,7 @@ class SubCategoriesController extends BaseController
                     while($start < $total_records) {
                         $page_no = $start * 10;
                         $url = "https://www.indeed.com/jobs?q=$job_title&l=$job_location&radius=$radius&jt=internship&start=$page_no";
-                        Log::info('subcategory error',['data_input' => $url]);
+                        Log::info('internship_url',['internship_url' => $url]);
                         $this->getJobsData($requestData,$endpoint,$client,$url,false);
                         $start++;
                     }

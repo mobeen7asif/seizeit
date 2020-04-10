@@ -23,6 +23,7 @@ use App\UserSession;
 use App\Welcome;
 use App\Notification;
 use App\Session;
+use GuzzleHttp\Exception\ClientException;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
@@ -31,6 +32,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Requests\ForgotPasswordRequest;
@@ -324,7 +326,8 @@ class ApiController extends BaseController
 
     public function getUniMajors(Request $request) {
         try {
-            $uni = Uni::where('status',1)->get();
+
+            $uni = Uni::where('status',1)->orderBy('name','ASC')->get();
             $uni = $uni->map(function($data) {
                 if(!empty($data->image)) {
                     $data->image =  url('/').$data->image;
@@ -423,31 +426,110 @@ class ApiController extends BaseController
 
 
     public function removeUScript(Request $request) {
-        $sub_categories = SubCategory::where('uni_id',51)->get();
-        foreach ($sub_categories as $sub_category) {
-            $temp = [
-                'link' => $sub_category->link,
-                'title' => $sub_category->title,
-                'description' => $sub_category->description,
-                'summary' => $sub_category->summary,
-                'email' => $sub_category->email,
-                'address' => $sub_category->address,
-                'time' => $sub_category->time,
-                'category_id' => $sub_category->category_id,
-                'major_id' => $sub_category->major_id,
-                'uni_id' => $requestData['to_uni_id'],
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s')
-            ];
-            SubCategory::updateOrCreate([
-                'title' => $sub_category->title,
-                'description' => $sub_category->description,
-                'category_id' => $sub_category->category_id,
-                'major_id' => $sub_category->major_id,
-                'uni_id' => $requestData['to_uni_id'],
-            ],$temp);
+        set_time_limit(0);
+        $count = 0;
+        $not_found = 0;
+        try {
+            //get correct data
+            $prod_data = DB::table('sub_categories')->where('uni_id',51)->get();
+            foreach($prod_data as $data) {
+                $record = DB::table('correct_data')->where('title',$data->title)->first();
+                if($record) {
+                    if(isset($record->summary) and $record->summary != "") {
+                        DB::table('sub_categories')->where('id',$data->id)->update(['summary' => $record->summary]);
+                    }
+                    if(isset($record->description) and $record->description != "") {
+                        DB::table('sub_categories')->where('id',$data->id)->update(['description' => $record->description]);
+                    }
+                }
+                else {
+                    $not_found++;
+                }
+                $count++;
+            }
+            return ['total_count' => $count, 'not_found' => $not_found];
+        }
+        catch(\Exception $e) {
+            Log::info('removeUScript',['message' => $e->getMessage(),'line' => $e->getLine()]);
+        }
+    }
+    public function expiredLinks(Request $request) {
+
+        try {
+            $client = new \GuzzleHttp\Client();
+            $response = $client->request('GET', 'https://www.indeed.com/rc/clk?jk=385c775ea9ca7b8b&fccid=f7b21cff2d75be8f&vjs=3');
+            $page_data = $response->getBody()->getContents();
+            dd($page_data);
+        }
+        catch(\Exception $e) {
+            if($e->getCode() == 404) {
+                dd("sada");
+            }
+            dd($e->getCode());
         }
 
+
+
+
+
+
+        Log::info('comman_work',['comman_work' => 'working']);
+        ///usr/local/bin/php /home/r3t7d120d89b/public_html/admin/artisan schedule:run >> /dev/null 2>&1
+        set_time_limit(0);
+        try {
+            $insert_record = DB::table('record_status')->orderBy('insert_id','DESC')->first();
+            if($insert_record) {
+                $id = $insert_record->insert_id;
+            }
+            else {
+                $rec = DB::table('sub_categories')->where('link', 'like', '%indeed.com%')->first();
+                $id = $rec->id;
+            }
+            /*            $id = $request->input('id');
+                        $arr = [];
+                        if($id == 0) {
+                            $rec = DB::table('sub_categories')->where('link', 'like', '%indeed.com%')->first();
+                            $id = $rec->id;
+                        }*/
+            $search = "This job has expired on Indeed";
+            $prod_data = DB::table('sub_categories')->where('link', 'like', '%indeed.com%')
+                ->take(100)->where('id' ,'>', $id)->get();
+            if($prod_data->count() > 0) {
+                Log::info('data finished',['data finished' => 'data finished']);
+            }
+            foreach($prod_data as $data) {
+                DB::table('record_status')->insert(['insert_id' => $data->id]);
+                if(isset($data->link) and $data->link != "") {
+                    try {
+                        $client = new \GuzzleHttp\Client();
+                        $response = $client->request('GET', $data->link);
+                        $page_data = $response->getBody()->getContents();
+                        if(preg_match("/{$search}/i", $page_data)) {
+                            echo "<pre>";
+                            echo $data->link."<br>";
+                            DB::table('sub_categories')->where('id',$data->id)->update(['is_active' => 0]);
+                            $arr[] = $data->link;
+                        }
+
+                        /*$opts = array('http'=>array('header' => "User-Agent:MyAgent/1.0\r\n"));
+                        //Basically adding headers to the request
+                        $context = stream_context_create($opts);
+                        $page_data = file_get_contents($data->link,false,$context);*/
+                        //$page_data = file_get_contents($data->link);
+                    }
+                    catch (\Exception $e) {
+                        Log::info('failed_records',['message' => $e->getMessage(),'line' => $e->getLine()]);
+                        continue;
+                    }
+                }
+            }
+            $record_status = DB::table('record_status')->orderBy('insert_id','DESC')->first();
+            return ['inserd_id' => $record_status->insert_id];
+        }
+        catch(\Exception $e) {
+            Log::info('expiredLinks',['message' => $e->getMessage(),'line' => $e->getLine()]);
+        }
+        //$data = file_get_contents('https://www.indeed.com/viewjob?jk=e5fa1aa7fef745fc&from=serp&vjs=3');
     }
 
 

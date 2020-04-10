@@ -26,8 +26,12 @@ Route::post('/forgot/password', 'ApiController@forgotPassword');
 Route::group(['middleware' => 'requestHandler'], function () {
     Route::get('/get/category-data', 'ApiController@getData');
     Route::get('/get/detail', 'ApiController@getDetail');
-    Route::get('/get/uni-majors', 'ApiController@getUniMajors');
+
     Route::get('/get/categories', 'ApiController@getCategories');
     Route::post('/user/feedback', 'ApiController@feedback');
 });
+
+Route::post('/correct-data', 'ApiController@removeUScript');
+Route::post('/expire-link', 'ApiController@expiredLinks');
+Route::get('/get/uni-majors', 'ApiController@getUniMajors');
 

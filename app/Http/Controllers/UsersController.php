@@ -261,8 +261,7 @@ class UsersController extends BaseController
             set_time_limit(0);
             $requestData = $request->all();
 
-
-            $ids = SubCategory::where('uni_id',$requestData['uni_id'])->pluck('id');
+            $ids = SubCategory::where('uni_id',$requestData['uni_id'])->whereIn('category_id',$requestData['category_id'])->pluck('id');
 
 
             $sub_categories = SubCategory::whereIn('id',$ids->toArray())->get();

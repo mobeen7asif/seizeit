@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Scopes\SubCategoryScope;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -27,6 +28,7 @@ class SubCategory extends Authenticatable
         'category_id',
         'major_id',
         'uni_id',
+        'is_active'
     ];
 
     /**
@@ -49,5 +51,11 @@ class SubCategory extends Authenticatable
     public function category()
     {
         return $this->belongsTo('App\Category','category_id','id');
+    }
+        protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new SubCategoryScope());
     }
 }

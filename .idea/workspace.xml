@@ -2,19 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6edb0fe0-449c-4a42-9fd8-251860911e5d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Console/Commands/ExpireLink.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Scopes/SubCategoryScope.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Commands/ImportManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/ImportManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Kernel.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ApiController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ApiController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SubCategoriesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SubCategoriesController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UsersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UsersController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Admin/AddUserRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Admin/AddUserRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Admin/UpdateAdminRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Admin/UpdateAdminRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Uni.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Uni.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/major_categories/add_sub_category.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/major_categories/add_sub_category.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/major_categories/add_sub_category_old.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/major_categories/add_sub_category_old.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/uni/transfer_data.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/uni/transfer_data.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/users/view_users.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/users/view_users.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/welcome_email.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome_email.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/SubCategory.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/SubCategory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/major_categories/sub_categories.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/major_categories/sub_categories.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/.gitignore" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -134,22 +133,28 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../seizeit_react" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\seizeit\app\Scopes" />
+      <recent name="C:\xampp\htdocs\seizeit\app\Console\Commands" />
+      <recent name="C:\xampp\htdocs\seizeit\resources\views\uni" />
+      <recent name="C:\xampp\htdocs\seizeit\resources\views" />
+      <recent name="C:\xampp\htdocs\seizeit\public\images" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\seizeit\resources" />
       <recent name="C:\xampp\htdocs\seizeit\app\Http\Requests" />
       <recent name="C:\xampp\htdocs\seizeit\app\Http\Requests\Admin" />
       <recent name="C:\xampp\htdocs\seizeit\resources\views\major_categories" />
-      <recent name="C:\xampp\htdocs\seizeit\public" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\seizeit\resources\views\uni" />
-      <recent name="C:\xampp\htdocs\seizeit\resources\views" />
-      <recent name="C:\xampp\htdocs\seizeit\public\images" />
-      <recent name="C:\xampp\htdocs\seizeit\app\Http\Controllers" />
       <recent name="C:\xampp\htdocs\seizeit\public" />
     </key>
   </component>
@@ -227,7 +232,9 @@
       <workItem from="1585486821133" duration="528000" />
       <workItem from="1585493269963" duration="635000" />
       <workItem from="1585582946669" duration="4090000" />
-      <workItem from="1585816636198" duration="9201000" />
+      <workItem from="1585816636198" duration="39250000" />
+      <workItem from="1586353060478" duration="35000" />
+      <workItem from="1586356712555" duration="9584000" />
     </task>
     <servers />
   </component>

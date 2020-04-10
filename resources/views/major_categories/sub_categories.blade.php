@@ -180,12 +180,29 @@
             <tbody>
             @if(isset($data))
                 @foreach($data as $dat)
+
+
+                    @php
+                    if(isset($dat->description) and $dat->description != "") {
+                     $description = preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($match) {
+            return mb_convert_encoding(pack('H*', $match[1]), 'UTF-8', 'UCS-2BE');
+            }, htmlspecialchars_decode($dat->description));
+                    }
+                    else {
+                    $description = preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($match) {
+        return mb_convert_encoding(pack('H*', $match[1]), 'UTF-8', 'UCS-2BE');
+        }, htmlspecialchars_decode($dat->summary));
+                    }
+
+                    @endphp
+
                     <tr id="{{$dat->id}}">
                         <td>{{$dat->uni->name}}</td>
                         <td>{{isset($dat->major) ? $dat->major->name : ''}}</td>
                         <td>{{isset($dat->category)? $dat->category->name: ''}}</td>
                         <td>{{htmlspecialchars_decode($dat->title)}}</td>
-                        <td style="cursor: pointer"><a data-toggle="modal" data-target="#model-{{$dat->id}}">View</a></td>
+                        <td><p>{!! str_replace('\n',' ',$description) !!}</p></td>
+                        {{--<td style="cursor: pointer"><a data-toggle="modal" data-target="#model-{{$dat->id}}">View</a></td>--}}
                         {{--<td>{{\Illuminate\Support\Str::limit($dat->email,10)}}</td>
                         <td>{{\Illuminate\Support\Str::limit($dat->link,10)}}</td>--}}
 
